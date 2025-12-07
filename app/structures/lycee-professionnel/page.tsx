@@ -1,0 +1,588 @@
+'use client';
+
+import { ChevronDown, ArrowLeft, Users, BookOpen, ExternalLink, Award, Briefcase, Menu, X } from 'lucide-react';
+import Link from 'next/link';
+import { useEffect, useState, useRef } from 'react';
+
+export default function LyceeProfessionnelPage() {
+  const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [showMoreDescription, setShowMoreDescription] = useState(false);
+  const [needsShowMore, setNeedsShowMore] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
+
+  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran
+  useEffect(() => {
+    const checkNavbarWidth = () => {
+      requestAnimationFrame(() => {
+        if (navRef.current) {
+          void navRef.current.offsetHeight;
+          const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
+          const windowWidth = window.innerWidth;
+          const percentage = (navWidth / windowWidth) * 100;
+          const shouldShowHamburger = percentage > 85;
+          setShowHamburgerMenu(shouldShowHamburger);
+        }
+      });
+    };
+
+    checkNavbarWidth();
+    const timeoutId1 = setTimeout(checkNavbarWidth, 50);
+    const timeoutId2 = setTimeout(checkNavbarWidth, 150);
+    const timeoutId3 = setTimeout(checkNavbarWidth, 300);
+    
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkNavbarWidth, 50);
+    };
+    window.addEventListener('resize', handleResize);
+    
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined') {
+      const checkAndObserve = () => {
+        if (navRef.current) {
+          resizeObserver = new ResizeObserver(() => {
+            checkNavbarWidth();
+          });
+          resizeObserver.observe(navRef.current);
+        } else {
+          setTimeout(checkAndObserve, 50);
+        }
+      };
+      checkAndObserve();
+    }
+    
+    const intervalId = setInterval(checkNavbarWidth, 1000);
+    
+    return () => {
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+      clearTimeout(timeoutId3);
+      clearTimeout(resizeTimeout);
+      clearInterval(intervalId);
+      window.removeEventListener('resize', handleResize);
+      if (resizeObserver && navRef.current) {
+        resizeObserver.unobserve(navRef.current);
+      }
+    };
+  }, []);
+
+  // Vérifier si la description fait plus de 8 lignes
+  useEffect(() => {
+    const checkDescriptionHeight = () => {
+      if (descriptionRef.current) {
+        const lineHeight = parseFloat(getComputedStyle(descriptionRef.current).lineHeight) || 28;
+        const maxHeight = lineHeight * 8; // 8 lignes
+        const actualHeight = descriptionRef.current.scrollHeight;
+        setNeedsShowMore(actualHeight > maxHeight);
+      }
+    };
+
+    const timer = setTimeout(checkDescriptionHeight, 100);
+    window.addEventListener('resize', checkDescriptionHeight);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkDescriptionHeight);
+    };
+  }, []);
+
+  const niveaux = [
+    { 
+      nom: 'Seconde Professionnelle', 
+      code: 'SP',
+      description: 'Première année du cycle professionnel',
+      classes: 1,
+      eleves: '≈ 30'
+    },
+    { 
+      nom: 'Première Professionnelle', 
+      code: 'PP',
+      description: 'Deuxième année du cycle professionnel',
+      classes: 1,
+      eleves: '≈ 30'
+    },
+    { 
+      nom: 'Terminale Professionnelle', 
+      code: 'TP',
+      description: 'Dernière année, préparation au baccalauréat professionnel',
+      classes: 1,
+      eleves: '≈ 30'
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Navigation Stanford - Structure Exacte */}
+      <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        {/* Barre Supérieure - Toujours opaque sur cette page */}
+        <div className="text-white transition-all duration-300 border-b border-white/10 bg-[#2e2d29]/95 backdrop-blur-md shadow-lg">
+          <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
+            <div className="flex items-center justify-between h-14 relative">
+              {/* Bouton retour à gauche - Toujours visible */}
+              <Link 
+                href="/" 
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity text-sm z-10"
+              >
+                <ArrowLeft size={18} strokeWidth={2} />
+              </Link>
+              
+              {/* Links centrés avec menus déroulants */}
+              <div 
+                ref={navRef}
+                className={`flex items-center gap-2 lg:gap-7 text-xs lg:text-sm absolute left-1/2 -translate-x-1/2 ${showHamburgerMenu ? 'opacity-0 pointer-events-none -z-10' : ''}`}
+              >
+                {/* Structures */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
+                    Structures
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[220px] z-50">
+                    <Link href="/structures/maternelle" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Maternelle</Link>
+                    <Link href="/structures/primaire" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Primaire</Link>
+                    <Link href="/structures/college" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Collège</Link>
+                    <Link href="/structures/lycee-general-et-technologique" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Lycée Général et Technologique</Link>
+                    <Link href="/structures/lycee-professionnel" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg bg-[#8C1515] text-white">Lycée Professionnel</Link>
+                  </div>
+                </div>
+
+                {/* Administration */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
+                    Administration
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
+                    <Link href="/administration/tarif" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Tarif</Link>
+                    <Link href="/administration/reglement" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Règlement</Link>
+                    <Link href="/administration/taux-reussite" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Taux de réussite</Link>
+                  </div>
+                </div>
+
+                {/* Restauration */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
+                    Restauration
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
+                    <Link href="/restauration/maternelle" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Maternelle</Link>
+                    <Link href="/restauration/cantine" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Cantine</Link>
+                    <Link href="/restauration/cafeteria" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Cafétéria</Link>
+                  </div>
+                </div>
+
+                {/* Fournitures Scolaires */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer whitespace-nowrap">
+                    Fournitures Scolaires
+                    
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
+                    <Link href="/fournitures-scolaires/ecole" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">École</Link>
+                    <Link href="/fournitures-scolaires/college" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Collège</Link>
+                    <Link href="/fournitures-scolaires/lycee-pro" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Lycée Pro</Link>
+                  </div>
+                </div>
+
+                {/* Sport */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
+                    Sport
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
+                    <Link href="/sport/calendrier-sportif" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Calendrier sportif</Link>
+                    <Link href="/sport/resultats-sportifs" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Résultats sportifs</Link>
+                    <Link href="/sport/inscription-unss" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Inscription UNSS</Link>
+                  </div>
+                </div>
+
+                {/* Activités */}
+                <div className="relative group">
+                  <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
+                    Activités
+                    <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
+                  </button>
+                  <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
+                    <Link href="/activites/animation" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Animation</Link>
+                    <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Sorties scolaires</Link>
+                    <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Les Choucas</Link>
+                  </div>
+                </div>
+              </div>
+            
+              {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
+              {showHamburgerMenu && (
+                <div className="absolute right-0">
+                  <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="text-white hover:text-gray-200 transition-colors p-2"
+                    aria-label="Menu"
+                  >
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Menu hamburger mobile */}
+        {showHamburgerMenu && isMobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white text-gray-800 shadow-xl z-50 max-h-[80vh] overflow-y-auto">
+            <div className="max-w-[1400px] mx-auto px-4 py-4">
+              {/* Structures */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'structures' ? null : 'structures')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Structures</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'structures' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'structures' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/structures/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
+                    <Link href="/structures/primaire" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Primaire</Link>
+                    <Link href="/structures/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
+                    <Link href="/structures/lycee-general-et-technologique" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Général et Technologique</Link>
+                    <Link href="/structures/lycee-professionnel" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Professionnel</Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Administration */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'administration' ? null : 'administration')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Administration</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'administration' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'administration' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/administration/tarif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Tarif</Link>
+                    <Link href="/administration/reglement" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Règlement</Link>
+                    <Link href="/administration/taux-reussite" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Taux de réussite</Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Restauration */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'restauration' ? null : 'restauration')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Restauration</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'restauration' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'restauration' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/restauration/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
+                    <Link href="/restauration/cantine" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cantine</Link>
+                    <Link href="/restauration/cafeteria" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cafétéria</Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Fournitures Scolaires */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'fournitures' ? null : 'fournitures')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Fournitures Scolaires</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'fournitures' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'fournitures' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/fournitures-scolaires/ecole" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">École</Link>
+                    <Link href="/fournitures-scolaires/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
+                    <Link href="/fournitures-scolaires/lycee-pro" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Pro</Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Sport */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'sport' ? null : 'sport')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Sport</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'sport' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'sport' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/sport/calendrier-sportif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Calendrier sportif</Link>
+                    <Link href="/sport/resultats-sportifs" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Résultats sportifs</Link>
+                    <Link href="/sport/inscription-unss" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Inscription UNSS</Link>
+                  </div>
+                )}
+              </div>
+
+              {/* Activités */}
+              <div className="mb-2">
+                <button
+                  onClick={() => setOpenSubmenu(openSubmenu === 'activites' ? null : 'activites')}
+                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                  <span className="font-semibold">Activités</span>
+                  <ChevronDown 
+                    size={18} 
+                    className={`transition-transform ${openSubmenu === 'activites' ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {openSubmenu === 'activites' && (
+                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                    <Link href="/activites/animation" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Animation</Link>
+                    <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
+                    <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Section Lycée Professionnel avec animation de fondu */}
+      <section className="bg-white py-16 pt-32 animate-fade-in">
+        <div className="max-w-[1400px] mx-auto px-8">
+          {/* Titre */}
+          <div className="mb-12 text-center">
+            <h1 className="font-[var(--font-playfair)] text-5xl lg:text-6xl font-bold text-[#8C1515] mb-4">
+              Lycée Professionnel
+            </h1>
+            <div className="w-24 h-1 bg-[#8C1515] mx-auto"></div>
+          </div>
+
+          {/* Image Hero */}
+          <div className="mb-16">
+            <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
+              <img
+                src="/LyceePro.png"
+                alt="Lycée Professionnel des Récollets"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="max-w-4xl mx-auto mb-16">
+            <div className="bg-gray-50 rounded-xl p-8 shadow-lg">
+              <h2 className="font-[var(--font-playfair)] text-3xl font-bold text-[#8C1515] mb-6">
+                Une formation professionnelle de qualité
+              </h2>
+              <div 
+                ref={descriptionRef}
+                className={`space-y-4 text-gray-700 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
+              >
+                <p className="font-[var(--font-inter)] text-base lg:text-lg leading-relaxed">
+                  Le Lycée Professionnel des Récollets offre une formation professionnelle de qualité, préparant les élèves à l&apos;entrée dans la vie active ou à la poursuite d&apos;études supérieures. L&apos;établissement propose des formations adaptées aux besoins du marché du travail et aux aspirations des jeunes.
+                </p>
+                <p className="font-[var(--font-inter)] text-base lg:text-lg leading-relaxed">
+                  Les cours se déroulent du lundi au vendredi et le mercredi matin, avec des horaires adaptés pour le bien-être des élèves. L&apos;enseignement professionnel allie théorie et pratique, avec des périodes de formation en entreprise qui permettent aux élèves de découvrir le monde professionnel et d&apos;acquérir de l&apos;expérience.
+                </p>
+                <p className="font-[var(--font-inter)] text-base lg:text-lg leading-relaxed">
+                  L&apos;équipe pédagogique accompagne chaque élève dans son parcours, l&apos;aidant à développer ses compétences professionnelles et à construire son projet d&apos;avenir. Le lycée professionnel des Récollets offre un environnement stimulant et des formations reconnues qui ouvrent de nombreuses perspectives professionnelles.
+                </p>
+              </div>
+              {needsShowMore && (
+                <button
+                  onClick={() => setShowMoreDescription(!showMoreDescription)}
+                  className="mt-4 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                >
+                  {showMoreDescription ? 'Voir moins' : 'Voir plus'}
+                  <ChevronDown 
+                    size={16} 
+                    className={`transition-transform ${showMoreDescription ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Informations clés */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
+              <Users className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
+              <div className="text-4xl font-bold text-[#8C1515] mb-2">3</div>
+              <div className="text-gray-600 font-[var(--font-inter)]">Classes</div>
+            </div>
+            <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
+              <Users className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
+              <div className="text-4xl font-bold text-[#8C1515] mb-2">≈ 90</div>
+              <div className="text-gray-600 font-[var(--font-inter)]">Élèves</div>
+            </div>
+            <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
+              <Briefcase className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
+              <div className="text-lg font-semibold text-[#8C1515] mb-2">Formation</div>
+              <div className="text-gray-600 font-[var(--font-inter)]">En entreprise</div>
+            </div>
+          </div>
+
+          {/* Organisation des classes */}
+          <div className="mb-16">
+            <h2 className="font-[var(--font-playfair)] text-3xl font-bold text-[#8C1515] mb-8 text-center">
+              Organisation des classes
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {niveaux.map((niveau, index) => (
+                <div key={index} className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515]">
+                      {niveau.nom}
+                    </h3>
+                    <span className="bg-[#8C1515] text-white px-3 py-1 rounded-full text-sm font-[var(--font-inter)] font-semibold">
+                      {niveau.code}
+                    </span>
+                  </div>
+                  <p className="font-[var(--font-inter)] text-gray-600 mb-4 text-sm">
+                    {niveau.description}
+                  </p>
+                  <div className="space-y-2 pt-4 border-t border-gray-200">
+                    <div className="flex justify-between items-center">
+                      <span className="font-[var(--font-inter)] text-gray-600">Classes :</span>
+                      <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.classes}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="font-[var(--font-inter)] text-gray-600">Élèves :</span>
+                      <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.eleves}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Liens rapides */}
+          <div className="max-w-4xl mx-auto">
+            <h2 className="font-[var(--font-playfair)] text-3xl font-bold text-[#8C1515] mb-8 text-center">
+              Liens utiles
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Link 
+                href="/administration/tarif"
+                className="bg-[#8C1515] text-white rounded-xl p-6 shadow-lg hover:bg-[#a01919] transition-colors flex items-center justify-between group"
+              >
+                <div>
+                  <h3 className="font-[var(--font-inter)] text-xl font-bold mb-2">Tarifs</h3>
+                  <p className="font-[var(--font-inter)] text-sm opacity-90">Consulter les tarifs</p>
+                </div>
+                <ExternalLink className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link 
+                href="/administration/reglement"
+                className="bg-[#8C1515] text-white rounded-xl p-6 shadow-lg hover:bg-[#a01919] transition-colors flex items-center justify-between group"
+              >
+                <div>
+                  <h3 className="font-[var(--font-inter)] text-xl font-bold mb-2">Règlement</h3>
+                  <p className="font-[var(--font-inter)] text-sm opacity-90">Règlement intérieur</p>
+                </div>
+                <ExternalLink className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </Link>
+              <Link 
+                href="/administration/taux-reussite"
+                className="bg-[#8C1515] text-white rounded-xl p-6 shadow-lg hover:bg-[#a01919] transition-colors flex items-center justify-between group"
+              >
+                <div>
+                  <h3 className="font-[var(--font-inter)] text-xl font-bold mb-2 flex items-center gap-2">
+                    <Award className="w-5 h-5" />
+                    Résultats
+                  </h3>
+                  <p className="font-[var(--font-inter)] text-sm opacity-90">Taux de réussite</p>
+                </div>
+                <ExternalLink className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer - Blanc avec Dégradé Sombre sur Tout */}
+      <footer className="bg-gradient-to-b from-white via-gray-50 via-gray-100 to-gray-300 border-t-4 border-[#8C1515]">
+        <div className="max-w-[1400px] mx-auto px-8 py-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Colonne 1: Adresse */}
+            <div>
+              <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
+                Adresse
+              </h3>
+              <p className="font-[var(--font-inter)] text-xs text-gray-700 leading-snug">
+                44 rue du Général Pershing<br />
+                54400 LONGWY
+              </p>
+            </div>
+
+            {/* Colonne 2: Horaires */}
+            <div>
+              <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
+                Horaires d'Ouverture
+              </h3>
+              <div className="font-[var(--font-inter)] text-xs text-gray-700 space-y-0.5">
+                <p>Lundi au Vendredi : 8h – 12h et 13h – 17h</p>
+                <p>Mercredi : 8h – 12h</p>
+                <p>Samedi, Dimanche et Jours Fériés : Fermé</p>
+              </div>
+            </div>
+
+            {/* Colonne 3: Contact */}
+            <div>
+              <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
+                Contact
+              </h3>
+              <div className="font-[var(--font-inter)] text-xs text-gray-700 space-y-0.5">
+                <p>
+                  <span className="text-gray-500">Tél :</span>{' '}
+                  <a href="tel:0382259920" className="hover:text-[#8C1515] transition-colors">
+                    03 82 25 99 20
+                  </a>
+                </p>
+                <p>
+                  <span className="text-gray-500">Mail :</span>{' '}
+                  <a href="mailto:accueil.ensemblescolaire@lesrecollets.org" className="hover:text-[#8C1515] transition-colors break-all">
+                    accueil.ensemblescolaire@lesrecollets.org
+                  </a>
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Copyright */}
+        <div className="border-t border-gray-300 py-2">
+          <p className="text-center font-[var(--font-inter)] text-xs text-gray-600">
+            © {new Date().getFullYear()} Les Récollets - Ensemble Scolaire Privé. Tous droits réservés.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+

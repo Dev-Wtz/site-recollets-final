@@ -2,25 +2,149 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --font-playfair: 'Playfair Display', serif;
+  --font-inter: 'Inter', sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: var(--font-inter);
+}
+
+/* Animation pour la galerie photo auto-défilante */
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-horizontal {
+  animation: scroll-horizontal 60s linear infinite;
+  will-change: transform;
+}
+
+/* Animation de fondu très rapide pour les pages */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Masquer la scrollbar tout en gardant le défilement */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE et Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari et Opera */
+}
+
+/* Animation pour les flèches de défilement - Plus fluide et professionnelle */
+@keyframes arrow-pulse-left {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-6px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes arrow-pulse-right {
+  0%, 100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(6px);
+    opacity: 0.8;
+  }
+}
+
+.animate-arrow-left {
+  animation: arrow-pulse-left 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-arrow-right {
+  animation: arrow-pulse-right 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Animation pour le trait rouge entre les articles */
+@keyframes line-expand {
+  0%, 100% {
+    width: 25%;
+  }
+  50% {
+    width: 85%;
+  }
+}
+
+.animate-line-expand {
+  animation: line-expand 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Animations pour le bouton de contact flottant */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 10px 40px rgba(140, 21, 21, 0.4), 0 0 20px rgba(140, 21, 21, 0.3);
+  }
+  50% {
+    box-shadow: 0 10px 50px rgba(140, 21, 21, 0.6), 0 0 30px rgba(140, 21, 21, 0.5);
+  }
+  100% {
+    box-shadow: 0 10px 40px rgba(140, 21, 21, 0.4), 0 0 20px rgba(140, 21, 21, 0.3);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Animation pour le défilement automatique infini du bandeau */
+@keyframes scroll-banner-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll-banner-infinite {
+  animation: scroll-banner-infinite 100s linear infinite;
+  will-change: transform;
 }
