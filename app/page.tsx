@@ -638,14 +638,16 @@ export default function Home() {
         </div>
         {/* Image de fond */}
         <div className="absolute inset-0">
-          <Image
+        <Image
             src="/hero.jpg"
             alt="Les Récollets"
             fill
-            priority
-            quality={85}
+          priority
+            quality={80}
             className="object-cover"
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
           />
           
           {/* Overlay avec dégradé optimal du haut vers le bas */}
@@ -903,8 +905,8 @@ export default function Home() {
               
               <p className="font-[var(--font-playfair)] text-lg lg:text-xl text-[#8C1515] text-right mt-8 italic">
                 Signé Mr FRATINI
-              </p>
-            </div>
+          </p>
+        </div>
             {needsShowMoreWelcome && (
               <div className="max-w-4xl mx-auto mt-4">
                 <button
@@ -924,40 +926,25 @@ export default function Home() {
           {/* Galerie Photo Auto-défilante */}
           <div className="overflow-hidden relative">
             <div className="flex animate-scroll-horizontal gap-4 w-max">
-              {/* Première série d'images - Réduite à 5 copies pour performance */}
+              {/* Première série d'images - Format uniforme pour performance */}
               {useMemo(() => {
                 const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
-                return [...Array(5)].map((_, i) => {
+                return [...Array(4)].map((_, i) => {
                   const imageIndex = i % images.length;
                   const imageSrc = images[imageIndex];
                   const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
                   return (
                     <div key={`img-${i}`} className="flex-shrink-0">
-                      {i % 2 === 0 ? (
-                        // Format carré
-                        <Image
-                          src={imageSrc}
-                          alt={`Galerie Récollets - ${imageName}`}
-                          width={256}
-                          height={256}
-                          className="object-cover rounded-lg shadow-lg"
-                          loading="lazy"
-                          quality={75}
-                          sizes="(max-width: 768px) 256px, 256px"
-                        />
-                      ) : (
-                        // Format rectangle
-                        <Image
-                          src={imageSrc}
-                          alt={`Galerie Récollets - ${imageName}`}
-                          width={320}
-                          height={256}
-                          className="object-cover rounded-lg shadow-lg"
-                          loading="lazy"
-                          quality={75}
-                          sizes="(max-width: 768px) 320px, 320px"
-                        />
-                      )}
+                      <Image
+                        src={imageSrc}
+                        alt={`Galerie Récollets - ${imageName}`}
+                        width={280}
+                        height={280}
+                        className="object-cover rounded-lg shadow-lg"
+                        loading="lazy"
+                        quality={70}
+                        sizes="(max-width: 768px) 280px, 280px"
+                      />
                     </div>
                   );
                 });
@@ -965,37 +952,22 @@ export default function Home() {
               {/* Dupliquer exactement pour créer une boucle infinie sans saccade */}
               {useMemo(() => {
                 const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
-                return [...Array(5)].map((_, i) => {
+                return [...Array(4)].map((_, i) => {
                   const imageIndex = i % images.length;
                   const imageSrc = images[imageIndex];
                   const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
                   return (
                     <div key={`img-duplicate-${i}`} className="flex-shrink-0">
-                      {i % 2 === 0 ? (
-                        // Format carré
-                        <Image
-                          src={imageSrc}
-                          alt={`Galerie Récollets - ${imageName}`}
-                          width={256}
-                          height={256}
-                          className="object-cover rounded-lg shadow-lg"
-                          loading="lazy"
-                          quality={75}
-                          sizes="(max-width: 768px) 256px, 256px"
-                        />
-                      ) : (
-                        // Format rectangle
-                        <Image
-                          src={imageSrc}
-                          alt={`Galerie Récollets - ${imageName}`}
-                          width={320}
-                          height={256}
-                          className="object-cover rounded-lg shadow-lg"
-                          loading="lazy"
-                          quality={75}
-                          sizes="(max-width: 768px) 320px, 320px"
-                        />
-                      )}
+            <Image
+                        src={imageSrc}
+                        alt={`Galerie Récollets - ${imageName}`}
+                        width={280}
+                        height={280}
+                        className="object-cover rounded-lg shadow-lg"
+                        loading="lazy"
+                        quality={70}
+                        sizes="(max-width: 768px) 280px, 280px"
+                      />
                     </div>
                   );
                 });
