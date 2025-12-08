@@ -13,9 +13,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  /* La ligne ci-dessous corrige l'erreur de build sur Next.js 16 */
-  // @ts-expect-error - Correction temporaire pour Vercel/Turbopack
-  turbopack: {},
 };
 
 export default nextConfig;
