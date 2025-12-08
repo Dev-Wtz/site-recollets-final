@@ -49,15 +49,10 @@ export default function Home() {
       // Utiliser requestAnimationFrame pour s'assurer que le DOM est à jour
       requestAnimationFrame(() => {
         if (navRef.current) {
-          // Forcer un reflow pour obtenir des mesures précises
-          void navRef.current.offsetHeight;
-          
+          // Batch toutes les lectures géométriques ensemble pour éviter les forced reflows
           const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
           const windowWidth = window.innerWidth;
-          const percentage = (navWidth / windowWidth) * 100;
-          const shouldShowHamburger = percentage > 85;
-          
-          setShowHamburgerMenu(shouldShowHamburger);
+          setShowHamburgerMenu((navWidth / windowWidth) * 100 > 85);
         }
       });
     };
@@ -144,29 +139,23 @@ export default function Home() {
         const maxIterations = 100;
         const tolerance = 0.5; // Tolérance très stricte (0.5px)
         
-        // Forcer un reflow initial
+        // Batch les lectures pour réduire les forced reflows
         measureElement.style.fontSize = `${titleSize}px`;
-        void measureElement.offsetHeight; // Force reflow
         
         while (iterations < maxIterations) {
-          measureElement.style.fontSize = `${titleSize}px`;
-          // Forcer un reflow pour obtenir la mesure précise
-          void measureElement.offsetHeight;
+          // Lire la largeur directement (batch avec le style précédent)
           const currentWidth = measureElement.getBoundingClientRect().width;
           const difference = Math.abs(currentWidth - targetWidth);
           
           if (difference <= tolerance) break;
           
-          // Ajuster la taille proportionnellement avec un facteur de correction
+          // Ajuster la taille proportionnellement
           const ratio = targetWidth / currentWidth;
           titleSize = titleSize * ratio;
+          measureElement.style.fontSize = `${titleSize}px`;
           
           iterations++;
         }
-        
-        // Vérification finale
-        measureElement.style.fontSize = `${titleSize}px`;
-        void measureElement.offsetHeight;
         
         document.body.removeChild(measureElement);
         
@@ -210,9 +199,10 @@ export default function Home() {
         document.body.appendChild(measureSubtitle);
         
         iterations = 0;
+        measureSubtitle.style.fontSize = `${subtitleSize}px`;
+        
         while (iterations < maxIterations) {
-          measureSubtitle.style.fontSize = `${subtitleSize}px`;
-          void measureSubtitle.offsetHeight; // Force reflow
+          // Batch la lecture géométrique pour éviter les forced reflows
           const subtitleCurrentWidth = measureSubtitle.getBoundingClientRect().width;
           const subtitleDifference = Math.abs(subtitleCurrentWidth - targetWidth);
           
@@ -220,6 +210,7 @@ export default function Home() {
           
           const subtitleRatio = targetWidth / subtitleCurrentWidth;
           subtitleSize = subtitleSize * subtitleRatio;
+          measureSubtitle.style.fontSize = `${subtitleSize}px`;
           iterations++;
         }
         
@@ -663,12 +654,12 @@ export default function Home() {
         </div>
         {/* Image de fond */}
         <div className="absolute inset-0">
-        <Image
+          <Image
             src="/hero.jpg"
             alt="Les Récollets"
             fill
-          priority
-            quality={80}
+            priority
+            quality={65}
             className="object-cover"
             sizes="100vw"
             placeholder="blur"
@@ -967,7 +958,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={70}
+                        quality={65}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>
@@ -990,7 +981,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={70}
+                        quality={65}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>
