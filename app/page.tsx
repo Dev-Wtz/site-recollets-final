@@ -57,50 +57,44 @@ export default function Home() {
       });
     };
 
-    // Vérifier immédiatement
-    checkNavbarWidth();
+    // Utiliser ResizeObserver au lieu de multiples timeouts pour réduire le travail
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && navRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(checkNavbarWidth, { timeout: 200 });
+        } else {
+          requestAnimationFrame(checkNavbarWidth);
+        }
+      });
+      resizeObserver.observe(navRef.current);
+    }
     
-    // Vérifier après plusieurs délais pour s'assurer que le DOM est complètement rendu
-    const timeoutId1 = setTimeout(checkNavbarWidth, 50);
-    const timeoutId2 = setTimeout(checkNavbarWidth, 150);
-    const timeoutId3 = setTimeout(checkNavbarWidth, 300);
+    // Vérifier initialement après un court délai
+    const initialTimeout = setTimeout(() => {
+      requestAnimationFrame(checkNavbarWidth);
+    }, 100);
     
     // Vérifier à chaque resize avec debounce
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(checkNavbarWidth, 50);
+      resizeTimeout = setTimeout(() => {
+        requestAnimationFrame(checkNavbarWidth);
+      }, 150);
     };
-    window.addEventListener('resize', handleResize);
-    
-    // Utiliser ResizeObserver pour détecter les changements de taille de la navbar
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      const checkAndObserve = () => {
-        if (navRef.current) {
-          resizeObserver = new ResizeObserver(() => {
-            checkNavbarWidth();
-          });
-          resizeObserver.observe(navRef.current);
-        } else {
-          // Si navRef n'est pas encore disponible, réessayer
-          setTimeout(checkAndObserve, 50);
-        }
-      };
-      checkAndObserve();
-    }
+    window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
-      clearTimeout(timeoutId1);
-      clearTimeout(timeoutId2);
-      clearTimeout(timeoutId3);
+      clearTimeout(initialTimeout);
       clearTimeout(resizeTimeout);
       window.removeEventListener('resize', handleResize);
-      if (resizeObserver && navRef.current) {
-        resizeObserver.unobserve(navRef.current);
+      const currentNavRef = navRef.current;
+      if (resizeObserver && currentNavRef) {
+        resizeObserver.unobserve(currentNavRef);
       }
     };
-  }, []); // Ne réexécuter qu'une fois au montage  
+  }, []);  
 
   // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran - Optimisé
   useEffect(() => {
@@ -163,17 +157,18 @@ export default function Home() {
         titleElement.style.fontSize = `${titleSize}px`;
         setTitleFontSize(`${titleSize}px`);
         
-        // Vérifier que le texte fait bien 75% de la largeur après application
-        requestAnimationFrame(() => {
-          if (titleElement) {
-            const actualWidth = titleElement.getBoundingClientRect().width;
-            const actualPercentage = (actualWidth / windowWidth) * 100;
-            // Si l'écart est trop important, recalculer
-            if (Math.abs(actualPercentage - 75) > 0.5) {
-              adjustFontSize();
+        // Vérifier que le texte fait bien 75% de la largeur après application - utiliser requestIdleCallback
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(() => {
+            if (titleElement) {
+              const actualWidth = titleElement.getBoundingClientRect().width;
+              const actualPercentage = (actualWidth / windowWidth) * 100;
+              if (Math.abs(actualPercentage - 75) > 0.5) {
+                adjustFontSize();
+              }
             }
-          }
-        });
+          }, { timeout: 1000 });
+        }
         
         // Pour "Ensemble Scolaire Privé - Longwy" - ajuster pour qu'il tienne dans 75% de la largeur
         const subtitleElement = subtitleRef.current;

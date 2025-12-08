@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import ContactFloat from "./components/ContactFloat";
+import dynamic from "next/dynamic";
+
+const ContactFloat = dynamic(() => import("./components/ContactFloat"), {
+  ssr: false,
+});
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -21,12 +25,41 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Les Récollets - Une Tradition d'Excellence",
-  description: "Enseignement Catholique à Longwy",
+  description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel. 46 classes, tradition catholique depuis des générations.",
+  keywords: ["Les Récollets", "École Longwy", "Collège Longwy", "Lycée Longwy", "Enseignement privé", "École catholique", "Longwy", "Meurthe-et-Moselle", "Éducation"],
+  authors: [{ name: "Les Récollets" }],
+  creator: "Les Récollets",
+  publisher: "Les Récollets",
   metadataBase: new URL('https://site-recollets-final.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   openGraph: {
     title: "Les Récollets - Une Tradition d'Excellence",
-    description: "Enseignement Catholique à Longwy",
-    type: "website",
+    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel.",
+    url: 'https://site-recollets-final.vercel.app',
+    siteName: 'Les Récollets',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Les Récollets - Une Tradition d'Excellence",
+    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel.",
+  },
+  verification: {
+    google: undefined,
   },
 };
 
