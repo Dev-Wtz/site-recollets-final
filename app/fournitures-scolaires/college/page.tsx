@@ -388,8 +388,9 @@ export default function FournitureCollegePage() {  // Liste des classes du coll√
                 Fournitures {classeActuelle.nom}
               </h3>
               <div className="flex justify-center">
-                <iframe
+                <embed
                   src={`/${classeActuelle.fichier}.pdf`}
+                  type="application/pdf"
                   className="w-full max-w-6xl h-[800px] rounded-lg shadow-2xl border-2 border-gray-200"
                   title={`Fournitures ${classeActuelle.nom}`}
                 />

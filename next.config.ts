@@ -60,7 +60,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: '/(.*)',
+        source: '/((?!.*\\.pdf$).*)',
         headers: [
           {
             key: 'X-Content-Type-Options',
