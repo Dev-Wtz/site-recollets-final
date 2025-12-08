@@ -2,7 +2,6 @@
 
 import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function CantinePage() {
@@ -387,17 +386,11 @@ export default function CantinePage() {
 
           {/* Image du menu */}
           <div className="flex justify-center">
-            <div className="relative w-full max-w-6xl aspect-[4/3] rounded-lg shadow-2xl overflow-hidden">
-              <Image
-                src="/MenuCantine.png"
-                alt="Menu Cantine - Les Récollets"
-                fill
-                className="object-contain"
-                quality={75}
-                loading="lazy"
-                sizes="(max-width: 768px) 100vw, 1152px"
-              />
-            </div>
+            <img
+              src="/MenuCantine.png"
+              alt="Menu Cantine - Les Récollets"
+              className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
+            />
           </div>
         </div>
       </section>

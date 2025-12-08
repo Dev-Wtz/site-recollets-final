@@ -2,7 +2,6 @@
 
 import { ChevronDown, ArrowLeft, Users, Clock, BookOpen, ExternalLink, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function MaternellePage() {
@@ -365,14 +364,10 @@ export default function MaternellePage() {
           {/* Image Hero */}
           <div className="mb-16">
             <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <Image
+              <img
                 src="/Ecole.png"
                 alt="École Maternelle des Récollets"
-                fill
-                className="object-cover"
-                quality={75}
-                priority
-                sizes="(max-width: 768px) 100vw, 1400px"
+                className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>

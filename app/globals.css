@@ -32,8 +32,7 @@ body {
 
 .animate-scroll-horizontal {
   animation: scroll-horizontal 60s linear infinite;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Animation de fondu très rapide pour les pages */
@@ -147,6 +146,5 @@ body {
 
 .animate-scroll-banner-infinite {
   animation: scroll-banner-infinite 100s linear infinite;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  will-change: transform;
 }

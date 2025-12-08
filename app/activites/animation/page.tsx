@@ -2,7 +2,6 @@
 
 import { ChevronDown, ArrowLeft, Calendar, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function AnimationPage() {
@@ -408,14 +407,10 @@ export default function AnimationPage() {
                     <div className={`w-full lg:w-1/2 h-48 lg:h-72 overflow-hidden ${
                       imageLeft ? 'lg:order-1' : 'lg:order-2'
                     }`}>
-                      <Image
+                      <img
                         src={article.image}
                         alt={article.titre}
-                        fill
-                        className="object-cover"
-                        quality={75}
-                        loading="lazy"
-                        sizes="(max-width: 1024px) 50vw, 50vw"
+                        className="w-full h-full object-cover"
                       />
                     </div>
 
