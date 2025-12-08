@@ -651,10 +651,10 @@ export default function Home() {
         <div className="absolute inset-0">
           <Image
             src="/hero.jpg"
-            alt="Les Récollets"
+            alt="Ensemble Scolaire Privé Les Récollets - Campus principal à Longwy"
             fill
             priority
-            quality={65}
+            quality={60}
             className="object-cover"
             sizes="100vw"
             placeholder="blur"
@@ -953,7 +953,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={65}
+                        quality={60}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>
@@ -976,7 +976,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={65}
+                        quality={60}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>
