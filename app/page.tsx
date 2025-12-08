@@ -114,119 +114,124 @@ export default function Home() {
       
       // Utiliser requestIdleCallback pour ne pas bloquer le main thread
       const doAdjust = () => {
-          const windowWidth = window.innerWidth;
-          const targetWidth = windowWidth * 0.75; // 75% de la largeur de l'écran
-          
-          // Pour "Les Récollets" - ajuster jusqu'à ce que le texte fasse 75% de la largeur
-          const titleElement = titleRef.current;
-          if (!titleElement) return;
-          
-          // Obtenir la police réelle depuis le computed style
-          const titleComputedStyle = window.getComputedStyle(titleElement);
-          const titleFontFamily = titleComputedStyle.fontFamily || 'Playfair Display, serif';
-          
-          // Créer un élément de mesure temporaire pour un calcul précis
-          const measureElement = document.createElement('span');
-          measureElement.style.position = 'absolute';
-          measureElement.style.top = '-9999px';
-          measureElement.style.left = '-9999px';
-          measureElement.style.visibility = 'hidden';
-          measureElement.style.whiteSpace = 'nowrap';
-          measureElement.style.fontFamily = titleFontFamily;
-          measureElement.style.fontWeight = 'bold';
-          measureElement.style.letterSpacing = '-0.02em';
-          measureElement.textContent = 'Les Récollets';
-          document.body.appendChild(measureElement);
-          
-          // Calculer la taille initiale approximative
-          let titleSize = (targetWidth / 10); // Estimation initiale
-          let iterations = 0;
-          const maxIterations = 100;
-          const tolerance = 0.5; // Tolérance très stricte (0.5px)
-          
-          // Forcer un reflow initial
+        const windowWidth = window.innerWidth;
+        const targetWidth = windowWidth * 0.75; // 75% de la largeur de l'écran
+        
+        // Pour "Les Récollets" - ajuster jusqu'à ce que le texte fasse 75% de la largeur
+        const titleElement = titleRef.current;
+        if (!titleElement) return;
+        
+        // Obtenir la police réelle depuis le computed style
+        const titleComputedStyle = window.getComputedStyle(titleElement);
+        const titleFontFamily = titleComputedStyle.fontFamily || 'Playfair Display, serif';
+        
+        // Créer un élément de mesure temporaire pour un calcul précis
+        const measureElement = document.createElement('span');
+        measureElement.style.position = 'absolute';
+        measureElement.style.top = '-9999px';
+        measureElement.style.left = '-9999px';
+        measureElement.style.visibility = 'hidden';
+        measureElement.style.whiteSpace = 'nowrap';
+        measureElement.style.fontFamily = titleFontFamily;
+        measureElement.style.fontWeight = 'bold';
+        measureElement.style.letterSpacing = '-0.02em';
+        measureElement.textContent = 'Les Récollets';
+        document.body.appendChild(measureElement);
+        
+        // Calculer la taille initiale approximative
+        let titleSize = (targetWidth / 10); // Estimation initiale
+        let iterations = 0;
+        const maxIterations = 100;
+        const tolerance = 0.5; // Tolérance très stricte (0.5px)
+        
+        // Forcer un reflow initial
+        measureElement.style.fontSize = `${titleSize}px`;
+        void measureElement.offsetHeight; // Force reflow
+        
+        while (iterations < maxIterations) {
           measureElement.style.fontSize = `${titleSize}px`;
-          void measureElement.offsetHeight; // Force reflow
-          
-          while (iterations < maxIterations) {
-            measureElement.style.fontSize = `${titleSize}px`;
-            // Forcer un reflow pour obtenir la mesure précise
-            void measureElement.offsetHeight;
-            const currentWidth = measureElement.getBoundingClientRect().width;
-            const difference = Math.abs(currentWidth - targetWidth);
-            
-            if (difference <= tolerance) break;
-            
-            // Ajuster la taille proportionnellement avec un facteur de correction
-            const ratio = targetWidth / currentWidth;
-            titleSize = titleSize * ratio;
-            
-            iterations++;
-          }
-          
-          // Vérification finale
-          measureElement.style.fontSize = `${titleSize}px`;
+          // Forcer un reflow pour obtenir la mesure précise
           void measureElement.offsetHeight;
+          const currentWidth = measureElement.getBoundingClientRect().width;
+          const difference = Math.abs(currentWidth - targetWidth);
           
-          document.body.removeChild(measureElement);
+          if (difference <= tolerance) break;
           
-          // Appliquer la taille calculée
-          titleElement.style.fontSize = `${titleSize}px`;
-          setTitleFontSize(`${titleSize}px`);
+          // Ajuster la taille proportionnellement avec un facteur de correction
+          const ratio = targetWidth / currentWidth;
+          titleSize = titleSize * ratio;
           
-          // Vérifier que le texte fait bien 75% de la largeur après application
-          requestAnimationFrame(() => {
-            if (titleElement) {
-              const actualWidth = titleElement.getBoundingClientRect().width;
-              const actualPercentage = (actualWidth / windowWidth) * 100;
-              // Si l'écart est trop important, recalculer
-              if (Math.abs(actualPercentage - 75) > 0.5) {
-                adjustFontSize();
-              }
+          iterations++;
+        }
+        
+        // Vérification finale
+        measureElement.style.fontSize = `${titleSize}px`;
+        void measureElement.offsetHeight;
+        
+        document.body.removeChild(measureElement);
+        
+        // Appliquer la taille calculée
+        titleElement.style.fontSize = `${titleSize}px`;
+        setTitleFontSize(`${titleSize}px`);
+        
+        // Vérifier que le texte fait bien 75% de la largeur après application
+        requestAnimationFrame(() => {
+          if (titleElement) {
+            const actualWidth = titleElement.getBoundingClientRect().width;
+            const actualPercentage = (actualWidth / windowWidth) * 100;
+            // Si l'écart est trop important, recalculer
+            if (Math.abs(actualPercentage - 75) > 0.5) {
+              adjustFontSize();
             }
-          });
-          
-          // Pour "Ensemble Scolaire Privé - Longwy" - ajuster pour qu'il tienne dans 75% de la largeur
-          const subtitleElement = subtitleRef.current;
-          if (!subtitleElement) return;
-          
-          let subtitleSize = titleSize * 0.12; // Environ 12% de la taille du titre
-          
-          // Obtenir la police réelle depuis le computed style
-          const subtitleComputedStyle = window.getComputedStyle(subtitleElement);
-          const subtitleFontFamily = subtitleComputedStyle.fontFamily || 'Inter, sans-serif';
-          
-          // Créer un élément de mesure pour le sous-titre
-          const measureSubtitle = document.createElement('span');
-          measureSubtitle.style.position = 'absolute';
-          measureSubtitle.style.top = '-9999px';
-          measureSubtitle.style.left = '-9999px';
-          measureSubtitle.style.visibility = 'hidden';
-          measureSubtitle.style.whiteSpace = 'nowrap';
-          measureSubtitle.style.fontFamily = subtitleFontFamily;
-          measureSubtitle.style.fontWeight = '900';
-          measureSubtitle.style.letterSpacing = '0.35em';
-          measureSubtitle.textContent = 'Ensemble Scolaire Privé - Longwy';
-          document.body.appendChild(measureSubtitle);
-          
-          iterations = 0;
-          while (iterations < maxIterations) {
-            measureSubtitle.style.fontSize = `${subtitleSize}px`;
-            void measureSubtitle.offsetHeight; // Force reflow
-            const subtitleCurrentWidth = measureSubtitle.getBoundingClientRect().width;
-            const subtitleDifference = Math.abs(subtitleCurrentWidth - targetWidth);
-            
-            if (subtitleDifference <= tolerance || subtitleCurrentWidth <= targetWidth) break;
-            
-            const subtitleRatio = targetWidth / subtitleCurrentWidth;
-            subtitleSize = subtitleSize * subtitleRatio;
-            iterations++;
           }
-          
-          document.body.removeChild(measureSubtitle);
-          subtitleElement.style.fontSize = `${subtitleSize}px`;
-          setSubtitleFontSize(`${subtitleSize}px`);
         });
+        
+        // Pour "Ensemble Scolaire Privé - Longwy" - ajuster pour qu'il tienne dans 75% de la largeur
+        const subtitleElement = subtitleRef.current;
+        if (!subtitleElement) return;
+        
+        let subtitleSize = titleSize * 0.12; // Environ 12% de la taille du titre
+        
+        // Obtenir la police réelle depuis le computed style
+        const subtitleComputedStyle = window.getComputedStyle(subtitleElement);
+        const subtitleFontFamily = subtitleComputedStyle.fontFamily || 'Inter, sans-serif';
+        
+        // Créer un élément de mesure pour le sous-titre
+        const measureSubtitle = document.createElement('span');
+        measureSubtitle.style.position = 'absolute';
+        measureSubtitle.style.top = '-9999px';
+        measureSubtitle.style.left = '-9999px';
+        measureSubtitle.style.visibility = 'hidden';
+        measureSubtitle.style.whiteSpace = 'nowrap';
+        measureSubtitle.style.fontFamily = subtitleFontFamily;
+        measureSubtitle.style.fontWeight = '900';
+        measureSubtitle.style.letterSpacing = '0.35em';
+        measureSubtitle.textContent = 'Ensemble Scolaire Privé - Longwy';
+        document.body.appendChild(measureSubtitle);
+        
+        iterations = 0;
+        while (iterations < maxIterations) {
+          measureSubtitle.style.fontSize = `${subtitleSize}px`;
+          void measureSubtitle.offsetHeight; // Force reflow
+          const subtitleCurrentWidth = measureSubtitle.getBoundingClientRect().width;
+          const subtitleDifference = Math.abs(subtitleCurrentWidth - targetWidth);
+          
+          if (subtitleDifference <= tolerance || subtitleCurrentWidth <= targetWidth) break;
+          
+          const subtitleRatio = targetWidth / subtitleCurrentWidth;
+          subtitleSize = subtitleSize * subtitleRatio;
+          iterations++;
+        }
+        
+        document.body.removeChild(measureSubtitle);
+        subtitleElement.style.fontSize = `${subtitleSize}px`;
+        setSubtitleFontSize(`${subtitleSize}px`);
+      };
+      
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(doAdjust, { timeout: 500 });
+      } else {
+        requestAnimationFrame(doAdjust);
       }
     };
 
