@@ -1,11 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import dynamic from "next/dynamic";
-
-const ContactFloat = dynamic(() => import("./components/ContactFloat"), {
-  ssr: false,
-});
+import ContactFloat from "./components/ContactFloat";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
