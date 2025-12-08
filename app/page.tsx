@@ -1,8 +1,9 @@
 'use client';
 
 import { ChevronDown, Menu, X } from 'lucide-react';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -10,6 +11,7 @@ export default function Home() {
   const [reussite, setReussite] = useState(0);
   const [eleves, setEleves] = useState(0);
   const [annee, setAnnee] = useState(0);
+  // Ces états sont utilisés dans les animations de chiffres
   const [showScrollingBanner, setShowScrollingBanner] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState('9vw');
   const [subtitleFontSize, setSubtitleFontSize] = useState('1.125vw');
@@ -26,15 +28,18 @@ export default function Home() {
   const [needsShowMoreWelcome, setNeedsShowMoreWelcome] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 0);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -90,15 +95,11 @@ export default function Home() {
       checkAndObserve();
     }
     
-    // Vérifier périodiquement pour s'assurer que la détection fonctionne toujours
-    const intervalId = setInterval(checkNavbarWidth, 1000);
-    
     return () => {
       clearTimeout(timeoutId1);
       clearTimeout(timeoutId2);
       clearTimeout(timeoutId3);
       clearTimeout(resizeTimeout);
-      clearInterval(intervalId);
       window.removeEventListener('resize', handleResize);
       if (resizeObserver && navRef.current) {
         resizeObserver.unobserve(navRef.current);
@@ -273,10 +274,16 @@ export default function Home() {
     };
 
     const timer = setTimeout(checkWelcomeTextHeight, 100);
-    window.addEventListener('resize', checkWelcomeTextHeight);
+    let resizeTimeout: NodeJS.Timeout;
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkWelcomeTextHeight, 150);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       clearTimeout(timer);
-      window.removeEventListener('resize', checkWelcomeTextHeight);
+      clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -631,10 +638,14 @@ export default function Home() {
         </div>
         {/* Image de fond */}
         <div className="absolute inset-0">
-          <img
+          <Image
             src="/hero.jpg"
             alt="Les Récollets"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            quality={85}
+            className="object-cover"
+            sizes="100vw"
           />
           
           {/* Overlay avec dégradé optimal du haut vers le bas */}
@@ -913,10 +924,10 @@ export default function Home() {
           {/* Galerie Photo Auto-défilante */}
           <div className="overflow-hidden relative">
             <div className="flex animate-scroll-horizontal gap-4 w-max">
-              {/* Première série d'images */}
-              {(() => {
+              {/* Première série d'images - Réduite à 5 copies pour performance */}
+              {useMemo(() => {
                 const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
-                return [...Array(10)].map((_, i) => {
+                return [...Array(5)].map((_, i) => {
                   const imageIndex = i % images.length;
                   const imageSrc = images[imageIndex];
                   const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
@@ -924,29 +935,37 @@ export default function Home() {
                     <div key={`img-${i}`} className="flex-shrink-0">
                       {i % 2 === 0 ? (
                         // Format carré
-                        <img
+                        <Image
                           src={imageSrc}
                           alt={`Galerie Récollets - ${imageName}`}
-                          className="w-64 h-64 object-cover rounded-lg shadow-lg"
+                          width={256}
+                          height={256}
+                          className="object-cover rounded-lg shadow-lg"
                           loading="lazy"
+                          quality={75}
+                          sizes="(max-width: 768px) 256px, 256px"
                         />
                       ) : (
                         // Format rectangle
-                        <img
+                        <Image
                           src={imageSrc}
                           alt={`Galerie Récollets - ${imageName}`}
-                          className="w-80 h-64 object-cover rounded-lg shadow-lg"
+                          width={320}
+                          height={256}
+                          className="object-cover rounded-lg shadow-lg"
                           loading="lazy"
+                          quality={75}
+                          sizes="(max-width: 768px) 320px, 320px"
                         />
                       )}
                     </div>
                   );
                 });
-              })()}
+              }, [])}
               {/* Dupliquer exactement pour créer une boucle infinie sans saccade */}
-              {(() => {
+              {useMemo(() => {
                 const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
-                return [...Array(10)].map((_, i) => {
+                return [...Array(5)].map((_, i) => {
                   const imageIndex = i % images.length;
                   const imageSrc = images[imageIndex];
                   const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
@@ -954,25 +973,33 @@ export default function Home() {
                     <div key={`img-duplicate-${i}`} className="flex-shrink-0">
                       {i % 2 === 0 ? (
                         // Format carré
-                        <img
+                        <Image
                           src={imageSrc}
                           alt={`Galerie Récollets - ${imageName}`}
-                          className="w-64 h-64 object-cover rounded-lg shadow-lg"
+                          width={256}
+                          height={256}
+                          className="object-cover rounded-lg shadow-lg"
                           loading="lazy"
+                          quality={75}
+                          sizes="(max-width: 768px) 256px, 256px"
                         />
                       ) : (
                         // Format rectangle
-                        <img
+                        <Image
                           src={imageSrc}
                           alt={`Galerie Récollets - ${imageName}`}
-                          className="w-80 h-64 object-cover rounded-lg shadow-lg"
+                          width={320}
+                          height={256}
+                          className="object-cover rounded-lg shadow-lg"
                           loading="lazy"
+                          quality={75}
+                          sizes="(max-width: 768px) 320px, 320px"
                         />
                       )}
                     </div>
                   );
                 });
-              })()}
+              }, [])}
             </div>
           </div>
         </div>

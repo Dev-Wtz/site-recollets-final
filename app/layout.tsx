@@ -18,6 +18,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Les Récollets - Une Tradition d'Excellence",
   description: "Enseignement Catholique à Longwy",
+  metadataBase: new URL('https://site-recollets-final.vercel.app'),
+  openGraph: {
+    title: "Les Récollets - Une Tradition d'Excellence",
+    description: "Enseignement Catholique à Longwy",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
