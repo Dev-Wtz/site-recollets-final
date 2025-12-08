@@ -107,12 +107,13 @@ export default function Home() {
     };
   }, []); // Ne réexécuter qu'une fois au montage  
 
-  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran
+  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran - Optimisé
   useEffect(() => {
     const adjustFontSize = () => {
-      if (titleRef.current && subtitleRef.current) {
-        // Utiliser requestAnimationFrame pour s'assurer que le calcul se fait après le rendu
-        requestAnimationFrame(() => {
+      if (!titleRef.current || !subtitleRef.current) return;
+      
+      // Utiliser requestIdleCallback pour ne pas bloquer le main thread
+      const doAdjust = () => {
           const windowWidth = window.innerWidth;
           const targetWidth = windowWidth * 0.75; // 75% de la largeur de l'écran
           
@@ -309,11 +310,13 @@ export default function Home() {
   useEffect(() => {
     if (!isStatsVisible) return;
 
+    // Utiliser requestIdleCallback pour ne pas bloquer le main thread
     const animateTo = (setter: (val: number) => void, target: number, duration: number) => {
-      const startTime = Date.now();
+      const startTime = performance.now();
+      let rafId: number;
       
-      const animate = () => {
-        const elapsed = Date.now() - startTime;
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
         
         // Easing function pour plus de fluidité (ease-out-cubic)
@@ -323,18 +326,35 @@ export default function Home() {
         setter(current);
 
         if (progress < 1) {
-          requestAnimationFrame(animate);
+          rafId = requestAnimationFrame(animate);
         } else {
           setter(target);
         }
       };
 
-      requestAnimationFrame(animate);
+      // Utiliser requestIdleCallback si disponible, sinon requestAnimationFrame
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => {
+          rafId = requestAnimationFrame(animate);
+        }, { timeout: 100 });
+      } else {
+        rafId = requestAnimationFrame(animate);
+      }
+      
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
     };
 
-    animateTo(setReussite, 99, 800);
-    animateTo(setEleves, 1500, 1000);
-    animateTo(setAnnee, 46, 1200);
+    const cleanup1 = animateTo(setReussite, 99, 800);
+    const cleanup2 = animateTo(setEleves, 1500, 1000);
+    const cleanup3 = animateTo(setAnnee, 46, 1200);
+    
+    return () => {
+      if (cleanup1) cleanup1();
+      if (cleanup2) cleanup2();
+      if (cleanup3) cleanup3();
+    };
   }, [isStatsVisible]);
 
   return (

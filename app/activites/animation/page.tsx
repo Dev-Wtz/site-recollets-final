@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Calendar, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function AnimationPage() {
