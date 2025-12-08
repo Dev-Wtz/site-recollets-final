@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Users, Languages, BookOpen, ExternalLink, Award, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function CollegePage() {
@@ -395,10 +396,14 @@ export default function CollegePage() {
           {/* Image Hero */}
           <div className="mb-16">
             <div className="relative w-full h-96 rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="/CollegeVueCour.png"
                 alt="Collège des Récollets"
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                quality={75}
+                priority
+                sizes="(max-width: 768px) 100vw, 1400px"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
             </div>

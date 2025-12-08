@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Calendar, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function SortiesScolairesPage() {
@@ -421,10 +422,14 @@ export default function SortiesScolairesPage() {
                     <div className={`w-full lg:w-1/2 h-48 lg:h-72 overflow-hidden ${
                       imageLeft ? 'lg:order-1' : 'lg:order-2'
                     }`}>
-                      <img
+                      <Image
                         src={article.image}
                         alt={article.titre}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        quality={75}
+                        loading="lazy"
+                        sizes="(max-width: 1024px) 50vw, 50vw"
                       />
                     </div>
 

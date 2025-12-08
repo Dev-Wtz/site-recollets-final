@@ -343,11 +343,17 @@ export default function TarifPage() {
 
           {/* Image des tarifs - Grande et lisible */}
           <div className="flex justify-center">
-            <img
-              src="/Tarifs2025.png"
-              alt="Tarifs 2025 - Les Récollets"
-              className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
-            />
+            <div className="relative w-full max-w-6xl aspect-[4/3] rounded-lg shadow-2xl overflow-hidden">
+              <Image
+                src="/Tarifs2025.png"
+                alt="Tarifs 2025 - Les Récollets"
+                fill
+                className="object-contain"
+                quality={75}
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, 1152px"
+              />
+            </div>
           </div>
         </div>
       </section>

@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function CalendrierSportifPage() {
@@ -388,11 +389,17 @@ export default function CalendrierSportifPage() {
               <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-6 text-center">
                 Calendrier UNSS - Collège
               </h3>
-              <img
-                src="/CalendrierUnssCollege.png"
-                alt="Calendrier UNSS Collège - Les Récollets"
-                className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
-              />
+              <div className="relative w-full max-w-2xl aspect-[4/3] rounded-lg shadow-2xl overflow-hidden">
+                <Image
+                  src="/CalendrierUnssCollege.png"
+                  alt="Calendrier UNSS Collège - Les Récollets"
+                  fill
+                  className="object-contain"
+                  quality={75}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 768px"
+                />
+              </div>
             </div>
 
             {/* Calendrier Lycée */}
@@ -400,11 +407,17 @@ export default function CalendrierSportifPage() {
               <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-6 text-center">
                 Calendrier UNSS - Lycée
               </h3>
-              <img
-                src="/CalendrierUnssLycee.png"
-                alt="Calendrier UNSS Lycée - Les Récollets"
-                className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
-              />
+              <div className="relative w-full max-w-2xl aspect-[4/3] rounded-lg shadow-2xl overflow-hidden">
+                <Image
+                  src="/CalendrierUnssLycee.png"
+                  alt="Calendrier UNSS Lycée - Les Récollets"
+                  fill
+                  className="object-contain"
+                  quality={75}
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 768px"
+                />
+              </div>
             </div>
           </div>
         </div>

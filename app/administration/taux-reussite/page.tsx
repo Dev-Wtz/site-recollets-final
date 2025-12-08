@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
 export default function TauxReussitePage() {  // Liste des années de 2025 à 2017 (du plus récent au plus ancien)
@@ -585,11 +586,17 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                 Résultats {anneeActuelle.annee}
               </h3>
               <div className="flex justify-center">
-                <img
-                  src={`/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
-                  alt={`Résultats des examens ${anneeActuelle.annee} - Les Récollets`}
-                  className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
-                />
+                <div className="relative w-full max-w-6xl aspect-[4/3] rounded-lg shadow-2xl overflow-hidden">
+                  <Image
+                    src={`/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
+                    alt={`Résultats des examens ${anneeActuelle.annee} - Les Récollets`}
+                    fill
+                    className="object-contain"
+                    quality={75}
+                    loading="lazy"
+                    sizes="(max-width: 768px) 100vw, 1152px"
+                  />
+                </div>
               </div>
             </div>
           )}
