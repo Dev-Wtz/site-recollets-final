@@ -855,7 +855,7 @@ export default function Home() {
                     backgroundColor: 'transparent',
                   }}
                 >
-                  L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
+                  L&apos;ensemble scolaire privé des Récollets : Offrir à votre enfant le privilège d&apos;un cadre exigeant pour une scolarité d&apos;exception.
                 </p>
               </div>
             ))}
