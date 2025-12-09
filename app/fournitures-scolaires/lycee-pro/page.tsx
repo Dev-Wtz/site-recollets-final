@@ -487,7 +487,7 @@ export default function FournitureLyceeProPage() {  // Liste des classes du lyc√
                   className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
                   style={{ 
                     width: '100%',
-                    maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)',
+                    maxWidth: 'min(calc(1.3 * (112px + 16px)), 75vw)', // Affiche ~1.3 bouton (premier complet + 1/3 du suivant)
                     minHeight: '80px',
                     maskImage: maskImage,
                     WebkitMaskImage: maskImage

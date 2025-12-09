@@ -532,7 +532,7 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                   className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
                   style={{ 
                     width: '100%',
-                    maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)', // 7 boutons max ou 75% de l'écran
+                    maxWidth: 'min(calc(1.3 * (112px + 16px)), 75vw)', // Affiche ~1.3 bouton (premier complet + 1/3 du suivant)
                     minHeight: '80px', // Hauteur minimale pour éviter la coupure
                     maskImage: maskImage,
                     WebkitMaskImage: maskImage
