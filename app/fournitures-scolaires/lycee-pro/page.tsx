@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
+import { ChevronDown, ArrowLeft, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 
@@ -75,6 +75,105 @@ export default function FournitureLyceeProPage() {  // Liste des classes du lyc�
 
   // État pour la classe sélectionnée (SP par défaut)
   const [classeSelectionnee, setClasseSelectionnee] = useState<string>('SP');
+
+  // Référence pour le conteneur de scroll
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // État pour le masque CSS
+  const [maskImage, setMaskImage] = useState('linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%)');
+
+  // Fonction pour vérifier le scroll
+  const checkScroll = () => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      const threshold = 1;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      const newCanScrollLeft = scrollLeft > threshold;
+      const newCanScrollRight = maxScroll > 0 && scrollLeft < maxScroll - threshold;
+      
+      setCanScrollLeft(newCanScrollLeft);
+      setCanScrollRight(newCanScrollRight);
+      
+      // Mettre à jour le masque CSS
+      const gradientWidth = '100px';
+      const isAtStart = scrollLeft <= threshold;
+      const isAtEnd = maxScroll > 0 && scrollLeft >= maxScroll - threshold;
+      
+      if (isAtStart && isAtEnd) {
+        setMaskImage('none');
+      } else if (isAtStart) {
+        setMaskImage(`linear-gradient(to right, black 0%, black calc(100% - ${gradientWidth}), transparent 100%)`);
+      } else if (isAtEnd) {
+        setMaskImage(`linear-gradient(to right, transparent 0%, black ${gradientWidth}, black 100%)`);
+      } else {
+        setMaskImage(`linear-gradient(to right, transparent 0%, black ${gradientWidth}, black calc(100% - ${gradientWidth}), transparent 100%)`);
+      }
+    }
+  };
+
+  // Scroll initial : commencer à la position la plus à gauche
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollLeft = 0;
+      setTimeout(() => {
+        checkScroll();
+      }, 100);
+    }
+  }, []);
+
+  // Listener pour mettre à jour dynamiquement les indicateurs lors du scroll
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    checkScroll();
+
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          checkScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    container.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', checkScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, []);
+
+  // Fonctions de scroll
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      const buttonWidth = 112 + 16;
+      scrollContainerRef.current.scrollBy({ left: -buttonWidth * 2, behavior: 'smooth' });
+      requestAnimationFrame(checkScroll);
+      setTimeout(checkScroll, 50);
+      setTimeout(checkScroll, 200);
+      setTimeout(checkScroll, 400);
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      const buttonWidth = 112 + 16;
+      scrollContainerRef.current.scrollBy({ left: buttonWidth * 2, behavior: 'smooth' });
+      requestAnimationFrame(checkScroll);
+      setTimeout(checkScroll, 50);
+      setTimeout(checkScroll, 200);
+      setTimeout(checkScroll, 400);
+    }
+  };
 
   // Trouver la classe sélectionnée
   const classeActuelle = classes.find(c => c.code === classeSelectionnee);
@@ -354,28 +453,84 @@ export default function FournitureLyceeProPage() {  // Liste des classes du lyc�
             </div>
           </div>
 
-          {/* Sélecteur de classe */}
-          <div className="max-w-4xl mx-auto mb-12">
+          {/* Sélecteur de classe - Défilement horizontal avec 7 boutons visibles */}
+          <div className="w-full max-w-[75vw] mx-auto mb-12">
             <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-6 text-center">
               Sélectionnez une classe
             </h3>
             
-            {/* Grille de boutons pour les classes */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Conteneur avec défilement horizontal - Affiche 7 boutons à la fois */}
+            <div className="relative flex items-center justify-center gap-4">
+              {/* Flèche gauche */}
+              <button
+                onClick={scrollLeft}
+                disabled={!canScrollLeft}
+                className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  canScrollLeft
+                    ? 'bg-[#8C1515] text-white hover:bg-[#a01919] hover:scale-110 hover:shadow-xl cursor-pointer shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2'
+                    : 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-40'
+                }`}
+                aria-label="Défiler vers la gauche"
+              >
+                <ChevronLeft 
+                  size={22} 
+                  strokeWidth={3} 
+                  className={canScrollLeft ? 'animate-arrow-left' : ''}
+                />
+              </button>
+
+              {/* Conteneur de scroll centré avec dégradés */}
+              <div className="flex-1 flex justify-center relative">
+                <div 
+                  ref={scrollContainerRef}
+                  onScroll={checkScroll}
+                  className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
+                  style={{ 
+                    width: '100%',
+                    maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)',
+                    minHeight: '80px',
+                    maskImage: maskImage,
+                    WebkitMaskImage: maskImage
+                  }}
+                >
+                  <div className="flex gap-4 px-2 py-2" style={{ width: 'max-content' }}>
+                    {/* Espace à gauche pour permettre le scroll complet */}
+                    <div className="flex-shrink-0 w-16"></div>
               {classes.map((classe) => (
                 <button
                   key={classe.code}
                   onClick={() => setClasseSelectionnee(classe.code)}
-                  className={`px-6 py-4 rounded-xl font-[var(--font-inter)] text-base font-semibold transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-1 ${
+                        className={`flex-shrink-0 w-28 px-5 py-3 rounded-xl font-[var(--font-inter)] text-lg font-bold transition-all duration-300 snap-start focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-1 ${
                     classeSelectionnee === classe.code
                       ? 'bg-gradient-to-br from-[#8C1515] to-[#a01919] text-white transform scale-105 ring-2 ring-[#8C1515] ring-offset-1'
                       : 'bg-white text-[#8C1515] border-2 border-[#8C1515]/60 hover:bg-[#8C1515] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#8C1515] active:scale-95'
                   }`}
                 >
-                  <div className="font-bold text-lg">{classe.code}</div>
+                        <div className="font-bold">{classe.code}</div>
                   <div className="text-xs mt-1 opacity-90">{classe.nom}</div>
                 </button>
               ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Flèche droite */}
+              <button
+                onClick={scrollRight}
+                disabled={!canScrollRight}
+                className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  canScrollRight
+                    ? 'bg-[#8C1515] text-white hover:bg-[#a01919] hover:scale-110 hover:shadow-xl cursor-pointer shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2'
+                    : 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-40'
+                }`}
+                aria-label="Défiler vers la droite"
+              >
+                <ChevronRight 
+                  size={22} 
+                  strokeWidth={3} 
+                  className={canScrollRight ? 'animate-arrow-right' : ''}
+                />
+              </button>
             </div>
           </div>
 
