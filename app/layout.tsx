@@ -9,6 +9,7 @@ const playfair = Playfair_Display({
   weight: ["700", "900"],
   display: "swap",
   preload: true,
+  fallback: ['serif'],
 });
 
 const inter = Inter({
@@ -17,6 +18,7 @@ const inter = Inter({
   weight: ["400", "500", "600", "700"],
   display: "swap",
   preload: true,
+  fallback: ['system-ui', 'arial'],
 });
 
 export const metadata: Metadata = {

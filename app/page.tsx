@@ -42,26 +42,36 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran
+  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran - Optimisé pour réduire les forced reflows
   useEffect(() => {
     const checkNavbarWidth = () => {
-      // Utiliser requestAnimationFrame pour s'assurer que le DOM est à jour
-      requestAnimationFrame(() => {
-        if (navRef.current) {
-          // Batch toutes les lectures géométriques ensemble pour éviter les forced reflows
-          const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
-          const windowWidth = window.innerWidth;
-          setShowHamburgerMenu((navWidth / windowWidth) * 100 > 85);
-        }
-      });
+      if (!navRef.current) return;
+      
+      // Utiliser requestIdleCallback pour ne pas bloquer le rendu
+      const doCheck = () => {
+        requestAnimationFrame(() => {
+          if (navRef.current) {
+            // Batch toutes les lectures géométriques ensemble
+            const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
+            const windowWidth = window.innerWidth;
+            setShowHamburgerMenu((navWidth / windowWidth) * 100 > 85);
+          }
+        });
+      };
+      
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(doCheck, { timeout: 300 });
+      } else {
+        requestAnimationFrame(doCheck);
+      }
     };
 
-    // Utiliser ResizeObserver au lieu de multiples timeouts pour réduire le travail
+    // Utiliser ResizeObserver pour une détection efficace
     let resizeObserver: ResizeObserver | null = null;
     if (typeof ResizeObserver !== 'undefined' && navRef.current) {
       resizeObserver = new ResizeObserver(() => {
         if ('requestIdleCallback' in window) {
-          requestIdleCallback(checkNavbarWidth, { timeout: 200 });
+          requestIdleCallback(checkNavbarWidth, { timeout: 300 });
         } else {
           requestAnimationFrame(checkNavbarWidth);
         }
@@ -69,18 +79,26 @@ export default function Home() {
       resizeObserver.observe(navRef.current);
     }
     
-    // Vérifier initialement après un court délai
+    // Vérifier initialement après un délai plus long
     const initialTimeout = setTimeout(() => {
-      requestAnimationFrame(checkNavbarWidth);
-    }, 100);
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(checkNavbarWidth, { timeout: 500 });
+      } else {
+        requestAnimationFrame(checkNavbarWidth);
+      }
+    }, 200);
     
-    // Vérifier à chaque resize avec debounce
+    // Vérifier à chaque resize avec debounce plus long
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        requestAnimationFrame(checkNavbarWidth);
-      }, 150);
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(checkNavbarWidth, { timeout: 300 });
+        } else {
+          requestAnimationFrame(checkNavbarWidth);
+        }
+      }, 200);
     };
     window.addEventListener('resize', handleResize, { passive: true });
     
@@ -95,160 +113,121 @@ export default function Home() {
     };
   }, []);  
 
-  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran - Optimisé
+  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran - Optimisé pour réduire les forced reflows
   useEffect(() => {
     const adjustFontSize = () => {
       if (!titleRef.current || !subtitleRef.current) return;
       
-      // Utiliser requestIdleCallback pour ne pas bloquer le main thread
+      // Utiliser requestIdleCallback avec un délai plus long pour ne pas bloquer le rendu initial
       const doAdjust = () => {
-        const windowWidth = window.innerWidth;
-        const targetWidth = windowWidth * 0.75; // 75% de la largeur de l'écran
-        
-        // Pour "Les Récollets" - ajuster jusqu'à ce que le texte fasse 75% de la largeur
-        const titleElement = titleRef.current;
-        if (!titleElement) return;
-        
-        // Obtenir la police réelle depuis le computed style
-        const titleComputedStyle = window.getComputedStyle(titleElement);
-        const titleFontFamily = titleComputedStyle.fontFamily || 'Playfair Display, serif';
-        
-        // Créer un élément de mesure temporaire pour un calcul précis
-        const measureElement = document.createElement('span');
-        measureElement.style.position = 'absolute';
-        measureElement.style.top = '-9999px';
-        measureElement.style.left = '-9999px';
-        measureElement.style.visibility = 'hidden';
-        measureElement.style.whiteSpace = 'nowrap';
-        measureElement.style.fontFamily = titleFontFamily;
-        measureElement.style.fontWeight = 'bold';
-        measureElement.style.letterSpacing = '-0.02em';
-        measureElement.textContent = 'Les Récollets';
-        document.body.appendChild(measureElement);
-        
-        // Calculer la taille initiale approximative
-        let titleSize = (targetWidth / 10); // Estimation initiale
-        let iterations = 0;
-        const maxIterations = 100;
-        const tolerance = 0.5; // Tolérance très stricte (0.5px)
-        
-        // Batch les lectures pour réduire les forced reflows
-        measureElement.style.fontSize = `${titleSize}px`;
-        
-        while (iterations < maxIterations) {
-          // Lire la largeur directement (batch avec le style précédent)
-          const currentWidth = measureElement.getBoundingClientRect().width;
-          const difference = Math.abs(currentWidth - targetWidth);
+        // Utiliser requestAnimationFrame pour batch toutes les lectures/écritures
+        requestAnimationFrame(() => {
+          const windowWidth = window.innerWidth;
+          const targetWidth = windowWidth * 0.75;
           
-          if (difference <= tolerance) break;
+          const titleElement = titleRef.current;
+          const subtitleElement = subtitleRef.current;
+          if (!titleElement || !subtitleElement) return;
           
-          // Ajuster la taille proportionnellement
-          const ratio = targetWidth / currentWidth;
-          titleSize = titleSize * ratio;
+          // Utiliser une approche simplifiée avec moins d'itérations
+          const titleComputedStyle = window.getComputedStyle(titleElement);
+          const titleFontFamily = titleComputedStyle.fontFamily || 'Playfair Display, serif';
+          
+          const measureElement = document.createElement('span');
+          measureElement.style.cssText = 'position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:' + titleFontFamily + ';font-weight:bold;letter-spacing:-0.02em';
+          measureElement.textContent = 'Les Récollets';
+          document.body.appendChild(measureElement);
+          
+          // Estimation initiale plus précise pour réduire les itérations
+          let titleSize = (targetWidth / 8.5);
+          let iterations = 0;
+          const maxIterations = 20; // Réduit de 100 à 20
+          const tolerance = 2; // Augmenté de 0.5 à 2px pour réduire les itérations
+          
           measureElement.style.fontSize = `${titleSize}px`;
           
-          iterations++;
-        }
-        
-        document.body.removeChild(measureElement);
-        
-        // Appliquer la taille calculée
-        titleElement.style.fontSize = `${titleSize}px`;
-        setTitleFontSize(`${titleSize}px`);
-        
-        // Vérifier que le texte fait bien 75% de la largeur après application - utiliser requestIdleCallback
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(() => {
-            if (titleElement) {
-              const actualWidth = titleElement.getBoundingClientRect().width;
-              const actualPercentage = (actualWidth / windowWidth) * 100;
-              if (Math.abs(actualPercentage - 75) > 0.5) {
-                adjustFontSize();
-              }
+          // Batch toutes les lectures dans requestAnimationFrame
+          requestAnimationFrame(() => {
+            while (iterations < maxIterations) {
+              const currentWidth = measureElement.getBoundingClientRect().width;
+              const difference = Math.abs(currentWidth - targetWidth);
+              
+              if (difference <= tolerance) break;
+              
+              const ratio = targetWidth / currentWidth;
+              titleSize = titleSize * ratio;
+              measureElement.style.fontSize = `${titleSize}px`;
+              iterations++;
             }
-          }, { timeout: 1000 });
-        }
-        
-        // Pour "Ensemble Scolaire Privé - Longwy" - ajuster pour qu'il tienne dans 75% de la largeur
-        const subtitleElement = subtitleRef.current;
-        if (!subtitleElement) return;
-        
-        let subtitleSize = titleSize * 0.12; // Environ 12% de la taille du titre
-        
-        // Obtenir la police réelle depuis le computed style
-        const subtitleComputedStyle = window.getComputedStyle(subtitleElement);
-        const subtitleFontFamily = subtitleComputedStyle.fontFamily || 'Inter, sans-serif';
-        
-        // Créer un élément de mesure pour le sous-titre
-        const measureSubtitle = document.createElement('span');
-        measureSubtitle.style.position = 'absolute';
-        measureSubtitle.style.top = '-9999px';
-        measureSubtitle.style.left = '-9999px';
-        measureSubtitle.style.visibility = 'hidden';
-        measureSubtitle.style.whiteSpace = 'nowrap';
-        measureSubtitle.style.fontFamily = subtitleFontFamily;
-        measureSubtitle.style.fontWeight = '900';
-        measureSubtitle.style.letterSpacing = '0.35em';
-        measureSubtitle.textContent = 'Ensemble Scolaire Privé - Longwy';
-        document.body.appendChild(measureSubtitle);
-        
-        iterations = 0;
-        measureSubtitle.style.fontSize = `${subtitleSize}px`;
-        
-        while (iterations < maxIterations) {
-          // Batch la lecture géométrique pour éviter les forced reflows
-          const subtitleCurrentWidth = measureSubtitle.getBoundingClientRect().width;
-          const subtitleDifference = Math.abs(subtitleCurrentWidth - targetWidth);
-          
-          if (subtitleDifference <= tolerance || subtitleCurrentWidth <= targetWidth) break;
-          
-          const subtitleRatio = targetWidth / subtitleCurrentWidth;
-          subtitleSize = subtitleSize * subtitleRatio;
-          measureSubtitle.style.fontSize = `${subtitleSize}px`;
-          iterations++;
-        }
-        
-        document.body.removeChild(measureSubtitle);
-        subtitleElement.style.fontSize = `${subtitleSize}px`;
-        setSubtitleFontSize(`${subtitleSize}px`);
+            
+            document.body.removeChild(measureElement);
+            
+            // Appliquer en une seule fois
+            titleElement.style.fontSize = `${titleSize}px`;
+            setTitleFontSize(`${titleSize}px`);
+            
+            // Sous-titre avec approche simplifiée
+            const subtitleSize = titleSize * 0.12;
+            subtitleElement.style.fontSize = `${subtitleSize}px`;
+            setSubtitleFontSize(`${subtitleSize}px`);
+          });
+        });
       };
       
+      // Délayer encore plus le calcul initial pour ne pas bloquer le rendu
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(doAdjust, { timeout: 500 });
+        requestIdleCallback(doAdjust, { timeout: 2000 });
       } else {
-        requestAnimationFrame(doAdjust);
+        setTimeout(() => requestAnimationFrame(doAdjust), 500);
       }
     };
 
-    const timer = setTimeout(adjustFontSize, 100);
+    // Démarrer après un délai plus long pour laisser le rendu initial se terminer
+    const timer = setTimeout(adjustFontSize, 300);
+    let resizeTimer: NodeJS.Timeout;
     const handleResize = () => {
-      clearTimeout(timer);
-      setTimeout(adjustFontSize, 50);
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(adjustFontSize, 200);
     };
     
-    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       clearTimeout(timer);
+      clearTimeout(resizeTimer);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  // Vérifier si le texte de bienvenue fait plus de 8 lignes
+  // Vérifier si le texte de bienvenue fait plus de 8 lignes - Optimisé pour réduire les forced reflows
   useEffect(() => {
     const checkWelcomeTextHeight = () => {
-      if (welcomeTextRef.current) {
-        const lineHeight = parseFloat(getComputedStyle(welcomeTextRef.current).lineHeight) || 28;
-        const maxHeight = lineHeight * 8; // 8 lignes
-        const actualHeight = welcomeTextRef.current.scrollHeight;
-        setNeedsShowMoreWelcome(actualHeight > maxHeight);
+      if (!welcomeTextRef.current) return;
+      
+      // Utiliser requestIdleCallback pour ne pas bloquer le rendu
+      const doCheck = () => {
+        requestAnimationFrame(() => {
+          if (welcomeTextRef.current) {
+            const lineHeight = parseFloat(getComputedStyle(welcomeTextRef.current).lineHeight) || 28;
+            const maxHeight = lineHeight * 8;
+            const actualHeight = welcomeTextRef.current.scrollHeight;
+            setNeedsShowMoreWelcome(actualHeight > maxHeight);
+          }
+        });
+      };
+      
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(doCheck, { timeout: 500 });
+      } else {
+        requestAnimationFrame(doCheck);
       }
     };
 
-    const timer = setTimeout(checkWelcomeTextHeight, 100);
+    // Délayer le check initial pour ne pas bloquer le rendu
+    const timer = setTimeout(checkWelcomeTextHeight, 300);
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(checkWelcomeTextHeight, 150);
+      resizeTimeout = setTimeout(checkWelcomeTextHeight, 200);
     };
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
@@ -634,7 +613,7 @@ export default function Home() {
             alt="Ensemble Scolaire Privé Les Récollets - Campus principal à Longwy"
             fill
             priority
-            quality={60}
+            quality={50}
             className="object-cover"
             sizes="100vw"
             placeholder="blur"
@@ -932,7 +911,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={60}
+                        quality={50}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>
@@ -960,7 +939,7 @@ export default function Home() {
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
                         loading="lazy"
-                        quality={60}
+                        quality={50}
                         sizes="(max-width: 768px) 280px, 280px"
                       />
                     </div>

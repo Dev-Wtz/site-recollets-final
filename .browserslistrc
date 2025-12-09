@@ -1,0 +1,8 @@
+# Browsers that we support
+# Modern browsers only to reduce legacy JavaScript
+> 0.5%
+last 2 versions
+Firefox ESR
+not dead
+not IE 11
+
