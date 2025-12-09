@@ -145,7 +145,7 @@ body {
 }
 
 .animate-scroll-banner-infinite {
-  animation: scroll-banner-infinite 100s linear infinite;
+  animation: scroll-banner-infinite 130s linear infinite;
   will-change: transform;
 }
 
