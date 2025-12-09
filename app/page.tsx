@@ -12,14 +12,12 @@ export default function Home() {
   const [eleves, setEleves] = useState(0);
   const [annee, setAnnee] = useState(0);
   // Ces états sont utilisés dans les animations de chiffres
-  const [showScrollingBanner, setShowScrollingBanner] = useState(false);
   const [titleFontSize, setTitleFontSize] = useState('9vw');
   const [subtitleFontSize, setSubtitleFontSize] = useState('1.125vw');
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  const bannerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
@@ -231,22 +229,6 @@ export default function Home() {
     return () => {
       clearTimeout(timer);
       window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  // Détecter si le bandeau rouge peut être affiché correctement
-  useEffect(() => {
-    const checkBannerWidth = () => {
-      // Toujours activer le défilement pour garantir que le texte reste sur une seule ligne
-      setShowScrollingBanner(true);
-    };
-
-    // Attendre que le DOM soit chargé
-    const timer = setTimeout(checkBannerWidth, 100);
-    window.addEventListener('resize', checkBannerWidth);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', checkBannerWidth);
     };
   }, []);
 
@@ -855,35 +837,24 @@ export default function Home() {
 
       {/* Section 3: Bandeau Chiffres Clés */}
       <section ref={statsRef} className="bg-gradient-to-r from-[#8C1515] to-[#a01919] py-6 sm:py-8">
-        {showScrollingBanner ? (
-          /* Version avec défilement automatique infini */
-          <div className="overflow-hidden relative">
-            <div className="flex animate-scroll-banner-infinite" style={{ width: 'max-content' }}>
-              {/* Dupliquer le contenu 20 fois (2 séries de 10) pour un défilement infini fluide */}
-              {[...Array(20)].map((_, i) => (
-                <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
-                  <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl text-white text-center font-semibold whitespace-nowrap">
-                    L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
-                  </p>
-                </div>
-              ))}
-            </div>
+        <div className="overflow-hidden relative w-full">
+          <div className="flex animate-scroll-banner-infinite" style={{ width: 'max-content' }}>
+            {/* Dupliquer le contenu 20 fois pour un défilement infini fluide */}
+            {[...Array(20)].map((_, i) => (
+              <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
+                <p 
+                  className="font-[var(--font-playfair)] text-white text-center font-semibold whitespace-nowrap"
+                  style={{ 
+                    fontSize: 'clamp(0.875rem, 2.5vw, 2rem)',
+                    lineHeight: '1.2'
+                  }}
+                >
+                  L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
+                </p>
+              </div>
+            ))}
           </div>
-        ) : (
-          /* Version normale avec défilement si nécessaire */
-          <div ref={bannerRef} className="overflow-hidden relative">
-            <div className="flex animate-scroll-banner-infinite" style={{ width: 'max-content' }}>
-              {/* Dupliquer le contenu 20 fois pour un défilement infini fluide */}
-              {[...Array(20)].map((_, i) => (
-                <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
-                  <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white text-center font-semibold whitespace-nowrap">
-                    L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        </div>
       </section>
 
       {/* Section 4: Bienvenue et Galerie Photo */}
