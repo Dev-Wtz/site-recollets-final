@@ -148,3 +148,22 @@ body {
   animation: scroll-banner-infinite 100s linear infinite;
   will-change: transform;
 }
+
+/* Bandeau rouge - Garantir l'affichage du fond rouge sur tous les navigateurs */
+.banner-rouge {
+  background-color: #8C1515 !important;
+  background: linear-gradient(to right, #8C1515, #a01919) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  min-height: 60px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+.banner-rouge * {
+  background-color: transparent !important;
+}
+
+.banner-rouge p {
+  color: #ffffff !important;
+}

@@ -817,17 +817,42 @@ export default function Home() {
       </section>
 
       {/* Section 3: Bandeau Chiffres Clés */}
-      <section ref={statsRef} className="bg-gradient-to-r from-[#8C1515] to-[#a01919] py-6 sm:py-8">
-        <div className="overflow-hidden relative w-full">
+      <section 
+        ref={statsRef} 
+        className="banner-rouge py-6 sm:py-8"
+        style={{
+          backgroundColor: '#8C1515',
+          background: 'linear-gradient(to right, #8C1515, #a01919)',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: '100% 100%',
+          minHeight: '60px',
+          position: 'relative',
+          zIndex: 1,
+        }}
+      >
+        <div 
+          className="overflow-hidden relative w-full"
+          style={{
+            backgroundColor: 'transparent',
+          }}
+        >
           <div className="flex animate-scroll-banner-infinite" style={{ width: 'max-content' }}>
             {/* Dupliquer le contenu 20 fois pour un défilement infini fluide */}
             {[...Array(20)].map((_, i) => (
-              <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
+              <div 
+                key={i} 
+                className="flex items-center px-8 whitespace-nowrap flex-shrink-0"
+                style={{
+                  backgroundColor: 'transparent',
+                }}
+              >
                 <p 
-                  className="font-[var(--font-playfair)] text-white text-center font-semibold whitespace-nowrap"
+                  className="font-[var(--font-playfair)] text-center font-semibold whitespace-nowrap"
                   style={{ 
                     fontSize: 'clamp(0.875rem, 2.5vw, 2rem)',
-                    lineHeight: '1.2'
+                    lineHeight: '1.2',
+                    color: '#ffffff',
+                    backgroundColor: 'transparent',
                   }}
                 >
                   L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
