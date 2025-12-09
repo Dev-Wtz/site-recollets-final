@@ -4,6 +4,7 @@ import { ChevronDown, Menu, X } from 'lucide-react';
 import { useEffect, useState, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import StructuredData from './components/StructuredData';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -328,6 +329,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white">
+      <StructuredData />
       {/* Navigation Stanford - Structure Exacte */}
       <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
         {/* Barre Supérieure - Transparente qui devient opaque au scroll */}
@@ -911,16 +913,21 @@ export default function Home() {
             <div className="flex animate-scroll-horizontal gap-4 w-max">
               {/* Première série d'images - Format uniforme pour performance */}
               {useMemo(() => {
-                const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
+                const images = [
+                  { src: '/CollegeVueCour.png', alt: 'Vue de la cour du Collège Les Récollets à Longwy' },
+                  { src: '/Ecole.png', alt: 'Bâtiment de l\'école primaire et maternelle Les Récollets' },
+                  { src: '/Lycée.png', alt: 'Bâtiment du Lycée Général et Technologique Les Récollets' },
+                  { src: '/LyceePro.png', alt: 'Bâtiment du Lycée Professionnel Les Récollets' },
+                  { src: '/hero.jpg', alt: 'Campus principal de l\'Ensemble Scolaire Privé Les Récollets à Longwy' }
+                ];
                 return [...Array(4)].map((_, i) => {
                   const imageIndex = i % images.length;
-                  const imageSrc = images[imageIndex];
-                  const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
+                  const image = images[imageIndex];
                   return (
                     <div key={`img-${i}`} className="flex-shrink-0">
                       <Image
-                        src={imageSrc}
-                        alt={`Galerie Récollets - ${imageName}`}
+                        src={image.src}
+                        alt={image.alt}
                         width={280}
                         height={280}
                         className="object-cover rounded-lg shadow-lg"
@@ -934,16 +941,21 @@ export default function Home() {
               }, [])}
               {/* Dupliquer exactement pour créer une boucle infinie sans saccade */}
               {useMemo(() => {
-                const images = ['/CollegeVueCour.png', '/Ecole.png', '/Lycée.png', '/LyceePro.png', '/hero.jpg'];
+                const images = [
+                  { src: '/CollegeVueCour.png', alt: 'Vue de la cour du Collège Les Récollets à Longwy' },
+                  { src: '/Ecole.png', alt: 'Bâtiment de l\'école primaire et maternelle Les Récollets' },
+                  { src: '/Lycée.png', alt: 'Bâtiment du Lycée Général et Technologique Les Récollets' },
+                  { src: '/LyceePro.png', alt: 'Bâtiment du Lycée Professionnel Les Récollets' },
+                  { src: '/hero.jpg', alt: 'Campus principal de l\'Ensemble Scolaire Privé Les Récollets à Longwy' }
+                ];
                 return [...Array(4)].map((_, i) => {
                   const imageIndex = i % images.length;
-                  const imageSrc = images[imageIndex];
-                  const imageName = imageSrc.split('/').pop()?.replace('.png', '').replace('.jpg', '') || 'Récollets';
+                  const image = images[imageIndex];
                   return (
                     <div key={`img-duplicate-${i}`} className="flex-shrink-0">
-            <Image
-                        src={imageSrc}
-                        alt={`Galerie Récollets - ${imageName}`}
+                      <Image
+                        src={image.src}
+                        alt={image.alt}
                         width={280}
                         height={280}
                         className="object-cover rounded-lg shadow-lg"

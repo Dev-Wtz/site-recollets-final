@@ -43,16 +43,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Les Récollets - Ensemble Scolaire Privé",
-    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel.",
+    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel. 46 classes, tradition catholique depuis des générations.",
     url: 'https://site-recollets-final.vercel.app',
     siteName: 'Les Récollets',
     locale: 'fr_FR',
     type: 'website',
+    images: [
+      {
+        url: 'https://site-recollets-final.vercel.app/hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Ensemble Scolaire Privé Les Récollets - Campus principal à Longwy',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: "Les Récollets - Ensemble Scolaire Privé",
-    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel.",
+    description: "Ensemble Scolaire Privé Les Récollets à Longwy. Enseignement d'excellence de la Maternelle au Lycée Professionnel. 46 classes, tradition catholique depuis des générations.",
+    images: ['https://site-recollets-final.vercel.app/hero.jpg'],
   },
   verification: {
     google: undefined,
@@ -69,9 +78,14 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#8C1515" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="geo.region" content="FR-54" />
+        <meta name="geo.placename" content="Longwy" />
+        <meta name="geo.position" content="49.5214;5.7603" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="icon" href="/favicon.ico" />
       </head>
       <body
         className={`${playfair.variable} ${inter.variable} antialiased`}
