@@ -237,12 +237,8 @@ export default function Home() {
   // Détecter si le bandeau rouge peut être affiché correctement
   useEffect(() => {
     const checkBannerWidth = () => {
-      if (bannerRef.current) {
-        const bannerWidth = bannerRef.current.scrollWidth;
-        const windowWidth = window.innerWidth;
-        // Si la largeur du bandeau est supérieure à 90% de la largeur de l'écran, activer le défilement
-        setShowScrollingBanner(bannerWidth > windowWidth * 0.9 || windowWidth < 768);
-      }
+      // Toujours activer le défilement pour garantir que le texte reste sur une seule ligne
+      setShowScrollingBanner(true);
     };
 
     // Attendre que le DOM soit chargé
@@ -866,7 +862,7 @@ export default function Home() {
               {/* Dupliquer le contenu 20 fois (2 séries de 10) pour un défilement infini fluide */}
               {[...Array(20)].map((_, i) => (
                 <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
-                  <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl text-white text-center font-semibold">
+                  <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl text-white text-center font-semibold whitespace-nowrap">
                     L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
                   </p>
                 </div>
@@ -874,12 +870,17 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          /* Version normale */
-          <div ref={bannerRef} className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-center">
-              <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white text-center font-semibold">
-                L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
-              </p>
+          /* Version normale avec défilement si nécessaire */
+          <div ref={bannerRef} className="overflow-hidden relative">
+            <div className="flex animate-scroll-banner-infinite" style={{ width: 'max-content' }}>
+              {/* Dupliquer le contenu 20 fois pour un défilement infini fluide */}
+              {[...Array(20)].map((_, i) => (
+                <div key={i} className="flex items-center px-8 whitespace-nowrap flex-shrink-0">
+                  <p className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl xl:text-5xl text-white text-center font-semibold whitespace-nowrap">
+                    L&apos;ensemble scolaire privé des Récollets : Un enseignement d&apos;excellence.
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         )}
