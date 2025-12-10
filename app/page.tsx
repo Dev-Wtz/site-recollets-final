@@ -113,7 +113,7 @@ export default function Home() {
     };
   }, []);  
 
-  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran - Optimisé pour réduire les forced reflows
+  // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran (desktop) ou 90% en mobile - Optimisé
   useEffect(() => {
     const adjustFontSize = () => {
       if (!titleRef.current || !subtitleRef.current) return;
@@ -123,19 +123,23 @@ export default function Home() {
         // Utiliser requestAnimationFrame pour batch toutes les lectures/écritures
         requestAnimationFrame(() => {
           const windowWidth = window.innerWidth;
-          const targetWidth = windowWidth * 0.75;
+          const isMobile = windowWidth < 768;
+          const targetWidth = isMobile ? windowWidth * 0.90 : windowWidth * 0.75; // 90% en mobile, 75% en desktop
           
           const titleElement = titleRef.current;
           const subtitleElement = subtitleRef.current;
           if (!titleElement || !subtitleElement) return;
           
-          // Utiliser une approche simplifiée avec moins d'itérations
+          // Obtenir la police réelle depuis le computed style
           const titleComputedStyle = window.getComputedStyle(titleElement);
           const titleFontFamily = titleComputedStyle.fontFamily || 'Playfair Display, serif';
           
+          // En mobile, on mesure "Récollets" seul pour qu'il fasse 90% de la largeur
+          const textToMeasure = isMobile ? 'Récollets' : 'Les Récollets';
+          
           const measureElement = document.createElement('span');
           measureElement.style.cssText = 'position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:' + titleFontFamily + ';font-weight:bold;letter-spacing:-0.02em';
-          measureElement.textContent = 'Les Récollets';
+          measureElement.textContent = textToMeasure;
           document.body.appendChild(measureElement);
           
           // Estimation initiale plus précise pour réduire les itérations
@@ -147,30 +151,54 @@ export default function Home() {
           measureElement.style.fontSize = `${titleSize}px`;
           
           // Batch toutes les lectures dans requestAnimationFrame
-          requestAnimationFrame(() => {
-            while (iterations < maxIterations) {
-              const currentWidth = measureElement.getBoundingClientRect().width;
-              const difference = Math.abs(currentWidth - targetWidth);
-              
-              if (difference <= tolerance) break;
-              
-              const ratio = targetWidth / currentWidth;
-              titleSize = titleSize * ratio;
-              measureElement.style.fontSize = `${titleSize}px`;
-              iterations++;
-            }
+          while (iterations < maxIterations) {
+            const currentWidth = measureElement.getBoundingClientRect().width;
+            const difference = Math.abs(currentWidth - targetWidth);
             
-            document.body.removeChild(measureElement);
+            if (difference <= tolerance) break;
             
-            // Appliquer en une seule fois
-            titleElement.style.fontSize = `${titleSize}px`;
-            setTitleFontSize(`${titleSize}px`);
+            const ratio = targetWidth / currentWidth;
+            titleSize = titleSize * ratio;
+            measureElement.style.fontSize = `${titleSize}px`;
+            iterations++;
+          }
+          
+          document.body.removeChild(measureElement);
+          
+          // Appliquer en une seule fois
+          titleElement.style.fontSize = `${titleSize}px`;
+          setTitleFontSize(`${titleSize}px`);
+          
+          // Sous-titre avec approche simplifiée - 90% en mobile, 75% en desktop
+          const subtitleTargetWidth = isMobile ? windowWidth * 0.90 : windowWidth * 0.75;
+          let subtitleSize = titleSize * 0.12;
+          
+          const subtitleComputedStyle = window.getComputedStyle(subtitleElement);
+          const subtitleFontFamily = subtitleComputedStyle.fontFamily || 'Inter, sans-serif';
+          
+          const measureSubtitle = document.createElement('span');
+          measureSubtitle.style.cssText = 'position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:' + subtitleFontFamily + ';font-weight:900;letter-spacing:0.35em';
+          measureSubtitle.textContent = 'Ensemble Scolaire Privé - Longwy';
+          document.body.appendChild(measureSubtitle);
+          
+          iterations = 0;
+          measureSubtitle.style.fontSize = `${subtitleSize}px`;
+          
+          while (iterations < maxIterations) {
+            const subtitleCurrentWidth = measureSubtitle.getBoundingClientRect().width;
+            const subtitleDifference = Math.abs(subtitleCurrentWidth - subtitleTargetWidth);
             
-            // Sous-titre avec approche simplifiée
-            const subtitleSize = titleSize * 0.12;
-            subtitleElement.style.fontSize = `${subtitleSize}px`;
-            setSubtitleFontSize(`${subtitleSize}px`);
-          });
+            if (subtitleDifference <= tolerance || subtitleCurrentWidth <= subtitleTargetWidth) break;
+            
+            const subtitleRatio = subtitleTargetWidth / subtitleCurrentWidth;
+            subtitleSize = subtitleSize * subtitleRatio;
+            measureSubtitle.style.fontSize = `${subtitleSize}px`;
+            iterations++;
+          }
+          
+          document.body.removeChild(measureSubtitle);
+          subtitleElement.style.fontSize = `${subtitleSize}px`;
+          setSubtitleFontSize(`${subtitleSize}px`);
         });
       };
       
@@ -554,7 +582,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section - Image du Bâtiment avec Texte Centré */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-[85vh] md:h-screen overflow-hidden">
         {/* Navbar 2 - Au-dessus du hero - Masquée sur petits écrans */}
         <div className="hidden lg:block absolute top-14 left-0 right-0 z-10">
           <div className="w-3/4 mx-auto">
@@ -631,23 +659,24 @@ export default function Home() {
 
         {/* Contenu - CENTRÉ comme Stanford */}
         <div className="relative h-full flex flex-col items-center justify-center">
-          {/* Titre Principal - CENTRÉ - 75% de la largeur */}
+          {/* Titre Principal - CENTRÉ - 75% de la largeur desktop, 90% mobile avec 2 lignes */}
           <div className="w-full flex flex-col items-center">
             <h1 
               ref={titleRef}
-              className="font-[var(--font-playfair)] font-bold text-white leading-none mb-4"
+              className="font-[var(--font-playfair)] font-bold text-white leading-none mb-4 md:whitespace-nowrap"
               style={{
                 fontSize: titleFontSize,
                 textShadow: '0px 2px 10px rgba(0, 0, 0, 0.3)',
                 letterSpacing: '-0.02em',
-                whiteSpace: 'nowrap'
+                whiteSpace: 'normal'
               }}
             >
-              Les Récollets
+              <span className="block md:inline">Les</span>{' '}
+              <span className="block md:inline">Récollets</span>
             </h1>
             
             {/* Sous-titre avec fond gribouillis griffe */}
-            <div className="relative inline-block px-6 py-2">
+            <div className="relative inline-block px-6 py-2 w-[90%] md:w-auto">
               {/* SVG fond gribouillis - Style griffe dessinée à la main */}
               <svg 
                 className="absolute inset-0 w-full h-full" 
@@ -662,7 +691,7 @@ export default function Home() {
               </svg>
               <p 
                 ref={subtitleRef}
-                className="relative z-10 font-[var(--font-inter)] text-white tracking-[0.35em] font-black uppercase whitespace-nowrap"
+                className="relative z-10 font-[var(--font-inter)] text-white tracking-[0.35em] font-black uppercase whitespace-nowrap text-center"
                 style={{ 
                   fontSize: subtitleFontSize,
                   textShadow: '0px 4px 20px rgba(0, 0, 0, 1), 0px 2px 10px rgba(0, 0, 0, 1)'
@@ -1029,6 +1058,16 @@ export default function Home() {
         </div>
 
         {/* Copyright */}
+        <div className="border-t border-gray-400/50 py-2">
+          <p className="text-center font-[var(--font-inter)] text-xs text-gray-600">
+            © {new Date().getFullYear()} Les Récollets - Ensemble Scolaire Privé. Tous droits réservés.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
         <div className="border-t border-gray-400/50 py-2">
           <p className="text-center font-[var(--font-inter)] text-xs text-gray-600">
             © {new Date().getFullYear()} Les Récollets - Ensemble Scolaire Privé. Tous droits réservés.

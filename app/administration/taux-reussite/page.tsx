@@ -657,3 +657,10 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
   );
 }
 
+
+        </div>
+      </footer>
+    </div>
+  );
+}
+

@@ -586,3 +586,8 @@ export default function LyceeProfessionnelPage() {
   );
 }
 
+
+    </div>
+  );
+}
+
