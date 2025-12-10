@@ -492,10 +492,8 @@ export default function FournitureEcolePage() {  // Liste des classes de l'écol
                   className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
                   style={{ 
                     width: '100%',
-                    maxWidth: 'min(calc(1.3 * (112px + 16px)), 75vw)', // Affiche ~1.3 bouton (premier complet + 1/3 du suivant)
+                    maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)', // 7 boutons max ou 75% de l'écran
                     minHeight: '80px',
-                    maskImage: maskImage,
-                    WebkitMaskImage: maskImage
                   }}
                 >
                   <div className="flex gap-4 px-2 py-2" style={{ width: 'max-content' }}>
