@@ -1067,13 +1067,3 @@ export default function Home() {
     </div>
   );
 }
-
-        <div className="border-t border-gray-400/50 py-2">
-          <p className="text-center font-[var(--font-inter)] text-xs text-gray-600">
-            © {new Date().getFullYear()} Les Récollets - Ensemble Scolaire Privé. Tous droits réservés.
-          </p>
-        </div>
-      </footer>
-    </div>
-  );
-}
