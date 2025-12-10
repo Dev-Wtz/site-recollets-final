@@ -582,7 +582,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section - Image du Bâtiment avec Texte Centré */}
-      <section className="relative h-[85vh] md:h-screen overflow-hidden">
+      <section className="relative hero-section-mobile md:h-screen overflow-hidden">
         {/* Navbar 2 - Au-dessus du hero - Masquée sur petits écrans */}
         <div className="hidden lg:block absolute top-14 left-0 right-0 z-10">
           <div className="w-3/4 mx-auto">
@@ -663,7 +663,7 @@ export default function Home() {
           <div className="w-full flex flex-col items-center">
             <h1 
               ref={titleRef}
-              className="font-[var(--font-playfair)] font-bold text-white leading-none mb-4 md:whitespace-nowrap"
+              className="font-[var(--font-playfair)] font-bold text-white leading-none mb-4 md:whitespace-nowrap text-center"
               style={{
                 fontSize: titleFontSize,
                 textShadow: '0px 2px 10px rgba(0, 0, 0, 0.3)',
@@ -671,8 +671,8 @@ export default function Home() {
                 whiteSpace: 'normal'
               }}
             >
-              <span className="block md:inline">Les</span>{' '}
-              <span className="block md:inline">Récollets</span>
+              <span className="block text-center md:inline">Les</span>{' '}
+              <span className="block text-center md:inline">Récollets</span>
             </h1>
             
             {/* Sous-titre avec fond gribouillis griffe */}
