@@ -838,16 +838,19 @@ export default function Home() {
                 Liens Rapides
               </h2>
               <div className="space-y-4 w-full">
-                <a href="#" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
-                  Nos écoles
-                </a>
-                <a href="#" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
-                  Admissions et inscriptions
-                </a>
-                <a href="#" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
-                  Calendrier scolaire
-                </a>
-                <a href="#" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
+                <Link href="/administration/tarif" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
+                  Tarifs
+                </Link>
+                <Link href="/administration/reglement" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
+                  Règlement
+                </Link>
+                <Link href="/restauration/cantine" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
+                  Menu Cantine
+                </Link>
+                <Link href="/restauration/cafeteria" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
+                  Menu Cafeteria
+                </Link>
+                <a href="mailto:accueil.ensemblescolaire@lesrecollets.org" className="block text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-3">
                   Contact
                 </a>
               </div>
