@@ -594,8 +594,3 @@ export default function CollegePage() {
   );
 }
 
-
-    </div>
-  );
-}
-

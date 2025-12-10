@@ -458,10 +458,3 @@ export default function InscriptionUnssPage() {
   );
 }
 
-
-        </div>
-      </footer>
-    </div>
-  );
-}
-

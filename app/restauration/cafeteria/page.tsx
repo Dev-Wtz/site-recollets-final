@@ -458,10 +458,3 @@ export default function CafeteriaPage() {
   );
 }
 
-
-        </div>
-      </footer>
-    </div>
-  );
-}
-

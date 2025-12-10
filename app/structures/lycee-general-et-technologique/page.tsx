@@ -624,8 +624,3 @@ export default function LyceeGeneralEtTechnologiquePage() {
   );
 }
 
-
-    </div>
-  );
-}
-

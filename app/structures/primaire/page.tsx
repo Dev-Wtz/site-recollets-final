@@ -547,8 +547,3 @@ export default function PrimairePage() {
     </div>
   );
 }
-
-      </footer>
-    </div>
-  );
-}

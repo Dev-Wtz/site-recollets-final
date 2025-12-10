@@ -458,10 +458,3 @@ export default function CantinePage() {
   );
 }
 
-
-        </div>
-      </footer>
-    </div>
-  );
-}
-

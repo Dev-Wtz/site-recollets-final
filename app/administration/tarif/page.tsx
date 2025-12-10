@@ -415,10 +415,3 @@ export default function TarifPage() {
   );
 }
 
-
-        </div>
-      </footer>
-    </div>
-  );
-}
-

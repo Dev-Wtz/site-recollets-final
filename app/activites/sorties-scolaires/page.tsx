@@ -528,8 +528,3 @@ export default function SortiesScolairesPage() {
   );
 }
 
-
-    </div>
-  );
-}
-

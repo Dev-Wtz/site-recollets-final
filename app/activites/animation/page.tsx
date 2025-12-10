@@ -514,8 +514,3 @@ export default function AnimationPage() {
   );
 }
 
-
-    </div>
-  );
-}
-
