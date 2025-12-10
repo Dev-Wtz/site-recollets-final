@@ -742,26 +742,26 @@ export default function Home() {
               <div className="space-y-6 w-full">
                 <article className="group cursor-pointer border-b border-gray-200 pb-5">
                   <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    15 Novembre 2024
+                    25 Janvier 2025
                   </p>
                   <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Cérémonie de remise des diplômes du baccalauréat
+                    Assemblée générale OGEC Les Récollets
                   </h3>
                 </article>
                 <article className="group cursor-pointer border-b border-gray-200 pb-5">
                   <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    08 Novembre 2024
+                    15 Février 2025
                   </p>
                   <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Portes ouvertes : Découvrez nos établissements
+                    Journées portes ouvertes - Inscriptions 2025-2026
                   </h3>
                 </article>
                 <article className="group cursor-pointer border-b border-gray-200 pb-5">
                   <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    01 Novembre 2024
+                    28 Juin 2025
                   </p>
                   <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Nouveau partenariat avec l'Université de Lorraine
+                    Fête de fin d'année et remise des prix
                   </h3>
                 </article>
               </div>
