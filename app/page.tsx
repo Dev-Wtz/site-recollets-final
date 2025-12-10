@@ -348,9 +348,9 @@ export default function Home() {
                 <Image
                   src="/logo.png"
                   alt="Logo Les Récollets"
-                  width={28}
-                  height={28}
-                  className="brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
+                  width={32}
+                  height={32}
+                  className="brightness-0 invert opacity-90 hover:opacity-100 transition-opacity drop-shadow-[0_0_1px_rgba(255,255,255,0.8)]"
                   priority
                 />
               </div>
