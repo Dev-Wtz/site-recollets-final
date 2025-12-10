@@ -346,11 +346,11 @@ export default function Home() {
               {/* Logo à gauche - Uniquement sur la page d'accueil */}
               <div className="absolute left-4 lg:left-8 flex items-center z-10">
                 <Image
-                  src="/logo-recollets.svg"
+                  src="/logo.png"
                   alt="Logo Les Récollets"
                   width={28}
                   height={28}
-                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  className="brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                   priority
                 />
               </div>
