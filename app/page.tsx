@@ -776,7 +776,7 @@ export default function Home() {
                 <div className="flex gap-5 border-b border-gray-200 pb-5">
                   <div className="flex-shrink-0 text-center">
                     <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      12
+                      07
                     </div>
                     <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
                       Déc
@@ -784,10 +784,10 @@ export default function Home() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      Concert de Noël
+                      Départ au ski
                     </h3>
                     <p className="text-sm text-gray-600">
-                      Chapelle des Récollets, 19h00
+                      Séjour au ski pour nos élèves de 6ème.
                     </p>
                   </div>
                 </div>
@@ -795,18 +795,18 @@ export default function Home() {
                 <div className="flex gap-5 border-b border-gray-200 pb-5">
                   <div className="flex-shrink-0 text-center">
                     <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      18
+                      -
                     </div>
                     <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
-                      Déc
+                      -
                     </div>
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      Vacances d'hiver
+                      La journée allemande
                     </h3>
                     <p className="text-sm text-gray-600">
-                      Fermeture des établissements
+                      
                     </p>
                   </div>
                 </div>
@@ -814,18 +814,18 @@ export default function Home() {
                 <div className="flex gap-5 border-b border-gray-200 pb-5">
                   <div className="flex-shrink-0 text-center">
                     <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      09
+                      -
                     </div>
                     <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
-                      Jan
+                      -
                     </div>
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      Rentrée scolaire
+                      La journée festival italien
                     </h3>
                     <p className="text-sm text-gray-600">
-                      Reprise des cours
+                      
                     </p>
                   </div>
                 </div>
