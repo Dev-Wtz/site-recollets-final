@@ -167,28 +167,3 @@ body {
 .banner-rouge p {
   color: #ffffff !important;
 }
-
-/* Hero section - Compatible avec Safari et Chrome - UNIQUEMENT sur mobile */
-@media (max-width: 767px) {
-  .hero-section-mobile {
-    /* Fallback pour les navigateurs qui ne supportent pas dvh */
-    height: 85vh;
-    min-height: 85vh;
-  }
-
-  /* Utilise dvh (dynamic viewport height) si supporté - meilleur pour Safari mobile */
-  @supports (height: 100dvh) {
-    .hero-section-mobile {
-      height: 85dvh;
-      min-height: 85dvh;
-    }
-  }
-
-  /* Ajustement spécifique pour Safari iOS - utilise -webkit-fill-available */
-  @supports (-webkit-touch-callout: none) {
-    .hero-section-mobile {
-      height: -webkit-fill-available;
-      min-height: -webkit-fill-available;
-    }
-  }
-}
