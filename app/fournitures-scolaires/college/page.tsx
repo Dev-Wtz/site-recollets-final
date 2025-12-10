@@ -462,7 +462,7 @@ export default function FournitureCollegePage() {  // Liste des classes du coll�
             </h3>
             
             {/* Conteneur avec défilement horizontal - Affiche 7 boutons à la fois */}
-            <div className="relative flex items-center justify-center gap-4">
+            <div className="relative flex items-center justify-center gap-4 w-full">
               {/* Flèche gauche */}
               <button
                 onClick={scrollLeft}
@@ -482,32 +482,33 @@ export default function FournitureCollegePage() {  // Liste des classes du coll�
               </button>
 
               {/* Conteneur de scroll centré */}
-              <div className="flex-1 flex justify-center items-center relative">
+              <div className="flex-1 flex justify-center items-center relative max-w-full">
                 <div 
                   ref={scrollContainerRef}
                   onScroll={checkScroll}
-                  className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative mx-auto"
+                  className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
                   style={{ 
                     width: '100%',
                     maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)', // 7 boutons max ou 75% de l'écran
                     minHeight: '80px',
+                    margin: '0 auto',
                   }}
                 >
-                  <div className="flex gap-4 px-2 py-2 justify-center" style={{ width: 'max-content', margin: '0 auto' }}>
+                  <div className="flex gap-4 px-2 py-2" style={{ width: 'max-content', margin: '0 auto' }}>
                     {/* Espace à gauche pour permettre le scroll complet */}
                     <div className="flex-shrink-0 w-16"></div>
                     {classes.map((classe) => (
                       <button
                         key={classe.code}
                         onClick={() => setClasseSelectionnee(classe.code)}
-                        className={`flex-shrink-0 w-28 px-5 py-3 rounded-xl font-[var(--font-inter)] text-lg font-bold transition-all duration-300 snap-start focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-1 ${
+                        className={`flex-shrink-0 w-28 px-4 py-3 rounded-xl font-[var(--font-inter)] text-lg font-bold transition-all duration-300 snap-start focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-1 flex flex-col items-center justify-center text-center ${
                           classeSelectionnee === classe.code
                             ? 'bg-gradient-to-br from-[#8C1515] to-[#a01919] text-white transform scale-105 ring-2 ring-[#8C1515] ring-offset-1'
                             : 'bg-white text-[#8C1515] border-2 border-[#8C1515]/60 hover:bg-[#8C1515] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#8C1515] active:scale-95'
                         }`}
                       >
-                        <div className="font-bold">{classe.code}</div>
-                        <div className="text-xs mt-1 opacity-90">{classe.nom}</div>
+                        <div className="font-bold text-center">{classe.code}</div>
+                        <div className="text-xs mt-1 opacity-90 text-center leading-tight">{classe.nom}</div>
                       </button>
                     ))}
                   </div>
