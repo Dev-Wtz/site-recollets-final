@@ -86,8 +86,8 @@ export default function FournitureEcolePage() {  // Liste des classes de l'écol
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  // État pour le masque CSS
-  const [maskImage, setMaskImage] = useState('linear-gradient(to right, transparent 0%, black 80px, black calc(100% - 80px), transparent 100%)');
+  // État pour le masque CSS - Initialement au début, donc seulement dégradé à droite
+  const [maskImage, setMaskImage] = useState('linear-gradient(to right, black 0%, black calc(100% - 100px), transparent 100%)');
 
   // Fonction pour vérifier le scroll
   const checkScroll = () => {
