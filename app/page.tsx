@@ -343,6 +343,18 @@ export default function Home() {
         <div className={`text-white transition-all duration-300 border-b border-white/10 ${isScrolled ? 'bg-[#2e2d29]/95 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}>
           <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-center h-14 relative">
+              {/* Logo à gauche - Uniquement sur la page d'accueil */}
+              <div className="absolute left-4 lg:left-8 flex items-center z-10">
+                <Image
+                  src="/logo-recollets.svg"
+                  alt="Logo Les Récollets"
+                  width={28}
+                  height={28}
+                  className="opacity-90 hover:opacity-100 transition-opacity"
+                  priority
+                />
+              </div>
+              
               {/* Links centrés avec menus déroulants - Toujours présent pour mesurer la largeur */}
               <div 
                 ref={navRef} 
