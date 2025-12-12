@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
+import { ChevronDown, ArrowLeft, Menu, X, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useEffect, useState, useRef } from 'react';
 
@@ -384,13 +384,31 @@ export default function MaternellePage() {
             </div>
           </div>
 
-          {/* Image du menu */}
-          <div className="flex justify-center">
-            <img
-              src="/MenuMaternelle.png"
-              alt="Menu Maternelle - Les Récollets"
-              className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
-            />
+          {/* Image du menu avec bouton de téléchargement */}
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex justify-center w-full">
+              <div className="relative w-full max-w-6xl">
+                <img
+                  src="/MenuMaternelle.png"
+                  alt="Menu Maternelle - Les Récollets"
+                  className="w-full h-auto rounded-lg shadow-2xl"
+                />
+              </div>
+            </div>
+            <button
+              onClick={() => {
+                const link = document.createElement('a');
+                link.href = '/MenuMaternelle.png';
+                link.download = 'Menu-Maternelle-Les-Recollets.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+              }}
+              className="flex items-center gap-2 px-6 py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
+            >
+              <Download size={20} />
+              Télécharger le menu
+            </button>
           </div>
         </div>
       </section>
