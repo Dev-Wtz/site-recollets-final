@@ -280,21 +280,7 @@ export default function FournitureCollegePage() {  // Liste des classes du coll√
                     <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Les Choucas</Link>
                     <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Ateliers</Link>
-                    </div>
-                  )}
-                </div>
-
-                {/* Bouton Ecole Direct dans le menu mobile */}
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <a
-                    href="https://www.ecoledirecte.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
-                  >
-                    Ecole Direct
-                  </a>
-                </div>                  </div>
+                  </div>
                 </div>
               </div>
             
@@ -454,22 +440,20 @@ export default function FournitureCollegePage() {  // Liste des classes du coll√
                     <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
                     <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
-                    </div>
-                  )}
-                </div>
-
-                {/* Bouton Ecole Direct dans le menu mobile */}
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <a
-                    href="https://www.ecoledirecte.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
-                  >
-                    Ecole Direct
-                  </a>
-                </div>                  </div>
+                  </div>
                 )}
+              </div>
+
+              {/* Bouton Ecole Direct dans le menu mobile */}
+              <div className="mt-4 pt-4 border-t border-gray-200">
+                <a
+                  href="https://www.ecoledirecte.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
+                >
+                  Ecole Direct
+                </a>
               </div>
             </div>
           </div>
