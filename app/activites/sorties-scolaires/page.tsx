@@ -473,11 +473,11 @@ export default function SortiesScolairesPage() {
             {articles.map((article) => (
               <article key={article.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="md:flex">
-                  <div className="md:w-1/3 relative h-64 md:h-64">
+                  <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
                     <img
                       src={article.image}
                       alt={article.titre}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                   <div className="md:w-2/3 p-6 md:p-8">

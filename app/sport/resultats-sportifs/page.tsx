@@ -416,11 +416,11 @@ export default function ResultatsSportifsPage() {
             {/* Article 1: Championnat Grand Est UGSEL de bad */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-64">
+                <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
                   <img
                     src="/championnat.jpg"
                     alt="Championnat Grand Est UGSEL de bad"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div className="md:w-2/3 p-6 md:p-8">
@@ -471,11 +471,11 @@ export default function ResultatsSportifsPage() {
             {/* Article 2: Olympiades UNSS LYCÉE */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-64">
+                <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
                   <img
                     src="/olympiade.jpg"
                     alt="Olympiades UNSS LYCÉE"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div className="md:w-2/3 p-6 md:p-8">
@@ -514,11 +514,11 @@ export default function ResultatsSportifsPage() {
             {/* Article 3: Championnats de France de natation (UGSEL) */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-64">
+                <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
                   <img
                     src="/natations.jpg"
                     alt="Championnats de France de natation (UGSEL)"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <div className="md:w-2/3 p-6 md:p-8">

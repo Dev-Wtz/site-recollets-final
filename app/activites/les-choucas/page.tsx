@@ -452,7 +452,7 @@ export default function LesChoucasPage() {
             {projets.map((projet) => (
               <article key={projet.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="md:flex">
-                  <div className="md:w-1/3 relative h-64 md:h-64">
+                  <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
                     <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                       <span className="text-gray-400 text-sm">Image à venir</span>
                     </div>
