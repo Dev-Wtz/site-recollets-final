@@ -290,11 +290,12 @@ export default function FournitureCollegePage() {  // Liste des classes du coll√
                   href="https://www.ecoledirecte.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-gray-200 transition-colors text-xs lg:text-sm font-medium whitespace-nowrap"
+                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
                 >
                   Ecole Direct
                 </a>
               </div>
+            
               {/* Bouton hamburger - affich√© quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
                 <div className="absolute right-0">

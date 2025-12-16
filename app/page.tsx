@@ -443,12 +443,12 @@ export default function Home() {
               </div>
               
               {/* Bouton Ecole Direct à droite */}
-              <div className="absolute right-4 lg:right-8 flex items-center z-20">
+              <div className="absolute right-4 lg:right-8 flex items-center z-10">
                 <a
                   href="https://www.ecoledirecte.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-gray-200 transition-colors text-xs lg:text-sm font-medium whitespace-nowrap"
+                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
                 >
                   Ecole Direct
                 </a>
@@ -456,7 +456,7 @@ export default function Home() {
               
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
-                <div className="w-full flex items-center justify-end absolute inset-0 z-10">
+                <div className="w-full flex items-center justify-end absolute inset-0">
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     className="text-white hover:text-gray-200 transition-colors p-2"

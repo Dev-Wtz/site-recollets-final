@@ -233,11 +233,12 @@ export default function AteliersPage() {
                   href="https://www.ecoledirecte.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-white hover:text-gray-200 transition-colors text-xs lg:text-sm font-medium whitespace-nowrap"
+                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
                 >
                   Ecole Direct
                 </a>
               </div>
+            
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
                 <div className="absolute right-0">
@@ -445,11 +446,11 @@ export default function AteliersPage() {
             {ateliers.map((atelier) => (
               <article key={atelier.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                 <div className="md:flex">
-                  <div className="md:w-1/3 relative h-80 md:h-96 overflow-hidden">
+                  <div className="md:w-1/3 relative h-64 md:h-64">
                     <img
                       src={atelier.image}
                       alt={atelier.titre}
-                      className="w-full h-full object-cover object-center"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   <div className="md:w-2/3 p-6 md:p-8">
