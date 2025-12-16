@@ -193,10 +193,35 @@ export default function ResultatsSportifsPage() {
                     <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Les Choucas</Link>
                     <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Ateliers</Link>
-                  </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bouton Ecole Direct dans le menu mobile */}
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <a
+                    href="https://www.ecoledirecte.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
+                  >
+                    Ecole Direct
+                  </a>
+                </div>                  </div>
                 </div>
               </div>
             
+              {/* Bouton Ecole Direct à droite */}
+              <div className="absolute right-4 lg:right-8 flex items-center z-10">
+                <a
+                  href="https://www.ecoledirecte.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:text-gray-200 transition-colors text-xs lg:text-sm font-medium whitespace-nowrap"
+                >
+                  Ecole Direct
+                </a>
+              </div>
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
                 <div className="absolute right-0">
@@ -342,7 +367,21 @@ export default function ResultatsSportifsPage() {
                     <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
                     <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
-                  </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bouton Ecole Direct dans le menu mobile */}
+                <div className="mt-4 pt-4 border-t border-gray-200">
+                  <a
+                    href="https://www.ecoledirecte.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
+                  >
+                    Ecole Direct
+                  </a>
+                </div>                  </div>
                 )}
               </div>
             </div>
@@ -393,7 +432,7 @@ export default function ResultatsSportifsPage() {
             {/* Article 1: Championnat Grand Est UGSEL de bad */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-auto">
+                <div className="md:w-1/3 relative h-64 md:h-64">
                   <img
                     src="/championnat.jpg"
                     alt="Championnat Grand Est UGSEL de bad"
@@ -448,7 +487,7 @@ export default function ResultatsSportifsPage() {
             {/* Article 2: Olympiades UNSS LYCÉE */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-auto">
+                <div className="md:w-1/3 relative h-64 md:h-64">
                   <img
                     src="/olympiade.jpg"
                     alt="Olympiades UNSS LYCÉE"
@@ -491,7 +530,7 @@ export default function ResultatsSportifsPage() {
             {/* Article 3: Championnats de France de natation (UGSEL) */}
             <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
               <div className="md:flex">
-                <div className="md:w-1/3 relative h-64 md:h-auto">
+                <div className="md:w-1/3 relative h-64 md:h-64">
                   <img
                     src="/natations.jpg"
                     alt="Championnats de France de natation (UGSEL)"
@@ -525,8 +564,8 @@ export default function ResultatsSportifsPage() {
                     </div>
                     <p className="mt-4 font-semibold text-[#8C1515]">
                       Encore bravo à tous !
-                    </p>
-                  </div>
+              </p>
+            </div>
                   <button
                     onClick={() => setExpandedArticle3(!expandedArticle3)}
                     className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
