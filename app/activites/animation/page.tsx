@@ -106,13 +106,39 @@ export default function AnimationPage() {
     return new Date(0);
   };
 
+  // Fonction pour parser les dates avec jour
+  const parseDateWithDay = (dateStr: string): Date => {
+    const monthMap: Record<string, number> = {
+      'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+      'juillet': 7, 'août': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'décembre': 12
+    };
+    
+    // Format "12 décembre" ou "12 décembre 2024"
+    const match = dateStr.match(/(\d+)(?:er)?\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(?:\s+(\d{4}))?/i);
+    if (match) {
+      const day = parseInt(match[1]);
+      const month = monthMap[match[2].toLowerCase()];
+      const year = match[3] ? parseInt(match[3]) : 2024;
+      return new Date(year, month - 1, day);
+    }
+    return new Date(0);
+  };
+
   const articles = [
     {
       id: 1,
+      titre: 'Marché de Noël interne et Vente de chocolat',
+      date: '12 décembre',
+      dateSort: parseDateWithDay('12 décembre'),
+      image: '/decoration.jpeg',
+      texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
+    },
+    {
+      id: 2,
       titre: 'Décoration de Noël',
       date: 'Décembre 2024',
       dateSort: parseDate('Décembre 2024'),
-      image: '/hero.jpg',
+      image: '/decoration.jpeg',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime()); // Tri du plus récent au plus ancien
@@ -215,7 +241,8 @@ export default function AnimationPage() {
                   <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
                     <Link href="/activites/animation" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg bg-[#8C1515] text-white">Animation</Link>
                     <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Sorties scolaires</Link>
-                    <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Les Choucas</Link>
+                    <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Les Choucas</Link>
+                    <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Ateliers</Link>
                   </div>
                 </div>
               </div>
@@ -364,6 +391,7 @@ export default function AnimationPage() {
                     <Link href="/activites/animation" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Animation</Link>
                     <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
+                    <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
                   </div>
                 )}
               </div>

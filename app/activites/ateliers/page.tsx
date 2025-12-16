@@ -1,14 +1,18 @@
 'use client';
 
-import { ChevronDown, ArrowLeft, ChevronLeft, ChevronRight, Menu, X } from 'lucide-react';
+import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
-export default function TauxReussitePage() {  // Liste des années de 2025 à 2017 (du plus récent au plus ancien)
+export default function AteliersPage() {
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [showMoreDescription, setShowMoreDescription] = useState(false);
+  const [needsShowMore, setNeedsShowMore] = useState(false);
+  const [expandedAteliers, setExpandedAteliers] = useState<Record<number, boolean>>({});
   const navRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
 
   // Vérifier si navbar1 dépasse 85% de la largeur de l'écran
   useEffect(() => {
@@ -67,158 +71,57 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
     };
   }, []);
 
-  const annees = [
-    { annee: 2025, extension: 'png' },
-    { annee: 2024, extension: 'jpg' },
-    { annee: 2023, extension: 'png' },
-    { annee: 2022, extension: 'png' },
-    { annee: 2021, extension: 'png' },
-    { annee: 2020, extension: 'png' },
-    { annee: 2019, extension: 'png' },
-    { annee: 2018, extension: 'png' },
-    { annee: 2017, extension: 'png' },
-  ];
-
-  // État pour l'année sélectionnée (2025 par défaut - première année)
-  const [anneeSelectionnee, setAnneeSelectionnee] = useState<number | null>(2025);
-  
-  // Référence pour le conteneur de scroll
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-
-  // Trouver l'année sélectionnée
-  const anneeActuelle = anneeSelectionnee ? annees.find(a => a.annee === anneeSelectionnee) : null;
-
-  // État pour la progression du scroll
-  const [scrollProgress, setScrollProgress] = useState(0);
-  
-  // État pour le masque CSS - Initialement au début, donc seulement dégradé à droite
-  const [maskImage, setMaskImage] = useState('linear-gradient(to right, black 0%, black calc(100% - 100px), transparent 100%)');
-
-  // Fonction pour calculer la progression du scroll
-  const updateScrollProgress = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      const maxScroll = scrollWidth - clientWidth;
-      if (maxScroll > 0) {
-        const progress = (scrollLeft / maxScroll) * 100;
-        setScrollProgress(progress);
-      } else {
-        setScrollProgress(0);
-      }
-    }
-  };
-
-  // Fonction améliorée pour vérifier le scroll (avec seuil pour éviter les problèmes de précision)
-  const checkScroll = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const { scrollLeft, scrollWidth, clientWidth } = container;
-      const threshold = 1; // Seuil réduit pour détecter le début/fin
-      const maxScroll = scrollWidth - clientWidth;
-      
-      // Détection normale
-      const newCanScrollLeft = scrollLeft > threshold;
-      const newCanScrollRight = maxScroll > 0 && scrollLeft < maxScroll - threshold;
-      
-      setCanScrollLeft(newCanScrollLeft);
-      setCanScrollRight(newCanScrollRight);
-      updateScrollProgress();
-      
-      // Mettre à jour le masque CSS - dégradé à gauche seulement si on a défilé
-      const gradientWidth = '100px'; // Largeur du dégradé ajustée
-      
-      // Si on est tout à gauche (scrollLeft = 0 ou très proche), pas de dégradé à gauche
-      const isAtStart = scrollLeft <= threshold;
-      const isAtEnd = maxScroll > 0 && scrollLeft >= maxScroll - threshold;
-      
-      if (isAtStart && isAtEnd) {
-        // Pas de dégradé si on ne peut scroller ni à gauche ni à droite
-        setMaskImage('none');
-      } else if (isAtStart) {
-        // Pas de dégradé à gauche, seulement à droite - on est au début
-        setMaskImage(`linear-gradient(to right, black 0%, black calc(100% - ${gradientWidth}), transparent 100%)`);
-      } else if (isAtEnd) {
-        // Pas de dégradé à droite, seulement à gauche - on est à la fin
-        setMaskImage(`linear-gradient(to right, transparent 0%, black ${gradientWidth}, black 100%)`);
-      } else {
-        // Dégradé des deux côtés - on peut scroller dans les deux directions (on a défilé)
-        setMaskImage(`linear-gradient(to right, transparent 0%, black ${gradientWidth}, black calc(100% - ${gradientWidth}), transparent 100%)`);
-      }
-    }
-  };
-
-  // Scroll initial : commencer à la position la plus à gauche (premières années)
+  // Vérifier si la description fait plus de 8 lignes
   useEffect(() => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      
-      // Forcer le scroll à 0 pour commencer à gauche (2025) - avec l'espace à gauche
-      container.scrollLeft = 0;
-      
-      // Vérifier l'état du scroll après un court délai
-      setTimeout(() => {
-        checkScroll();
-      }, 100);
-    }
-  }, []);
-
-  // Listener pour mettre à jour dynamiquement les indicateurs lors du scroll
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    // Vérifier immédiatement
-    checkScroll();
-
-    // Ajouter un listener pour le scroll avec throttling pour performance
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          checkScroll();
-          ticking = false;
-        });
-        ticking = true;
+    const checkDescriptionHeight = () => {
+      if (descriptionRef.current) {
+        const lineHeight = parseFloat(getComputedStyle(descriptionRef.current).lineHeight) || 28;
+        const maxHeight = lineHeight * 8; // 8 lignes
+        const actualHeight = descriptionRef.current.scrollHeight;
+        setNeedsShowMore(actualHeight > maxHeight);
       }
     };
 
-    container.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Vérifier aussi lors du redimensionnement
-    window.addEventListener('resize', checkScroll);
-
+    const timer = setTimeout(checkDescriptionHeight, 100);
+    window.addEventListener('resize', checkDescriptionHeight);
     return () => {
-      container.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', checkScroll);
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkDescriptionHeight);
     };
   }, []);
 
-  // Fonctions de scroll avec mise à jour immédiate
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      const buttonWidth = 112 + 16; // w-28 (112px) + gap-4 (16px)
-      scrollContainerRef.current.scrollBy({ left: -buttonWidth * 2, behavior: 'smooth' });
-      // Mise à jour immédiate puis après l'animation avec plusieurs vérifications
-      requestAnimationFrame(checkScroll);
-      setTimeout(checkScroll, 50);
-      setTimeout(checkScroll, 200);
-      setTimeout(checkScroll, 400);
-    }
-  };
-
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      const buttonWidth = 112 + 16; // w-28 (112px) + gap-4 (16px)
-      scrollContainerRef.current.scrollBy({ left: buttonWidth * 2, behavior: 'smooth' });
-      // Mise à jour immédiate puis après l'animation avec plusieurs vérifications
-      requestAnimationFrame(checkScroll);
-      setTimeout(checkScroll, 50);
-      setTimeout(checkScroll, 200);
-      setTimeout(checkScroll, 400);
-    }
-  };
+  const ateliers = [
+    {
+      id: 1,
+      titre: 'Club Rubik\'s Cube',
+      image: '/hero.jpg',
+      texte: 'Le club Rubik\'s Cube permet aux élèves de développer leur logique, leur patience et leur dextérité. Les participants apprennent différentes méthodes de résolution et participent à des compétitions amicales. Un excellent moyen de stimuler l\'esprit tout en s\'amusant.',
+    },
+    {
+      id: 2,
+      titre: 'Club Détente',
+      image: '/hero.jpg',
+      texte: 'Le club détente offre un espace de relaxation et de bien-être aux élèves. Des activités variées sont proposées pour permettre aux jeunes de se ressourcer, de gérer le stress et de développer leur bien-être personnel dans un cadre apaisant et bienveillant.',
+    },
+    {
+      id: 3,
+      titre: 'Club Théâtre',
+      image: '/hero.jpg',
+      texte: 'Le club théâtre permet aux élèves de développer leur expression orale, leur confiance en soi et leur créativité. Les participants travaillent sur des pièces, des improvisations et des représentations, enrichissant leur culture artistique et leur capacité à s\'exprimer devant un public.',
+    },
+    {
+      id: 4,
+      titre: 'Club Jeux Maths',
+      image: '/hero.jpg',
+      texte: 'Le club jeux maths propose une approche ludique des mathématiques. Les élèves découvrent les mathématiques à travers des jeux, des énigmes et des défis, développant ainsi leur logique et leur goût pour cette discipline de manière amusante et interactive.',
+    },
+    {
+      id: 5,
+      titre: 'Club Donjon et Dragon',
+      image: '/hero.jpg',
+      texte: 'Le club Donjon et Dragon permet aux élèves de développer leur imagination, leur esprit d\'équipe et leur créativité narrative. Les participants créent des personnages, vivent des aventures épiques et apprennent à collaborer dans un univers fantastique riche en défis et en découvertes.',
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -239,7 +142,7 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
               {/* Links centrés avec menus déroulants */}
               <div 
                 ref={navRef}
-                className={`flex items-center gap-2 lg:gap-7 text-xs lg:text-sm absolute left-1/2 -translate-x-1/2 whitespace-nowrap ${showHamburgerMenu ? 'opacity-0 pointer-events-none -z-10' : ''}`}
+                className={`flex items-center gap-2 lg:gap-7 text-xs lg:text-sm absolute left-1/2 -translate-x-1/2 ${showHamburgerMenu ? 'opacity-0 pointer-events-none -z-10' : ''}`}
               >
                 {/* Structures */}
                 <div className="relative group">
@@ -265,7 +168,7 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                   <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
                     <Link href="/administration/tarif" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Tarif</Link>
                     <Link href="/administration/reglement" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Règlement</Link>
-                    <Link href="/administration/taux-reussite" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg bg-[#8C1515] text-white">Taux de réussite</Link>
+                    <Link href="/administration/taux-reussite" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Taux de réussite</Link>
                   </div>
                 </div>
 
@@ -319,7 +222,7 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                     <Link href="/activites/animation" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Animation</Link>
                     <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Les Choucas</Link>
-                    <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Ateliers</Link>
+                    <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors bg-[#8C1515] text-white last:rounded-b-lg">Ateliers</Link>
                   </div>
                 </div>
               </div>
@@ -477,122 +380,86 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
         )}
       </header>
 
-      {/* Section Taux de Réussite avec animation de fondu */}
+      {/* Section Ateliers avec animation de fondu */}
       <section className="bg-white py-16 pt-32 animate-fade-in">
         <div className="max-w-[1400px] mx-auto px-8">
           <div className="mb-12">
             <h2 className="font-[var(--font-playfair)] text-5xl lg:text-6xl font-bold text-[#8C1515] mb-6 text-center">
-              Taux de Réussite
+              Ateliers
             </h2>
             <div className="w-24 h-1 bg-[#8C1515] mx-auto mb-8"></div>
             
-            {/* Texte sur l'excellence des résultats */}
-            <div className="max-w-4xl mx-auto mb-12 text-center">
-              <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                L'Ensemble Scolaire Privé des Récollets se distingue par l'excellence de ses résultats aux examens nationaux. Depuis de nombreuses années, nos élèves obtiennent des taux de réussite remarquables qui témoignent de la qualité de notre enseignement et de l'accompagnement personnalisé que nous offrons à chaque jeune.
-              </p>
-              <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                Notre engagement envers l'excellence académique, combiné à une pédagogie bienveillante et exigeante, permet à nos élèves de développer leur plein potentiel et de réussir brillamment leurs examens. Ces résultats exceptionnels reflètent le travail assidu de nos équipes éducatives et la confiance que nous plaçons en chaque élève.
-              </p>
-              <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                Découvrez ci-dessous les résultats détaillés en sélectionnant l'année souhaitée.
-              </p>
+            {/* Texte descriptif */}
+            <div className="max-w-3xl mx-auto mb-12 text-center">
+              <div 
+                ref={descriptionRef}
+                className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
+              >
+                <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
+                  Les ateliers proposés par l'établissement offrent aux élèves l'opportunité de développer leurs compétences, leurs passions et leurs talents dans un cadre convivial et bienveillant.
+                </p>
+                <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed">
+                  Découvrez ci-dessous les différents clubs et ateliers disponibles pour enrichir l'expérience éducative de nos élèves.
+                </p>
+              </div>
+              {needsShowMore && (
+                <button
+                  onClick={() => setShowMoreDescription(!showMoreDescription)}
+                  className="mt-4 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1 mx-auto"
+                >
+                  {showMoreDescription ? 'Voir moins' : 'Voir plus'}
+                  <ChevronDown 
+                    size={16} 
+                    className={`transition-transform ${showMoreDescription ? 'rotate-180' : ''}`}
+                  />
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Sélecteur d'année - Défilement horizontal avec 7 boutons visibles */}
-          <div className="w-full max-w-[75vw] mx-auto mb-12">
-            <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-6 text-center">
-              Sélectionnez une année
-            </h3>
-            
-            {/* Conteneur avec défilement horizontal - Affiche 7 boutons à la fois */}
-            <div className="relative flex items-center justify-center gap-4">
-              {/* Flèche gauche */}
-              <button
-                onClick={scrollLeft}
-                disabled={!canScrollLeft}
-                className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  canScrollLeft
-                    ? 'bg-[#8C1515] text-white hover:bg-[#a01919] hover:scale-110 hover:shadow-xl cursor-pointer shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2'
-                    : 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-40'
-                }`}
-                aria-label="Défiler vers la gauche"
-              >
-                <ChevronLeft 
-                  size={22} 
-                  strokeWidth={3} 
-                  className={canScrollLeft ? 'animate-arrow-left' : ''}
-                />
-              </button>
-
-              {/* Conteneur de scroll centré avec dégradés */}
-              <div className="flex-1 flex justify-center relative">
-                <div 
-                  ref={scrollContainerRef}
-                  onScroll={checkScroll}
-                  className="overflow-x-auto overflow-y-visible scrollbar-hide snap-x snap-mandatory scroll-smooth relative"
-                  style={{ 
-                    width: '100%',
-                    maxWidth: 'min(calc(7 * (112px + 16px)), 75vw)', // 7 boutons max ou 75% de l'écran
-                    minHeight: '80px', // Hauteur minimale pour éviter la coupure
-                  }}
-                >
-                  <div className="flex gap-4 px-2 py-2" style={{ width: 'max-content' }}>
-                    {/* Espace à gauche pour permettre le scroll complet jusqu'à 2025 */}
-                    <div className="flex-shrink-0 w-16"></div>
-                    {annees.map(({ annee }) => (
-                      <button
-                        key={annee}
-                        onClick={() => setAnneeSelectionnee(annee)}
-                        className={`flex-shrink-0 w-28 px-5 py-3 rounded-xl font-[var(--font-inter)] text-lg font-bold transition-all duration-300 snap-start focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-1 ${
-                          anneeSelectionnee === annee
-                            ? 'bg-gradient-to-br from-[#8C1515] to-[#a01919] text-white transform scale-105 ring-2 ring-[#8C1515] ring-offset-1'
-                            : 'bg-white text-[#8C1515] border-2 border-[#8C1515]/60 hover:bg-[#8C1515] hover:text-white hover:shadow-lg hover:scale-105 hover:border-[#8C1515] active:scale-95'
-                        }`}
-                      >
-                        {annee}
-                      </button>
-                    ))}
+          {/* Ateliers */}
+          <div className="max-w-5xl mx-auto space-y-12">
+            {ateliers.map((atelier) => (
+              <article key={atelier.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="md:flex">
+                  <div className="md:w-1/3 relative h-64 md:h-auto">
+                    <img
+                      src={atelier.image}
+                      alt={atelier.titre}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="md:w-2/3 p-6 md:p-8">
+                    <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                      {atelier.titre}
+                    </h3>
+                    <div>
+                      <p className={`font-[var(--font-inter)] text-gray-700 leading-relaxed ${
+                        !expandedAteliers[atelier.id] ? 'line-clamp-4' : ''
+                      }`}>
+                        {atelier.texte}
+                      </p>
+                      {atelier.texte.length > 150 && (
+                        <button
+                          onClick={() => setExpandedAteliers(prev => ({
+                            ...prev,
+                            [atelier.id]: !prev[atelier.id]
+                          }))}
+                          className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                        >
+                          {expandedAteliers[atelier.id] ? 'Voir moins' : 'En savoir plus'}
+                          <ChevronDown 
+                            size={16} 
+                            className={`transition-transform ${expandedAteliers[atelier.id] ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Flèche droite */}
-              <button
-                onClick={scrollRight}
-                disabled={!canScrollRight}
-                className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  canScrollRight
-                    ? 'bg-[#8C1515] text-white hover:bg-[#a01919] hover:scale-110 hover:shadow-xl cursor-pointer shadow-lg active:scale-95 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2'
-                    : 'bg-gray-100 text-gray-300 cursor-not-allowed opacity-40'
-                }`}
-                aria-label="Défiler vers la droite"
-              >
-                <ChevronRight 
-                  size={22} 
-                  strokeWidth={3} 
-                  className={canScrollRight ? 'animate-arrow-right' : ''}
-                />
-              </button>
-            </div>
+              </article>
+            ))}
           </div>
-
-          {/* Affichage du résultat de l'année sélectionnée */}
-          {anneeActuelle && (
-            <div className="mb-12">
-              <h3 className="font-[var(--font-playfair)] text-3xl lg:text-4xl font-bold text-[#8C1515] mb-6 text-center">
-                Résultats {anneeActuelle.annee}
-              </h3>
-              <div className="flex justify-center">
-                <img
-                  src={`/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
-                  alt={`Résultats des examens ${anneeActuelle.annee} - Les Récollets`}
-                  className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
-                />
-              </div>
-            </div>
-          )}
         </div>
       </section>
 

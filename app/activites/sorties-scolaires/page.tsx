@@ -114,7 +114,7 @@ export default function SortiesScolairesPage() {
       titre: 'Rentrée scolaire',
       date: '1er septembre',
       dateSort: parseDate('1er septembre'),
-      image: '/hero.jpg',
+      image: '/rentree.jpeg',
       texte: 'Rentrée scolaire pour tous les élèves de l\'établissement. Un moment important qui marque le début d\'une nouvelle année scolaire riche en apprentissages et en découvertes.',
     },
     {
@@ -122,7 +122,7 @@ export default function SortiesScolairesPage() {
       titre: 'Baden Baden - Marché de Noël en Allemagne',
       date: '17 octobre',
       dateSort: parseDate('17 octobre'),
-      image: '/hero.jpg',
+      image: '/baden.jpeg',
       texte: 'Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s\'immerger dans les traditions allemandes et de pratiquer la langue dans un contexte authentique.',
     },
     {
@@ -130,7 +130,7 @@ export default function SortiesScolairesPage() {
       titre: 'Festival du film italien',
       date: '6 novembre',
       dateSort: parseDate('6 novembre'),
-      image: '/hero.jpg',
+      image: '/festival.png',
       texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7ème art.',
     },
     {
@@ -138,7 +138,7 @@ export default function SortiesScolairesPage() {
       titre: 'Séjour au ski',
       date: '7 au 12 décembre',
       dateSort: parseDate('7 décembre'),
-      image: '/hero.jpg',
+      image: '/ski.jpeg',
       texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d\'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
     },
     {
@@ -146,7 +146,7 @@ export default function SortiesScolairesPage() {
       titre: 'Musée Pompidou',
       date: '11 et 15 décembre',
       dateSort: parseDate('11 décembre'),
-      image: '/hero.jpg',
+      image: '/pompidou.jpg',
       texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime()); // Tri du plus récent au plus ancien
@@ -249,7 +249,8 @@ export default function SortiesScolairesPage() {
                   <div className="absolute top-full left-0 mt-2 bg-white text-gray-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[180px] z-50">
                     <Link href="/activites/animation" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors first:rounded-t-lg">Animation</Link>
                     <Link href="/activites/sorties-scolaires" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors bg-[#8C1515] text-white">Sorties scolaires</Link>
-                    <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Les Choucas</Link>
+                    <Link href="/activites/les-choucas" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors">Les Choucas</Link>
+                    <Link href="/activites/ateliers" className="block px-4 py-2.5 hover:bg-[#8C1515] hover:text-white transition-colors last:rounded-b-lg">Ateliers</Link>
                   </div>
                 </div>
               </div>
@@ -398,6 +399,7 @@ export default function SortiesScolairesPage() {
                     <Link href="/activites/animation" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Animation</Link>
                     <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
                     <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
+                    <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
                   </div>
                 )}
               </div>
