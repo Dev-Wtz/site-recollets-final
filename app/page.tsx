@@ -178,7 +178,7 @@ export default function Home() {
           
           const measureSubtitle = document.createElement('span');
           measureSubtitle.style.cssText = 'position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:' + subtitleFontFamily + ';font-weight:900;letter-spacing:0.35em';
-          measureSubtitle.textContent = 'Ensemble Scolaire Privé - Longwy';
+          measureSubtitle.textContent = 'Ensemble Scolaire Privé';
           document.body.appendChild(measureSubtitle);
           
           iterations = 0;
@@ -695,7 +695,7 @@ export default function Home() {
                   textShadow: '0px 4px 20px rgba(0, 0, 0, 1), 0px 2px 10px rgba(0, 0, 0, 1)'
                 }}
               >
-                Ensemble Scolaire Privé - Longwy
+                Ensemble Scolaire Privé
               </p>
             </div>
             

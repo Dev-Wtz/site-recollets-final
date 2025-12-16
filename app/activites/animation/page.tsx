@@ -90,15 +90,32 @@ export default function AnimationPage() {
     };
   }, []);
 
+  // Fonction pour convertir la date en format comparable
+  const parseDate = (dateStr: string): Date => {
+    const monthMap: Record<string, number> = {
+      'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+      'juillet': 7, 'août': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'décembre': 12
+    };
+    
+    const match = dateStr.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i);
+    if (match) {
+      const month = monthMap[match[1].toLowerCase()];
+      const year = parseInt(match[2]);
+      return new Date(year, month - 1, 1);
+    }
+    return new Date(0);
+  };
+
   const articles = [
     {
       id: 1,
       titre: 'Décoration de Noël',
       date: 'Décembre 2024',
-      image: '/hero.jpg', // Utilisation de l'image hero comme placeholder
+      dateSort: parseDate('Décembre 2024'),
+      image: '/hero.jpg',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },
-  ];
+  ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime()); // Tri du plus récent au plus ancien
 
   return (
     <div className="min-h-screen bg-white">
@@ -392,81 +409,53 @@ export default function AnimationPage() {
             </div>
           </div>
 
-          {/* Articles du blog */}
-          <div className="max-w-5xl mx-auto">
-            {articles.map((article, index) => {
-              // Article 1 (index 0) : image à gauche, texte à droite
-              // Article 2 (index 1) : texte à gauche, image à droite
-              // Article 3 (index 2) : image à gauche, texte à droite
-              // etc.
-              const imageLeft = index % 2 === 0; // Pair = image à gauche
-              
-              return (
-                <div key={article.id}>
-                  <article className="flex flex-col lg:flex-row">
-                    {/* Image */}
-                    <div className={`w-full lg:w-1/2 h-48 lg:h-72 overflow-hidden ${
-                      imageLeft ? 'lg:order-1' : 'lg:order-2'
-                    }`}>
-                      <img
-                        src={article.image}
-                        alt={article.titre}
-                        className="w-full h-full object-cover"
-                      />
+          {/* Articles */}
+          <div className="max-w-5xl mx-auto space-y-12">
+            {articles.map((article) => (
+              <article key={article.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="md:flex">
+                  <div className="md:w-1/3 relative h-64 md:h-auto">
+                    <img
+                      src={article.image}
+                      alt={article.titre}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="md:w-2/3 p-6 md:p-8">
+                    <div className="mb-3">
+                      <span className="text-xs text-gray-500 font-[var(--font-inter)] uppercase tracking-wide">
+                        {article.date}
+                      </span>
                     </div>
-
-                    {/* Bloc Texte */}
-                    <div className={`w-full lg:w-1/2 bg-gray-100 p-6 lg:p-8 flex flex-col justify-between ${
-                      imageLeft ? 'lg:order-2' : 'lg:order-1'
-                    }`}>
-                      <div>
-                        {/* Date et Titre en haut */}
-                        <div className="mb-3">
-                          <div className="flex items-center gap-2 text-gray-500 mb-1.5">
-                            <Calendar size={14} />
-                            <span className="font-[var(--font-inter)] text-xs">{article.date}</span>
-                          </div>
-                          <h3 className="font-[var(--font-playfair)] text-xl lg:text-2xl font-bold text-[#8C1515]">
-                            {article.titre}
-                          </h3>
-                        </div>
-
-                        {/* Texte */}
-                        <div>
-                          <p className={`font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed ${
-                            !expandedArticles[article.id] ? 'line-clamp-4' : ''
-                          }`}>
-                            {article.texte}
-                          </p>
-                          {article.texte.length > 150 && (
-                            <button
-                              onClick={() => setExpandedArticles(prev => ({
-                                ...prev,
-                                [article.id]: !prev[article.id]
-                              }))}
-                              className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
-                            >
-                              {expandedArticles[article.id] ? 'Voir moins' : 'En savoir plus'}
-                              <ChevronDown 
-                                size={16} 
-                                className={`transition-transform ${expandedArticles[article.id] ? 'rotate-180' : ''}`}
-                              />
-                            </button>
-                          )}
-                        </div>
-                      </div>
+                    <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                      {article.titre}
+                    </h3>
+                    <div>
+                      <p className={`font-[var(--font-inter)] text-gray-700 leading-relaxed ${
+                        !expandedArticles[article.id] ? 'line-clamp-4' : ''
+                      }`}>
+                        {article.texte}
+                      </p>
+                      {article.texte.length > 150 && (
+                        <button
+                          onClick={() => setExpandedArticles(prev => ({
+                            ...prev,
+                            [article.id]: !prev[article.id]
+                          }))}
+                          className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                        >
+                          {expandedArticles[article.id] ? 'Voir moins' : 'En savoir plus'}
+                          <ChevronDown 
+                            size={16} 
+                            className={`transition-transform ${expandedArticles[article.id] ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                      )}
                     </div>
-                  </article>
-                  
-                  {/* Trait rouge animé entre les articles (sauf le dernier) */}
-                  {index < articles.length - 1 && (
-                    <div className="flex justify-center py-6">
-                      <div className="h-px bg-[#8C1515] animate-line-expand mx-auto rounded-full"></div>
-                    </div>
-                  )}
+                  </div>
                 </div>
-              );
-            })}
+              </article>
+            ))}
           </div>
         </div>
       </section>

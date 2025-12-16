@@ -90,26 +90,45 @@ export default function LesChoucasPage() {
     };
   }, []);
 
+  // Fonction pour convertir la date en format comparable
+  const parseDate = (dateStr: string): Date => {
+    const monthMap: Record<string, number> = {
+      'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+      'juillet': 7, 'août': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'décembre': 12
+    };
+    
+    const match = dateStr.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i);
+    if (match) {
+      const month = monthMap[match[1].toLowerCase()];
+      const year = parseInt(match[2]);
+      return new Date(year, month - 1, 1);
+    }
+    return new Date(0);
+  };
+
   const projets = [
     {
       id: 1,
       titre: '2 nouveaux projets',
       date: 'Mars 2023',
+      dateSort: parseDate('Mars 2023'),
       texte: 'Bravo aux jeunes des Récollets qui ont œuvré pour offrir du matériel adapté à Ilyana et à Karim. Ainsi la tradition des Choucas se perpétue. Merci à tous.',
     },
     {
       id: 2,
       titre: 'Jus de pomme de la solidarité',
       date: 'Octobre 2022',
+      dateSort: parseDate('Octobre 2022'),
       texte: '29 septembre 2022 : Ramassage des pommes au profit de l\'opération « Jus de pomme de la solidarité ». Les élèves de la classe de 3ème Newton, accompagnés de leurs professeurs, sont allés ramasser les pommes dans les vergers à Baslieux. Une fois les pommes ramassées, ils ont pu découvrir le pressoir dans le village afin de découvrir comment est fabriqué le jus de pomme et goûter du jus fraîchement pressé. Cette sortie a permis aux élèves de récolter 1,2 tonnes de pommes permettant au final de faire 785 litres. Le jus de pomme sera prochainement proposé à la vente au profit de l\'association « Les Choucas » qui a pour projet cette année de financer un fauteuil pivotant afin de permettre à un enfant en situation de handicap d\'accéder à l\'automobile familiale.',
     },
     {
       id: 3,
       titre: 'Coup de Cœur Facebook APJ',
       date: 'Juillet 2022',
+      dateSort: parseDate('Juillet 2022'),
       texte: 'Participe au prix « Coup de Cœur facebook – APJ » en soutenant ton projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
     },
-  ];
+  ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime()); // Tri du plus récent au plus ancien
 
   return (
     <div className="min-h-screen bg-white">
@@ -404,74 +423,50 @@ export default function LesChoucasPage() {
           </div>
 
           {/* Projets */}
-          <div className="max-w-5xl mx-auto">
-            {projets.map((projet, index) => {
-              // Article 1 (index 0) : espace vide à gauche, texte à droite
-              // Article 2 (index 1) : texte à gauche, espace vide à droite
-              // Article 3 (index 2) : espace vide à gauche, texte à droite
-              // etc.
-              const espaceVideLeft = index % 2 === 0; // Pair = espace vide à gauche
-              
-              return (
-                <div key={projet.id}>
-                  <article className="flex flex-col lg:flex-row">
-                    {/* Espace vide pour alterner (équivalent à la photo) */}
-                    <div className={`hidden lg:block lg:w-1/2 bg-gray-50 min-h-[300px] ${
-                      espaceVideLeft ? 'lg:order-1' : 'lg:order-2'
-                    }`}></div>
-
-                    {/* Bloc Texte */}
-                    <div className={`w-full lg:w-1/2 bg-gray-100 p-6 lg:p-8 flex flex-col justify-between ${
-                      espaceVideLeft ? 'lg:order-2' : 'lg:order-1'
-                    }`}>
-                      <div>
-                        {/* Date et Titre en haut */}
-                        <div className="mb-3">
-                          <div className="flex items-center gap-2 text-gray-500 mb-1.5">
-                            <Calendar size={14} />
-                            <span className="font-[var(--font-inter)] text-xs">{projet.date}</span>
-                          </div>
-                          <h3 className="font-[var(--font-playfair)] text-xl lg:text-2xl font-bold text-[#8C1515]">
-                            {projet.titre}
-                          </h3>
-                        </div>
-
-                        {/* Texte */}
-                        <div>
-                          <p className={`font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed ${
-                            !expandedProjets[projet.id] ? 'line-clamp-4' : ''
-                          }`}>
-                            {projet.texte}
-                          </p>
-                          {projet.texte.length > 150 && (
-                            <button
-                              onClick={() => setExpandedProjets(prev => ({
-                                ...prev,
-                                [projet.id]: !prev[projet.id]
-                              }))}
-                              className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
-                            >
-                              {expandedProjets[projet.id] ? 'Voir moins' : 'En savoir plus'}
-                              <ChevronDown 
-                                size={16} 
-                                className={`transition-transform ${expandedProjets[projet.id] ? 'rotate-180' : ''}`}
-                              />
-                            </button>
-                          )}
-                        </div>
-                      </div>
+          <div className="max-w-5xl mx-auto space-y-12">
+            {projets.map((projet) => (
+              <article key={projet.id} className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                <div className="md:flex">
+                  <div className="md:w-1/3 relative h-64 md:h-auto">
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                      <span className="text-gray-400 text-sm">Image à venir</span>
                     </div>
-                  </article>
-                  
-                  {/* Trait rouge animé entre les articles (sauf le dernier) */}
-                  {index < projets.length - 1 && (
-                    <div className="flex justify-center py-6">
-                      <div className="h-px bg-[#8C1515] animate-line-expand mx-auto rounded-full"></div>
+                  </div>
+                  <div className="md:w-2/3 p-6 md:p-8">
+                    <div className="mb-3">
+                      <span className="text-xs text-gray-500 font-[var(--font-inter)] uppercase tracking-wide">
+                        {projet.date}
+                      </span>
                     </div>
-                  )}
+                    <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                      {projet.titre}
+                    </h3>
+                    <div>
+                      <p className={`font-[var(--font-inter)] text-gray-700 leading-relaxed ${
+                        !expandedProjets[projet.id] ? 'line-clamp-4' : ''
+                      }`}>
+                        {projet.texte}
+                      </p>
+                      {projet.texte.length > 150 && (
+                        <button
+                          onClick={() => setExpandedProjets(prev => ({
+                            ...prev,
+                            [projet.id]: !prev[projet.id]
+                          }))}
+                          className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                        >
+                          {expandedProjets[projet.id] ? 'Voir moins' : 'En savoir plus'}
+                          <ChevronDown 
+                            size={16} 
+                            className={`transition-transform ${expandedProjets[projet.id] ? 'rotate-180' : ''}`}
+                          />
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              );
-            })}
+              </article>
+            ))}
           </div>
         </div>
       </section>
