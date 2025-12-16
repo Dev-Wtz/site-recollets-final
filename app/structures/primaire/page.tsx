@@ -419,11 +419,6 @@ export default function PrimairePage() {
               <div className="text-lg font-semibold text-[#8C1515] mb-2">CP - CM2</div>
               <div className="text-gray-600 font-[var(--font-inter)]">Niveaux</div>
             </div>
-            <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
-              <Users className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
-              <div className="text-4xl font-bold text-[#8C1515] mb-2">≈ 125</div>
-              <div className="text-gray-600 font-[var(--font-inter)]">Élèves</div>
-            </div>
           </div>
 
           {/* Tableau des niveaux */}
@@ -442,10 +437,6 @@ export default function PrimairePage() {
                       <div>
                         <div className="text-3xl font-bold text-[#8C1515] mb-1">{niveau.classes}</div>
                         <div className="text-sm text-gray-600 font-[var(--font-inter)]">classe</div>
-                      </div>
-                      <div className="pt-3 border-t border-gray-200">
-                        <div className="text-lg font-semibold text-gray-900 mb-1">{niveau.eleves}</div>
-                        <div className="text-sm text-gray-600 font-[var(--font-inter)]">élèves</div>
                       </div>
                     </div>
                   </div>

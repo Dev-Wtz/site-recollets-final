@@ -673,22 +673,8 @@ export default function Home() {
         <div className="relative h-full flex flex-col items-center justify-center">
           {/* Titre Principal - CENTRÉ - 75% de la largeur desktop, 90% mobile avec 2 lignes */}
           <div className="w-full flex flex-col items-center">
-            <h1 
-              ref={titleRef}
-              className="font-[var(--font-playfair)] font-bold text-white leading-none mb-4 md:whitespace-nowrap text-center w-full"
-              style={{
-                fontSize: titleFontSize,
-                textShadow: '0px 2px 10px rgba(0, 0, 0, 0.3)',
-                letterSpacing: '-0.02em',
-                whiteSpace: 'normal'
-              }}
-            >
-              <span className="block md:inline w-full text-center">Les</span>{' '}
-              <span className="block md:inline w-full text-center">Récollets</span>
-            </h1>
-            
             {/* Sous-titre avec fond gribouillis griffe */}
-            <div className="relative inline-block px-6 py-2 w-[90%] md:w-auto">
+            <div className="relative inline-block px-6 py-2 w-[90%] md:w-auto mb-4">
               {/* SVG fond gribouillis - Style griffe dessinée à la main */}
               <svg 
                 className="absolute inset-0 w-full h-full" 
@@ -712,6 +698,20 @@ export default function Home() {
                 Ensemble Scolaire Privé - Longwy
               </p>
             </div>
+            
+            <h1 
+              ref={titleRef}
+              className="font-[var(--font-playfair)] font-bold text-white leading-none md:whitespace-nowrap text-center w-full"
+              style={{
+                fontSize: titleFontSize,
+                textShadow: '0px 2px 10px rgba(0, 0, 0, 0.3)',
+                letterSpacing: '-0.02em',
+                whiteSpace: 'normal'
+              }}
+            >
+              <span className="block md:inline w-full text-center">Les</span>{' '}
+              <span className="block md:inline w-full text-center">Récollets</span>
+            </h1>
           </div>
         </div>
 

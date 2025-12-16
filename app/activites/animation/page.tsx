@@ -10,6 +10,7 @@ export default function AnimationPage() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
+  const [expandedArticles, setExpandedArticles] = useState<Record<number, boolean>>({});
   const navRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -431,9 +432,28 @@ export default function AnimationPage() {
                         </div>
 
                         {/* Texte */}
-                        <p className="font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed">
-                          {article.texte}
-                        </p>
+                        <div>
+                          <p className={`font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed ${
+                            !expandedArticles[article.id] ? 'line-clamp-4' : ''
+                          }`}>
+                            {article.texte}
+                          </p>
+                          {article.texte.length > 150 && (
+                            <button
+                              onClick={() => setExpandedArticles(prev => ({
+                                ...prev,
+                                [article.id]: !prev[article.id]
+                              }))}
+                              className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                            >
+                              {expandedArticles[article.id] ? 'Voir moins' : 'En savoir plus'}
+                              <ChevronDown 
+                                size={16} 
+                                className={`transition-transform ${expandedArticles[article.id] ? 'rotate-180' : ''}`}
+                              />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </article>

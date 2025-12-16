@@ -444,10 +444,6 @@ export default function MaternellePage() {
                         <span className="font-[var(--font-inter)] text-gray-600">Classes :</span>
                         <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.classes}</span>
                       </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-[var(--font-inter)] text-gray-600">Élèves :</span>
-                        <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.eleves}</span>
-                      </div>
                     </div>
                   </div>
                 ))}

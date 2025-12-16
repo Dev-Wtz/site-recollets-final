@@ -2,6 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState, useRef } from 'react';
 
 export default function ResultatsSportifsPage() {
@@ -10,6 +11,9 @@ export default function ResultatsSportifsPage() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
+  const [expandedArticle1, setExpandedArticle1] = useState(false);
+  const [expandedArticle2, setExpandedArticle2] = useState(false);
+  const [expandedArticle3, setExpandedArticle3] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -381,13 +385,154 @@ export default function ResultatsSportifsPage() {
             </div>
           </div>
 
-          {/* Message "Pas de résultat pour le moment" */}
-          <div className="max-w-2xl mx-auto text-center py-16">
-            <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-8">
-              <p className="font-[var(--font-inter)] text-xl lg:text-2xl text-gray-600 font-semibold">
-                Pas de résultat pour le moment
-              </p>
-            </div>
+          {/* Articles des résultats sportifs */}
+          <div className="max-w-5xl mx-auto space-y-12">
+            
+            {/* Article 1: Championnat Grand Est UGSEL de bad */}
+            <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="md:flex">
+                <div className="md:w-1/3 relative h-64 md:h-auto">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400 text-sm">Image à venir</span>
+                  </div>
+                </div>
+                <div className="md:w-2/3 p-6 md:p-8">
+                  <div className="mb-3">
+                    <span className="text-xs text-gray-500 font-[var(--font-inter)] uppercase tracking-wide">
+                      30 mars 2023
+                    </span>
+                  </div>
+                  <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                    Championnat Grand Est UGSEL de bad
+                  </h3>
+                  <div className={`font-[var(--font-inter)] text-gray-700 leading-relaxed space-y-3 ${
+                    !expandedArticle1 ? 'line-clamp-4' : ''
+                  }`}>
+                    <p>
+                      Hier une délégation de 9 collégiens et lycéens ont participé au championnat Grand est UGSEL de badminton à Pont à Mousson.
+                    </p>
+                    <p>
+                      Nos filles ont brillé en décrochant 5 qualification pour le championnat de France en Mai prochain.
+                    </p>
+                    <div className="mt-4 space-y-2">
+                      <p className="font-semibold text-gray-900">En benjamine :</p>
+                      <p>– Stella Bourgeois termine 4ème</p>
+                      <p className="font-semibold text-gray-900 mt-3">En minime :</p>
+                      <p>– Stella est 1ère 🥇</p>
+                      <p>– Loriane est 2ème 🥈</p>
+                      <p className="font-semibold text-gray-900 mt-3">En lycée :</p>
+                      <p>– Élodie est 3ème 🥉</p>
+                    </div>
+                    <p className="mt-4 font-semibold text-[#8C1515]">
+                      Bravo à tous
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setExpandedArticle1(!expandedArticle1)}
+                    className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                  >
+                    {expandedArticle1 ? 'Voir moins' : 'En savoir plus'}
+                    <ChevronDown 
+                      size={16} 
+                      className={`transition-transform ${expandedArticle1 ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 2: Olympiades UNSS LYCÉE */}
+            <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="md:flex">
+                <div className="md:w-1/3 relative h-64 md:h-auto">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400 text-sm">Image à venir</span>
+                  </div>
+                </div>
+                <div className="md:w-2/3 p-6 md:p-8">
+                  <div className="mb-3">
+                    <span className="text-xs text-gray-500 font-[var(--font-inter)] uppercase tracking-wide">
+                      30 mars 2023
+                    </span>
+                  </div>
+                  <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                    Olympiades UNSS LYCÉE
+                  </h3>
+                  <div className={`font-[var(--font-inter)] text-gray-700 leading-relaxed ${
+                    !expandedArticle2 ? 'line-clamp-4' : ''
+                  }`}>
+                    <p>
+                      Une délégation de 26 lycéens a participé à la 3ème journée des olympiades UNSS LYCÉE à Jarny.
+                    </p>
+                    <p className="mt-4 font-semibold text-[#8C1515]">
+                      Bravo à tous pour leurs belles performances
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setExpandedArticle2(!expandedArticle2)}
+                    className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                  >
+                    {expandedArticle2 ? 'Voir moins' : 'En savoir plus'}
+                    <ChevronDown 
+                      size={16} 
+                      className={`transition-transform ${expandedArticle2 ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            {/* Article 3: Championnats de France de natation (UGSEL) */}
+            <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="md:flex">
+                <div className="md:w-1/3 relative h-64 md:h-auto">
+                  <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400 text-sm">Image à venir</span>
+                  </div>
+                </div>
+                <div className="md:w-2/3 p-6 md:p-8">
+                  <div className="mb-3">
+                    <span className="text-xs text-gray-500 font-[var(--font-inter)] uppercase tracking-wide">
+                      17 mars 2023
+                    </span>
+                  </div>
+                  <h3 className="font-[var(--font-playfair)] text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4">
+                    Championnats de France de natation (UGSEL)
+                  </h3>
+                  <div className={`font-[var(--font-inter)] text-gray-700 leading-relaxed space-y-3 ${
+                    !expandedArticle3 ? 'line-clamp-4' : ''
+                  }`}>
+                    <p className="font-semibold text-[#8C1515]">
+                      Notre établissement est à présent connu dans le Nord !
+                    </p>
+                    <p>
+                      Nos 12 nageurs ont disputé le championnat de France de natation Ugsel durant ces deux derniers jours à Cambrai et le moins qu'on puisse dire c'est qu'ils ne sont pas passés inaperçus…..
+                    </p>
+                    <p>
+                      D'abord déclarés <span className="font-semibold">CHAMPIONS DE FRANCE 🇫🇷</span> par équipe mardi, ils ont enchaîné les appels au podium avec 2 nouveaux titres ce matin : Lou sur 100m Nage libre et Guillaume sur 100m Dos.
+                    </p>
+                    <div className="mt-4 space-y-2">
+                      <p>– 3 médailles d'argent 🥈🥈🥈 : en relais, Lou 200m 4 nages et Guillaume 100m nage libre</p>
+                      <p>– 3 médailles de Bronze 🥉🥉🥉 : en relais, Romane sur 100m dos et 200m 4 nages</p>
+                    </div>
+                    <p className="mt-4 font-semibold text-[#8C1515]">
+                      Encore bravo à tous !
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setExpandedArticle3(!expandedArticle3)}
+                    className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                  >
+                    {expandedArticle3 ? 'Voir moins' : 'En savoir plus'}
+                    <ChevronDown 
+                      size={16} 
+                      className={`transition-transform ${expandedArticle3 ? 'rotate-180' : ''}`}
+                    />
+                  </button>
+                </div>
+              </div>
+            </article>
+
           </div>
         </div>
       </section>

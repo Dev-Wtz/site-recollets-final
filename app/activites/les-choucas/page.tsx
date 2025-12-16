@@ -10,6 +10,7 @@ export default function LesChoucasPage() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
+  const [expandedProjets, setExpandedProjets] = useState<Record<number, boolean>>({});
   const navRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -436,9 +437,28 @@ export default function LesChoucasPage() {
                         </div>
 
                         {/* Texte */}
-                        <p className="font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed">
-                          {projet.texte}
-                        </p>
+                        <div>
+                          <p className={`font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed ${
+                            !expandedProjets[projet.id] ? 'line-clamp-4' : ''
+                          }`}>
+                            {projet.texte}
+                          </p>
+                          {projet.texte.length > 150 && (
+                            <button
+                              onClick={() => setExpandedProjets(prev => ({
+                                ...prev,
+                                [projet.id]: !prev[projet.id]
+                              }))}
+                              className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                            >
+                              {expandedProjets[projet.id] ? 'Voir moins' : 'En savoir plus'}
+                              <ChevronDown 
+                                size={16} 
+                                className={`transition-transform ${expandedProjets[projet.id] ? 'rotate-180' : ''}`}
+                              />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </article>

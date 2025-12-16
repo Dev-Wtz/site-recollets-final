@@ -446,16 +446,11 @@ export default function LyceeGeneralEtTechnologiquePage() {
           </div>
 
           {/* Informations clés */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
             <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
               <Users className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
               <div className="text-4xl font-bold text-[#8C1515] mb-2">14</div>
               <div className="text-gray-600 font-[var(--font-inter)]">Classes</div>
-            </div>
-            <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
-              <Users className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
-              <div className="text-4xl font-bold text-[#8C1515] mb-2">≈ 420</div>
-              <div className="text-gray-600 font-[var(--font-inter)]">Élèves</div>
             </div>
             <div className="bg-white border-2 border-[#8C1515] rounded-xl p-6 text-center shadow-lg">
               <GraduationCap className="w-12 h-12 text-[#8C1515] mx-auto mb-4" />
@@ -484,10 +479,6 @@ export default function LyceeGeneralEtTechnologiquePage() {
                     <div className="flex justify-between items-center">
                       <span className="font-[var(--font-inter)] text-gray-600">Classes :</span>
                       <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.classes}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="font-[var(--font-inter)] text-gray-600">Élèves :</span>
-                      <span className="font-[var(--font-inter)] font-semibold text-gray-900">{niveau.eleves}</span>
                     </div>
                   </div>
                   <div className="pt-4 border-t border-gray-200 space-y-3">

@@ -10,6 +10,7 @@ export default function SortiesScolairesPage() {
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
+  const [expandedArticles, setExpandedArticles] = useState<Record<number, boolean>>({});
   const navRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
@@ -92,24 +93,38 @@ export default function SortiesScolairesPage() {
   const articles = [
     {
       id: 1,
-      titre: 'Voyage au SKI',
-      date: 'Décembre 2025',
+      titre: 'Rentrée scolaire',
+      date: '1er septembre',
       image: '/hero.jpg',
-      texte: 'Les élèves de l\'établissement ont eu l\'opportunité de partir en voyage au ski en décembre 2025. Cette sortie a permis de découvrir les sports d\'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne. Une expérience enrichissante qui allie sport, nature et convivialité.',
+      texte: 'Rentrée scolaire pour tous les élèves de l\'établissement. Un moment important qui marque le début d\'une nouvelle année scolaire riche en apprentissages et en découvertes.',
     },
     {
       id: 2,
-      titre: 'Sortie Allemagne',
-      date: '2024-2025',
+      titre: 'Baden Baden - Marché de Noël en Allemagne',
+      date: '17 octobre',
       image: '/hero.jpg',
-      texte: 'Une sortie pédagogique en Allemagne a été organisée pour permettre aux élèves de découvrir la culture allemande, d\'améliorer leur pratique de la langue et de visiter des sites historiques et culturels importants. Cette expérience interculturelle a été très appréciée par tous les participants.',
+      texte: 'Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s\'immerger dans les traditions allemandes et de pratiquer la langue dans un contexte authentique.',
     },
     {
       id: 3,
-      titre: 'Sortie Festival Italien',
-      date: '2024-2025',
+      titre: 'Festival du film italien',
+      date: '6 novembre',
       image: '/hero.jpg',
-      texte: 'Les élèves ont assisté à un festival italien au cinéma, découvrant ainsi la richesse du cinéma transalpin. Cette sortie culturelle a permis d\'explorer différentes formes d\'expression artistique et de développer l\'ouverture d\'esprit des jeunes.',
+      texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7ème art.',
+    },
+    {
+      id: 4,
+      titre: 'Séjour au ski',
+      date: '7 au 12 décembre',
+      image: '/hero.jpg',
+      texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d\'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
+    },
+    {
+      id: 5,
+      titre: 'Musée Pompidou',
+      date: '11 et 15 décembre',
+      image: '/hero.jpg',
+      texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
     },
   ];
 
@@ -445,9 +460,28 @@ export default function SortiesScolairesPage() {
                         </div>
 
                         {/* Texte */}
-                        <p className="font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed">
-                          {article.texte}
-                        </p>
+                        <div>
+                          <p className={`font-[var(--font-inter)] text-sm lg:text-base text-gray-700 leading-relaxed ${
+                            !expandedArticles[article.id] ? 'line-clamp-4' : ''
+                          }`}>
+                            {article.texte}
+                          </p>
+                          {article.texte.length > 150 && (
+                            <button
+                              onClick={() => setExpandedArticles(prev => ({
+                                ...prev,
+                                [article.id]: !prev[article.id]
+                              }))}
+                              className="mt-3 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
+                            >
+                              {expandedArticles[article.id] ? 'Voir moins' : 'En savoir plus'}
+                              <ChevronDown 
+                                size={16} 
+                                className={`transition-transform ${expandedArticles[article.id] ? 'rotate-180' : ''}`}
+                              />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </article>
