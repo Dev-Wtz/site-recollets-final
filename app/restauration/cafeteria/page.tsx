@@ -11,62 +11,31 @@ export default function CafeteriaPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+    const activitesRef = useRef<HTMLDivElement>(null);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
-  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran
+  // Afficher le menu hamburger à 849px et moins, navbar normale à 850px et plus
   useEffect(() => {
     const checkNavbarWidth = () => {
-      requestAnimationFrame(() => {
-        if (navRef.current) {
-          void navRef.current.offsetHeight;
-          const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
-          const windowWidth = window.innerWidth;
-          const percentage = (navWidth / windowWidth) * 100;
-          const shouldShowHamburger = percentage > 85;
-          setShowHamburgerMenu(shouldShowHamburger);
-        }
-      });
+      const windowWidth = window.innerWidth;
+      setShowHamburgerMenu(windowWidth < 850);
     };
 
     checkNavbarWidth();
-    const timeoutId1 = setTimeout(checkNavbarWidth, 50);
-    const timeoutId2 = setTimeout(checkNavbarWidth, 150);
-    const timeoutId3 = setTimeout(checkNavbarWidth, 300);
     
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(checkNavbarWidth, 50);
+      resizeTimeout = setTimeout(() => {
+        checkNavbarWidth();
+      }, 100);
     };
-    window.addEventListener('resize', handleResize);
     
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      const checkAndObserve = () => {
-        if (navRef.current) {
-          resizeObserver = new ResizeObserver(() => {
-            checkNavbarWidth();
-          });
-          resizeObserver.observe(navRef.current);
-        } else {
-          setTimeout(checkAndObserve, 50);
-        }
-      };
-      checkAndObserve();
-    }
-    
-    const intervalId = setInterval(checkNavbarWidth, 1000);
+    window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
-      clearTimeout(timeoutId1);
-      clearTimeout(timeoutId2);
-      clearTimeout(timeoutId3);
       clearTimeout(resizeTimeout);
-      clearInterval(intervalId);
       window.removeEventListener('resize', handleResize);
-      if (resizeObserver && navRef.current) {
-        resizeObserver.unobserve(navRef.current);
-      }
     };
   }, []);
 
@@ -179,7 +148,7 @@ export default function CafeteriaPage() {
                 </div>
 
                 {/* Activités */}
-                <div className="relative group">
+                <div ref={activitesRef} className="relative group">
                   <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
                     Activités
                     <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
@@ -193,24 +162,12 @@ export default function CafeteriaPage() {
                 </div>
               </div>
             
-              {/* Bouton Ecole Direct à droite */}
-              <div className="absolute right-4 lg:right-8 flex items-center z-10">
-                <a
-                  href="https://www.ecoledirecte.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
-                >
-                  Ecole Direct
-                </a>
-              </div>
-            
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
-                <div className="absolute right-0">
+                <div className="absolute right-0 z-20">
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="text-white hover:text-gray-200 transition-colors p-2"
+                    className="text-white hover:text-gray-200 transition-colors p-2 z-20 relative"
                     aria-label="Menu"
                   >
                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -220,155 +177,143 @@ export default function CafeteriaPage() {
             </div>
           </div>
         </div>
+      </header>
 
-        {/* Menu hamburger mobile */}
-        {showHamburgerMenu && isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white text-gray-800 shadow-xl z-50 max-h-[80vh] overflow-y-auto">
-            <div className="max-w-[1400px] mx-auto px-4 py-4">
-              {/* Structures */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'structures' ? null : 'structures')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Structures</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'structures' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'structures' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/structures/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
-                    <Link href="/structures/primaire" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Primaire</Link>
-                    <Link href="/structures/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
-                    <Link href="/structures/lycee-general-et-technologique" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Général et Technologique</Link>
-                    <Link href="/structures/lycee-professionnel" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Professionnel</Link>
-                  </div>
-                )}
-              </div>
+      {/* Menu hamburger mobile */}
+      {showHamburgerMenu && isMobileMenuOpen && (
+        <div className="fixed top-14 left-0 right-0 bg-white text-gray-800 shadow-xl z-[60] max-h-[80vh] overflow-y-auto">
+          <div className="max-w-[1400px] mx-auto px-4 py-4">
+            {/* Structures */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'structures' ? null : 'structures')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Structures</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'structures' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'structures' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/structures/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
+                  <Link href="/structures/primaire" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Primaire</Link>
+                  <Link href="/structures/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
+                  <Link href="/structures/lycee-general-et-technologique" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Général et Technologique</Link>
+                  <Link href="/structures/lycee-professionnel" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Professionnel</Link>
+                </div>
+              )}
+            </div>
 
-              {/* Administration */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'administration' ? null : 'administration')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Administration</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'administration' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'administration' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/administration/tarif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Tarif</Link>
-                    <Link href="/administration/reglement" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Règlement</Link>
-                    <Link href="/administration/taux-reussite" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Taux de réussite</Link>
-                  </div>
-                )}
-              </div>
+            {/* Administration */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'administration' ? null : 'administration')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Administration</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'administration' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'administration' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/administration/tarif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Tarif</Link>
+                  <Link href="/administration/reglement" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Règlement</Link>
+                  <Link href="/administration/taux-reussite" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Taux de réussite</Link>
+                </div>
+              )}
+            </div>
 
-              {/* Restauration */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'restauration' ? null : 'restauration')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Restauration</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'restauration' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'restauration' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/restauration/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
-                    <Link href="/restauration/cantine" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cantine</Link>
-                    <Link href="/restauration/cafeteria" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cafétéria</Link>
-                  </div>
-                )}
-              </div>
+            {/* Restauration */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'restauration' ? null : 'restauration')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Restauration</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'restauration' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'restauration' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/restauration/maternelle" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Maternelle</Link>
+                  <Link href="/restauration/cantine" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cantine</Link>
+                  <Link href="/restauration/cafeteria" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Cafétéria</Link>
+                </div>
+              )}
+            </div>
 
-              {/* Fournitures Scolaires */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'fournitures' ? null : 'fournitures')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Fournitures Scolaires</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'fournitures' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'fournitures' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/fournitures-scolaires/ecole" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">École</Link>
-                    <Link href="/fournitures-scolaires/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
-                    <Link href="/fournitures-scolaires/lycee-pro" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Pro</Link>
-                  </div>
-                )}
-              </div>
+            {/* Fournitures Scolaires */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'fournitures' ? null : 'fournitures')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Fournitures Scolaires</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'fournitures' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'fournitures' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/fournitures-scolaires/ecole" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">École</Link>
+                  <Link href="/fournitures-scolaires/college" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Collège</Link>
+                  <Link href="/fournitures-scolaires/lycee-pro" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Lycée Pro</Link>
+                </div>
+              )}
+            </div>
 
-              {/* Sport */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'sport' ? null : 'sport')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Sport</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'sport' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'sport' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/sport/calendrier-sportif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Calendrier sportif</Link>
-                    <Link href="/sport/resultats-sportifs" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Résultats sportifs</Link>
-                    <Link href="/sport/inscription-unss" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Inscription UNSS</Link>
-                  </div>
-                )}
-              </div>
+            {/* Sport */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'sport' ? null : 'sport')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Sport</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'sport' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'sport' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/sport/calendrier-sportif" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Calendrier sportif</Link>
+                  <Link href="/sport/resultats-sportifs" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Résultats sportifs</Link>
+                  <Link href="/sport/inscription-unss" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Inscription UNSS</Link>
+                </div>
+              )}
+            </div>
 
-              {/* Activités */}
-              <div className="mb-2">
-                <button
-                  onClick={() => setOpenSubmenu(openSubmenu === 'activites' ? null : 'activites')}
-                  className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-                >
-                  <span className="font-semibold">Activités</span>
-                  <ChevronDown 
-                    size={18} 
-                    className={`transition-transform ${openSubmenu === 'activites' ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {openSubmenu === 'activites' && (
-                  <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
-                    <Link href="/activites/animation" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Animation</Link>
-                    <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
-                    <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
-                    <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Bouton Ecole Direct dans le menu mobile */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <a
-                  href="https://www.ecoledirecte.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
-                >
-                  Ecole Direct
-                </a>
-              </div>
+            {/* Activités */}
+            <div className="mb-2">
+              <button
+                onClick={() => setOpenSubmenu(openSubmenu === 'activites' ? null : 'activites')}
+                className="w-full flex items-center justify-between py-3 px-4 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <span className="font-semibold">Activités</span>
+                <ChevronDown 
+                  size={18} 
+                  className={`transition-transform ${openSubmenu === 'activites' ? 'rotate-180' : ''}`}
+                />
+              </button>
+              {openSubmenu === 'activites' && (
+                <div className="ml-4 border-l-2 border-[#8C1515] pl-4 mt-2">
+                  <Link href="/activites/animation" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Animation</Link>
+                  <Link href="/activites/sorties-scolaires" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Sorties scolaires</Link>
+                  <Link href="/activites/les-choucas" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Les Choucas</Link>
+                  <Link href="/activites/ateliers" onClick={() => setIsMobileMenuOpen(false)} className="block py-2 px-4 hover:bg-[#8C1515] hover:text-white rounded transition-colors">Ateliers</Link>
+                </div>
+              )}
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
 
       {/* Section Restauration Cafétéria avec animation de fondu */}
       <section className="bg-white py-16 pt-32 animate-fade-in">
@@ -501,4 +446,5 @@ export default function CafeteriaPage() {
     </div>
   );
 }
+
 

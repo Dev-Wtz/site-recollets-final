@@ -15,16 +15,193 @@ export default function Home() {
   // Ces états sont utilisés dans les animations de chiffres
   const [titleFontSize, setTitleFontSize] = useState('9vw');
   const [subtitleFontSize, setSubtitleFontSize] = useState('1.125vw');
+  const [subtitleWidth, setSubtitleWidth] = useState(700);
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
   const statsRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const navRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  const ecoleDirectRef = useRef<HTMLAnchorElement>(null);
+  const activitesRef = useRef<HTMLDivElement>(null);
   const welcomeTextRef = useRef<HTMLDivElement>(null);
   const [showMoreWelcome, setShowMoreWelcome] = useState(false);
   const [needsShowMoreWelcome, setNeedsShowMoreWelcome] = useState(false);
+
+  // Fonction pour parser les dates
+  const parseDate = (dateStr: string): Date => {
+    const monthMap: Record<string, number> = {
+      'janvier': 1, 'février': 2, 'mars': 3, 'avril': 4, 'mai': 5, 'juin': 6,
+      'juillet': 7, 'août': 8, 'septembre': 9, 'octobre': 10, 'novembre': 11, 'décembre': 12
+    };
+    
+    // Format "1er septembre" ou "17 octobre"
+    const match = dateStr.match(/(\d+)(?:er)?\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)(?:\s+(\d{4}))?/i);
+    if (match) {
+      const day = parseInt(match[1]);
+      const month = monthMap[match[2].toLowerCase()];
+      const year = match[3] ? parseInt(match[3]) : new Date().getFullYear();
+      return new Date(year, month - 1, day);
+    }
+    
+    // Format "Décembre 2024"
+    const matchMonth = dateStr.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i);
+    if (matchMonth) {
+      const month = monthMap[matchMonth[1].toLowerCase()];
+      const year = parseInt(matchMonth[2]);
+      return new Date(year, month - 1, 1);
+    }
+    
+    // Format "7 au 12 décembre"
+    const matchRange = dateStr.match(/(\d+)\s+au\s+(\d+)\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i);
+    if (matchRange) {
+      const day = parseInt(matchRange[1]);
+      const month = monthMap[matchRange[3].toLowerCase()];
+      const year = new Date().getFullYear();
+      return new Date(year, month - 1, day);
+    }
+    
+    // Format "11 et 15 décembre"
+    const matchAnd = dateStr.match(/(\d+)\s+et\s+(\d+)\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i);
+    if (matchAnd) {
+      const day = parseInt(matchAnd[1]);
+      const month = monthMap[matchAnd[3].toLowerCase()];
+      const year = new Date().getFullYear();
+      return new Date(year, month - 1, day);
+    }
+    
+    return new Date(0);
+  };
+
+  // Articles combinés de toutes les pages activités et résultats sportifs
+  const allEvents = useMemo(() => {
+    const events: Array<{
+      titre: string;
+      date: string;
+      dateSort: Date;
+      texte: string;
+      link: string;
+    }> = [
+      // Articles Animation
+      {
+        titre: 'Marché de Noël interne et Vente de chocolat',
+        date: '12 décembre',
+        dateSort: parseDate('12 décembre'),
+        texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires.',
+        link: '/activites/animation'
+      },
+      {
+        titre: 'Décoration de Noël',
+        date: 'Décembre 2024',
+        dateSort: parseDate('Décembre 2024'),
+        texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël.',
+        link: '/activites/animation'
+      },
+      // Articles Sorties Scolaires
+      {
+        titre: 'Rentrée scolaire',
+        date: '1er septembre',
+        dateSort: parseDate('1er septembre'),
+        texte: 'Rentrée scolaire pour tous les élèves de l\'établissement. Un moment important qui marque le début d\'une nouvelle année scolaire riche en apprentissages et en découvertes.',
+        link: '/activites/sorties-scolaires'
+      },
+      {
+        titre: 'Baden Baden - Marché de Noël en Allemagne',
+        date: '17 octobre',
+        dateSort: parseDate('17 octobre'),
+        texte: 'Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s\'immerger dans les traditions allemandes.',
+        link: '/activites/sorties-scolaires'
+      },
+      {
+        titre: 'Festival du film italien',
+        date: '6 novembre',
+        dateSort: parseDate('6 novembre'),
+        texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7ème art.',
+        link: '/activites/sorties-scolaires'
+      },
+      {
+        titre: 'Séjour au ski',
+        date: '7 au 12 décembre',
+        dateSort: parseDate('7 au 12 décembre'),
+        texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d\'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
+        link: '/activites/sorties-scolaires'
+      },
+      {
+        titre: 'Musée Pompidou',
+        date: '11 et 15 décembre',
+        dateSort: parseDate('11 et 15 décembre'),
+        texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
+        link: '/activites/sorties-scolaires'
+      },
+      // Articles Résultats Sportifs
+      {
+        titre: 'Championnat Grand Est UGSEL de bad',
+        date: '30 mars 2023',
+        dateSort: new Date(2023, 2, 30),
+        texte: 'Nos filles ont brillé en décrochant 5 qualification pour le championnat de France en Mai prochain.',
+        link: '/sport/resultats-sportifs'
+      },
+      {
+        titre: 'Olympiades UNSS LYCÉE',
+        date: '30 mars 2023',
+        dateSort: new Date(2023, 2, 30),
+        texte: 'Bravo à tous pour leurs belles performances.',
+        link: '/sport/resultats-sportifs'
+      },
+      {
+        titre: 'Championnats de France de natation (UGSEL)',
+        date: '17 mars 2023',
+        dateSort: new Date(2023, 2, 17),
+        texte: 'Nos 12 nageurs ont disputé le championnat de France de natation Ugsel durant ces deux derniers jours à Cambrai.',
+        link: '/sport/resultats-sportifs'
+      }
+    ];
+
+    // Trier par date (plus récent en premier) et prendre les 3 premiers
+    return events
+      .sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime())
+      .slice(0, 3);
+  }, []);
+
+  // Fonction pour formater la date pour l'affichage
+  const formatEventDate = (dateStr: string): { day: string; month: string } => {
+    const match = dateStr.match(/(\d+)(?:er)?\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i);
+    if (match) {
+      return {
+        day: match[1],
+        month: match[2].substring(0, 3).toUpperCase()
+      };
+    }
+    
+    const matchMonth = dateStr.match(/(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s+(\d{4})/i);
+    if (matchMonth) {
+      return {
+        day: '01',
+        month: matchMonth[1].substring(0, 3).toUpperCase()
+      };
+    }
+    
+    const matchRange = dateStr.match(/(\d+)\s+au\s+(\d+)\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i);
+    if (matchRange) {
+      return {
+        day: matchRange[1],
+        month: matchRange[3].substring(0, 3).toUpperCase()
+      };
+    }
+    
+    const matchAnd = dateStr.match(/(\d+)\s+et\s+(\d+)\s+(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i);
+    if (matchAnd) {
+      return {
+        day: matchAnd[1],
+        month: matchAnd[3].substring(0, 3).toUpperCase()
+      };
+    }
+    
+    return { day: '-', month: '-' };
+  };
 
   useEffect(() => {
     let ticking = false;
@@ -42,76 +219,39 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran - Optimisé pour réduire les forced reflows
+  // Marquer le composant comme monté pour éviter les erreurs d'hydratation
   useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Afficher le menu hamburger à 849px et moins, navbar normale à 850px et plus
+  useEffect(() => {
+    if (!isMounted) return;
+    
     const checkNavbarWidth = () => {
-      if (!navRef.current) return;
-      
-      // Utiliser requestIdleCallback pour ne pas bloquer le rendu
-      const doCheck = () => {
-        requestAnimationFrame(() => {
-          if (navRef.current) {
-            // Batch toutes les lectures géométriques ensemble
-            const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
-            const windowWidth = window.innerWidth;
-            setShowHamburgerMenu((navWidth / windowWidth) * 100 > 85);
-          }
-        });
-      };
-      
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(doCheck, { timeout: 300 });
-      } else {
-        requestAnimationFrame(doCheck);
-      }
+      const windowWidth = window.innerWidth;
+      setShowHamburgerMenu(windowWidth < 850);
     };
 
-    // Utiliser ResizeObserver pour une détection efficace
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined' && navRef.current) {
-      resizeObserver = new ResizeObserver(() => {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(checkNavbarWidth, { timeout: 300 });
-        } else {
-          requestAnimationFrame(checkNavbarWidth);
-        }
-      });
-      resizeObserver.observe(navRef.current);
-    }
+    // Vérification initiale
+    checkNavbarWidth();
     
-    // Vérifier initialement après un délai plus long
-    const initialTimeout = setTimeout(() => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(checkNavbarWidth, { timeout: 500 });
-      } else {
-        requestAnimationFrame(checkNavbarWidth);
-      }
-    }, 200);
-    
-    // Vérifier à chaque resize avec debounce plus long
+    // Debounce pour éviter le clignotement
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(checkNavbarWidth, { timeout: 300 });
-        } else {
-          requestAnimationFrame(checkNavbarWidth);
-        }
-      }, 200);
+        checkNavbarWidth();
+      }, 100);
     };
+    
     window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
-      clearTimeout(initialTimeout);
       clearTimeout(resizeTimeout);
       window.removeEventListener('resize', handleResize);
-      const currentNavRef = navRef.current;
-      if (resizeObserver && currentNavRef) {
-        resizeObserver.unobserve(currentNavRef);
-      }
     };
-  }, []);  
+  }, [isMounted]);  
 
   // Ajuster la taille de police pour que le texte occupe 75% de la largeur de l'écran (desktop) ou 90% en mobile - Optimisé
   useEffect(() => {
@@ -123,7 +263,7 @@ export default function Home() {
         // Utiliser requestAnimationFrame pour batch toutes les lectures/écritures
         requestAnimationFrame(() => {
           const windowWidth = window.innerWidth;
-          const isMobile = windowWidth < 768;
+          const isMobile = windowWidth < 850;
           const targetWidth = isMobile ? windowWidth * 0.90 : windowWidth * 0.75; // 90% en mobile, 75% en desktop
           
           const titleElement = titleRef.current;
@@ -199,6 +339,10 @@ export default function Home() {
           document.body.removeChild(measureSubtitle);
           subtitleElement.style.fontSize = `${subtitleSize}px`;
           setSubtitleFontSize(`${subtitleSize}px`);
+          
+          // Mesurer la largeur réelle du texte après ajustement
+          const actualWidth = subtitleElement.getBoundingClientRect().width;
+          setSubtitleWidth(actualWidth);
         });
       };
       
@@ -225,6 +369,40 @@ export default function Home() {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Mesurer la largeur du sous-titre pour ajuster le trait noir
+  useEffect(() => {
+    const measureSubtitleWidth = () => {
+      if (!subtitleRef.current) return;
+      
+      requestAnimationFrame(() => {
+        if (subtitleRef.current) {
+          const width = subtitleRef.current.getBoundingClientRect().width;
+          setSubtitleWidth(width);
+        }
+      });
+    };
+
+    // Mesurer après un court délai pour laisser le rendu se terminer
+    const timer = setTimeout(measureSubtitleWidth, 100);
+    
+    // Ré-mesurer quand la taille de la police change
+    const observer = new ResizeObserver(() => {
+      measureSubtitleWidth();
+    });
+    
+    if (subtitleRef.current) {
+      observer.observe(subtitleRef.current);
+    }
+    
+    window.addEventListener('resize', measureSubtitleWidth, { passive: true });
+    
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+      window.removeEventListener('resize', measureSubtitleWidth);
+    };
+  }, [subtitleFontSize]);
 
   // Vérifier si le texte de bienvenue fait plus de 8 lignes - Optimisé pour réduire les forced reflows
   useEffect(() => {
@@ -344,7 +522,7 @@ export default function Home() {
           <div className="max-w-[1400px] mx-auto px-4 lg:px-8">
             <div className="flex items-center justify-center h-14 relative">
               {/* Logo à gauche - Uniquement sur la page d'accueil */}
-              <div className="absolute left-4 lg:left-8 flex items-center z-10">
+              <div ref={logoRef} className="absolute left-4 lg:left-8 flex items-center z-10">
                 <Image
                   src="/logo.png"
                   alt="Logo Les Récollets"
@@ -428,7 +606,7 @@ export default function Home() {
                 </div>
 
                 {/* Activités */}
-                <div className="relative group">
+                <div ref={activitesRef} className="relative group">
                   <button className="hover:underline transition-all flex items-center gap-1 cursor-pointer">
                     Activités
                     <ChevronDown size={14} strokeWidth={2} className="group-hover:rotate-180 transition-transform" />
@@ -442,24 +620,30 @@ export default function Home() {
                 </div>
               </div>
               
-              {/* Bouton Ecole Direct à droite */}
-              <div className="absolute right-4 lg:right-8 flex items-center z-10">
-                <a
-                  href="https://www.ecoledirecte.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
-                >
-                  Ecole Direct
-                </a>
-              </div>
+              {/* Bouton ECOLE DIRECT à droite - Comme le logo à gauche */}
+              {isMounted && !showHamburgerMenu && (
+                <div className="absolute right-4 lg:right-8 flex items-center z-20">
+                  <a
+                    ref={ecoleDirectRef}
+                    href="https://www.ecoledirecte.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-[#8C1515] text-white text-sm font-semibold rounded border border-white/30 hover:bg-[#a01919] transition-colors whitespace-nowrap"
+                  >
+                    ECOLE DIRECT
+                  </a>
+                </div>
+              )}
               
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
-                <div className="w-full flex items-center justify-end absolute inset-0">
+                <div className="w-full flex items-center justify-between absolute inset-0 px-4 lg:px-8">
+                  <div className="flex-shrink-0 w-10">
+                    {/* Espace réservé pour le logo */}
+                  </div>
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="text-white hover:text-gray-200 transition-colors p-2"
+                    className="text-white hover:text-gray-200 transition-colors p-2 z-20 ml-auto"
                     aria-label="Menu"
                   >
                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -472,7 +656,7 @@ export default function Home() {
 
         {/* Menu hamburger mobile */}
         {showHamburgerMenu && isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white text-gray-800 shadow-xl z-50 max-h-[80vh] overflow-y-auto">
+          <div className="fixed top-14 left-0 right-0 bg-white text-gray-800 shadow-xl z-[60] max-h-[80vh] overflow-y-auto">
             <div className="max-w-[1400px] mx-auto px-4 py-4">
               {/* Structures */}
               <div className="mb-2">
@@ -602,16 +786,16 @@ export default function Home() {
                   </div>
                 )}
               </div>
-
-              {/* Bouton Ecole Direct dans le menu mobile */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              
+              {/* Bouton ECOLE DIRECT en bas du menu */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
                 <a
                   href="https://www.ecoledirecte.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
+                  className="block w-full px-4 py-3 bg-[#8C1515] text-white text-sm font-semibold rounded border border-white/30 hover:bg-[#a01919] transition-colors text-center"
                 >
-                  Ecole Direct
+                  ECOLE DIRECT
                 </a>
               </div>
             </div>
@@ -699,26 +883,15 @@ export default function Home() {
         <div className="relative h-full flex flex-col items-center justify-center">
           {/* Titre Principal - CENTRÉ - 75% de la largeur desktop, 90% mobile avec 2 lignes */}
           <div className="w-full flex flex-col items-center">
-            {/* Sous-titre avec fond gribouillis griffe */}
-            <div className="relative inline-block px-6 py-2 w-[90%] md:w-auto mb-4">
-              {/* SVG fond gribouillis - Style griffe dessinée à la main */}
-              <svg 
-                className="absolute inset-0 w-full h-full" 
-                viewBox="0 0 700 60" 
-                preserveAspectRatio="none"
-              >
-                {/* Plusieurs coups de griffe superposés pour effet organique */}
-                <path 
-                  d="M 3 30 C 8 10, 25 15, 50 18 S 100 25, 150 20 S 200 15, 250 22 S 300 28, 350 23 S 400 18, 450 24 S 500 30, 550 25 S 600 20, 650 28 L 697 30 C 695 50, 680 45, 660 42 S 620 38, 570 43 S 520 48, 470 42 S 420 36, 370 44 S 320 50, 270 43 S 220 36, 170 45 S 120 52, 70 44 S 30 38, 10 42 L 3 30 Z" 
-                  fill="rgba(0, 0, 0, 0.95)"
-                />
-              </svg>
+            {/* Sous-titre */}
+            <div className="relative inline-block py-2 mb-4">
               <p 
                 ref={subtitleRef}
                 className="relative z-10 font-[var(--font-inter)] text-white tracking-[0.35em] font-black uppercase whitespace-nowrap text-center"
                 style={{ 
                   fontSize: subtitleFontSize,
-                  textShadow: '0px 4px 20px rgba(0, 0, 0, 1), 0px 2px 10px rgba(0, 0, 0, 1)'
+                  textShadow: '0px 0px 8px rgba(0, 0, 0, 0.9), 0px 0px 16px rgba(0, 0, 0, 0.8), 0px 4px 20px rgba(0, 0, 0, 1), 0px 2px 10px rgba(0, 0, 0, 1)',
+                  WebkitTextStroke: '0.5px rgba(0, 0, 0, 0.5)'
                 }}
               >
                 Ensemble Scolaire Privé
@@ -727,16 +900,27 @@ export default function Home() {
             
             <h1 
               ref={titleRef}
-              className="font-[var(--font-playfair)] font-bold text-white leading-none md:whitespace-nowrap text-center w-full"
+              className="font-[var(--font-playfair)] font-bold leading-none md:whitespace-nowrap text-center w-full select-none"
               style={{
                 fontSize: titleFontSize,
-                textShadow: '0px 2px 10px rgba(0, 0, 0, 0.3)',
+                color: '#ffffff',
+                textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8), 0px 0px 4px rgba(0, 0, 0, 0.6)',
                 letterSpacing: '-0.02em',
-                whiteSpace: 'normal'
+                whiteSpace: 'normal',
+                WebkitFontSmoothing: 'antialiased',
+                MozOsxFontSmoothing: 'grayscale',
+                textRendering: 'optimizeLegibility',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
+                fontFeatureSettings: 'normal',
+                fontVariant: 'normal',
+                textDecoration: 'none',
+                outline: 'none'
               }}
             >
-              <span className="block md:inline w-full text-center">Les</span>{' '}
-              <span className="block md:inline w-full text-center">Récollets</span>
+              Les Récollets
             </h1>
           </div>
         </div>
@@ -760,35 +944,34 @@ export default function Home() {
             {/* Trait rouge à 2/3 - S'arrête légèrement au-dessus des titres */}
             <div className="hidden md:block absolute left-2/3 -top-10 bottom-0 w-px bg-[#8C1515]/40"></div>
             
-            {/* Colonne 1: ACTUALITÉS */}
+            {/* Colonne 1: L'ÉTABLISSEMENT */}
             <div className="flex flex-col items-center">
               <h2 className="font-[var(--font-inter)] text-xl font-bold text-[#8C1515] mb-8 uppercase tracking-wide text-center">
-                Actualités
+                L&apos;établissement
               </h2>
               <div className="space-y-6 w-full">
-                <article className="group cursor-pointer border-b border-gray-200 pb-5">
+                <article className="group border-b border-gray-200 pb-5">
                   <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    25 Janvier 2025
+                    OGEC
                   </p>
-                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Assemblée générale OGEC Les Récollets
-                  </h3>
+                  <p className="text-base font-[var(--font-inter)] text-gray-700 leading-relaxed">
+                    L&apos;OGEC assure la gestion économique, sociale et immobilière de l&apos;établissement pour offrir aux élèves et aux équipes un cadre de travail optimal.
+                  </p>
                 </article>
-                <article className="group cursor-pointer border-b border-gray-200 pb-5">
+                <article className="group border-b border-gray-200 pb-5">
                   <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    15 Février 2025
+                    APEL
                   </p>
-                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Journées portes ouvertes - Inscriptions 2025-2026
-                  </h3>
-                </article>
-                <article className="group cursor-pointer border-b border-gray-200 pb-5">
-                  <p className="text-xs text-gray-500 mb-2 font-[var(--font-inter)] uppercase tracking-wide">
-                    28 Juin 2025
+                  <p className="text-base font-[var(--font-inter)] text-gray-700 leading-relaxed">
+                    <Link 
+                      href="https://www.facebook.com/apel.lesrecollets/?locale=fr_FR" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-[#8C1515] underline underline-offset-2 decoration-2 font-bold hover:text-[#a01919] transition-colors"
+                    >
+                      L&apos;APEL
+                    </Link> représente l&apos;ensemble des familles auprès de la direction et dynamise la vie de l&apos;école à travers ses actions et événements.
                   </p>
-                  <h3 className="text-base font-semibold text-gray-900 group-hover:text-[#8C1515] transition-colors leading-snug">
-                    Fête de fin d'année et remise des prix
-                  </h3>
                 </article>
               </div>
             </div>
@@ -799,62 +982,30 @@ export default function Home() {
                 Événements
               </h2>
               <div className="space-y-6 w-full">
-                <div className="flex gap-5 border-b border-gray-200 pb-5">
-                  <div className="flex-shrink-0 text-center">
-                    <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      07
-                    </div>
-                    <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
-                      Déc
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      Départ au ski
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Séjour au ski pour nos élèves de 6ème.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-5 border-b border-gray-200 pb-5">
-                  <div className="flex-shrink-0 text-center">
-                    <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      -
-                    </div>
-                    <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
-                      -
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      La journée allemande
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex gap-5 border-b border-gray-200 pb-5">
-                  <div className="flex-shrink-0 text-center">
-                    <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none">
-                      -
-                    </div>
-                    <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
-                      -
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-base mb-1 leading-tight">
-                      La journée festival italien
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      
-                    </p>
-                  </div>
-                </div>
+                {allEvents.map((event, index) => {
+                  const { day, month } = formatEventDate(event.date);
+                  return (
+                    <Link 
+                      key={index}
+                      href={event.link}
+                      className="flex gap-5 border-b border-gray-200 pb-5 hover:bg-gray-50 -mx-2 px-2 rounded transition-all cursor-pointer group"
+                    >
+                      <div className="flex-shrink-0 text-center flex flex-col justify-center">
+                        <div className="font-[var(--font-inter)] text-4xl font-bold text-[#8C1515] leading-none group-hover:text-[#a01919] transition-colors">
+                          {day}
+                        </div>
+                        <div className="text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
+                          {month}
+                        </div>
+                      </div>
+                      <div className="flex-1 flex items-center">
+                        <h3 className="font-semibold text-gray-900 text-base leading-tight group-hover:text-[#8C1515] transition-colors">
+                          {event.titre}
+                        </h3>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
 
@@ -939,7 +1090,7 @@ export default function Home() {
           {/* Texte de Bienvenue */}
           <div className="mb-16">
             <h2 className="font-[var(--font-playfair)] text-3xl lg:text-4xl font-bold text-[#8C1515] mb-8 text-center">
-              Bienvenue à l'Ensemble Scolaire Privé des Récollets
+              Bienvenue à l&apos;Ensemble Scolaire Privé des Récollets
             </h2>
             
             <div 
@@ -947,25 +1098,25 @@ export default function Home() {
               className={`max-w-4xl mx-auto space-y-6 text-gray-800 leading-relaxed ${!showMoreWelcome && needsShowMoreWelcome ? 'line-clamp-[5]' : ''}`}
             >
               <p className="font-[var(--font-inter)] text-sm lg:text-base">
-                L'École Notre-Dame, le Collège, le Lycée Général et Technologique ainsi que le Lycée Professionnel Notre-Dame constituent l'Ensemble Scolaire Privé Catholique des Récollets. Il a pour vocation d'accueillir des garçons et des filles de toutes origines sans distinction aucune et pour ambition de les aider à grandir en humanité en ne réduisant pas chaque Jeune à ses résultats scolaires aussi excellents soient-ils.
+                L&apos;École Notre-Dame, le Collège, le Lycée Général et Technologique ainsi que le Lycée Professionnel Notre-Dame constituent l&apos;Ensemble Scolaire Privé Catholique des Récollets. Il a pour vocation d&apos;accueillir des garçons et des filles de toutes origines sans distinction aucune et pour ambition de les aider à grandir en humanité en ne réduisant pas chaque Jeune à ses résultats scolaires aussi excellents soient-ils.
               </p>
               
               <p className="font-[var(--font-inter)] text-sm lg:text-base">
-                Être à l'écoute de chacun, l'aider à prendre confiance en lui en découvrant ses potentialités, l'encourager à travailler à la hauteur de celles-ci et, sans tomber dans le manichéisme, lui faire prendre conscience que tout ne se vaut pas : le savoir-être est révélateur d'une intégration et non des repères dont on parle tant !
+                Être à l&apos;écoute de chacun, l&apos;aider à prendre confiance en lui en découvrant ses potentialités, l&apos;encourager à travailler à la hauteur de celles-ci et, sans tomber dans le manichéisme, lui faire prendre conscience que tout ne se vaut pas : le savoir-être est révélateur d&apos;une intégration et non des repères dont on parle tant !
               </p>
               
               <p className="font-[var(--font-inter)] text-sm lg:text-base">
-                Vaste programme, certes exigeant (vertu de l'exemple pour tous les membres de notre Communauté Éducative) mais oh combien exaltant !
+                Vaste programme, certes exigeant (vertu de l&apos;exemple pour tous les membres de notre Communauté Éducative) mais oh combien exaltant !
               </p>
               
               <p className="font-[var(--font-inter)] text-sm lg:text-base">
-                L'École se doit de former les Citoyens de demain ; nous sommes partie prenante de cette mission confiée au système éducatif sans oublier, en tant qu'Établissement Catholique d'Enseignement, de faire découvrir à tous les Jeunes qui nous sont confiés le visage de l'autre à travers la diversité des visages rencontrés.
+                L&apos;École se doit de former les Citoyens de demain ; nous sommes partie prenante de cette mission confiée au système éducatif sans oublier, en tant qu&apos;Établissement Catholique d&apos;Enseignement, de faire découvrir à tous les Jeunes qui nous sont confiés le visage de l&apos;autre à travers la diversité des visages rencontrés.
               </p>
               
               <p className="font-[var(--font-playfair)] text-lg lg:text-xl text-[#8C1515] text-right mt-8 italic">
                 Signé Mr FRATINI
-          </p>
-        </div>
+              </p>
+            </div>
             {needsShowMoreWelcome && (
               <div className="max-w-4xl mx-auto mt-4">
                 <button
@@ -1065,7 +1216,7 @@ export default function Home() {
             {/* Colonne 2: Horaires */}
             <div>
               <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
-                Horaires d'Ouverture
+                Horaires d&apos;Ouverture
               </h3>
               <div className="font-[var(--font-inter)] text-xs text-gray-700 space-y-0.5 leading-snug">
                 <p>Lundi au Vendredi : 8h – 12h et 13h – 17h</p>
@@ -1108,3 +1259,4 @@ export default function Home() {
     </div>
   );
 }
+

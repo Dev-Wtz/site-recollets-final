@@ -8,62 +8,53 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [showMoreDescription, setShowMoreDescription] = useState(false);
+  const [needsShowMore, setNeedsShowMore] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
+  const descriptionRef = useRef<HTMLDivElement>(null);
 
-  // Vérifier si navbar1 dépasse 85% de la largeur de l'écran
+  // Afficher le menu hamburger à 849px et moins, navbar normale à 850px et plus
   useEffect(() => {
     const checkNavbarWidth = () => {
-      requestAnimationFrame(() => {
-        if (navRef.current) {
-          void navRef.current.offsetHeight;
-          const navWidth = navRef.current.offsetWidth || navRef.current.scrollWidth;
-          const windowWidth = window.innerWidth;
-          const percentage = (navWidth / windowWidth) * 100;
-          const shouldShowHamburger = percentage > 85;
-          setShowHamburgerMenu(shouldShowHamburger);
-        }
-      });
+      const windowWidth = window.innerWidth;
+      setShowHamburgerMenu(windowWidth < 850);
     };
 
     checkNavbarWidth();
-    const timeoutId1 = setTimeout(checkNavbarWidth, 50);
-    const timeoutId2 = setTimeout(checkNavbarWidth, 150);
-    const timeoutId3 = setTimeout(checkNavbarWidth, 300);
     
     let resizeTimeout: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(checkNavbarWidth, 50);
+      resizeTimeout = setTimeout(() => {
+        checkNavbarWidth();
+      }, 100);
     };
-    window.addEventListener('resize', handleResize);
     
-    let resizeObserver: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== 'undefined') {
-      const checkAndObserve = () => {
-        if (navRef.current) {
-          resizeObserver = new ResizeObserver(() => {
-            checkNavbarWidth();
-          });
-          resizeObserver.observe(navRef.current);
-        } else {
-          setTimeout(checkAndObserve, 50);
-        }
-      };
-      checkAndObserve();
-    }
-    
-    const intervalId = setInterval(checkNavbarWidth, 1000);
+    window.addEventListener('resize', handleResize, { passive: true });
     
     return () => {
-      clearTimeout(timeoutId1);
-      clearTimeout(timeoutId2);
-      clearTimeout(timeoutId3);
       clearTimeout(resizeTimeout);
-      clearInterval(intervalId);
       window.removeEventListener('resize', handleResize);
-      if (resizeObserver && navRef.current) {
-        resizeObserver.unobserve(navRef.current);
+    };
+  }, []);
+
+  // Vérifier si la description fait plus de 4 lignes
+  useEffect(() => {
+    const checkDescriptionHeight = () => {
+      if (descriptionRef.current) {
+        const lineHeight = parseFloat(getComputedStyle(descriptionRef.current).lineHeight) || 28;
+        const maxHeight = lineHeight * 4;
+        const actualHeight = descriptionRef.current.scrollHeight;
+        setNeedsShowMore(actualHeight > maxHeight);
       }
+    };
+
+    const timer = setTimeout(checkDescriptionHeight, 100);
+    window.addEventListener('resize', checkDescriptionHeight, { passive: true });
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', checkDescriptionHeight);
     };
   }, []);
 
@@ -324,24 +315,12 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                 </div>
               </div>
             
-              {/* Bouton Ecole Direct à droite */}
-              <div className="absolute right-4 lg:right-8 flex items-center z-10">
-                <a
-                  href="https://www.ecoledirecte.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-[#8C1515] text-white px-4 py-2 rounded-lg hover:bg-[#a01919] transition-colors text-sm font-medium whitespace-nowrap"
-                >
-                  Ecole Direct
-                </a>
-              </div>
-            
               {/* Bouton hamburger - affiché quand showHamburgerMenu est true */}
               {showHamburgerMenu && (
-                <div className="absolute right-0">
+                <div className="absolute right-0 z-20">
                   <button
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    className="text-white hover:text-gray-200 transition-colors p-2"
+                    className="text-white hover:text-gray-200 transition-colors p-2 z-20 relative"
                     aria-label="Menu"
                   >
                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -351,10 +330,11 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
             </div>
           </div>
         </div>
+      </header>
 
         {/* Menu hamburger mobile */}
-        {showHamburgerMenu && isMobileMenuOpen && (
-          <div className="absolute top-full left-0 right-0 bg-white text-gray-800 shadow-xl z-50 max-h-[80vh] overflow-y-auto">
+      {showHamburgerMenu && isMobileMenuOpen && (
+        <div className="fixed top-14 left-0 right-0 bg-white text-gray-800 shadow-xl z-[60] max-h-[80vh] overflow-y-auto">
             <div className="max-w-[1400px] mx-auto px-4 py-4">
               {/* Structures */}
               <div className="mb-2">
@@ -484,22 +464,10 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
                   </div>
                 )}
               </div>
-
-              {/* Bouton Ecole Direct dans le menu mobile */}
-              <div className="mt-4 pt-4 border-t border-gray-200">
-                <a
-                  href="https://www.ecoledirecte.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block py-3 px-4 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors text-center font-semibold"
-                >
-                  Ecole Direct
-                </a>
-              </div>
             </div>
           </div>
         )}
-      </header>
+
 
       {/* Section Taux de Réussite avec animation de fondu */}
       <section className="bg-white py-16 pt-32 animate-fade-in">
@@ -512,15 +480,35 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
             
             {/* Texte sur l'excellence des résultats */}
             <div className="max-w-4xl mx-auto mb-12 text-center">
-              <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                L'Ensemble Scolaire Privé des Récollets se distingue par l'excellence de ses résultats aux examens nationaux. Depuis de nombreuses années, nos élèves obtiennent des taux de réussite remarquables qui témoignent de la qualité de notre enseignement et de l'accompagnement personnalisé que nous offrons à chaque jeune.
+              <div 
+                ref={descriptionRef}
+                className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-4' : ''}`}
+              >
+                <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed">
+                  L&apos;Ensemble Scolaire Privé des Récollets se distingue par l&apos;excellence de ses résultats aux examens nationaux. Depuis de nombreuses années, nos élèves obtiennent des taux de réussite remarquables qui témoignent de la qualité de notre enseignement et de l&apos;accompagnement personnalisé que nous offrons à chaque jeune.
               </p>
-              <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                Notre engagement envers l'excellence académique, combiné à une pédagogie bienveillante et exigeante, permet à nos élèves de développer leur plein potentiel et de réussir brillamment leurs examens. Ces résultats exceptionnels reflètent le travail assidu de nos équipes éducatives et la confiance que nous plaçons en chaque élève.
+                <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed">
+                  Notre engagement envers l&apos;excellence académique, combiné à une pédagogie bienveillante et exigeante, permet à nos élèves de développer leur plein potentiel et de réussir brillamment leurs examens. Ces résultats exceptionnels reflètent le travail assidu de nos équipes éducatives et la confiance que nous plaçons en chaque élève.
               </p>
               <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                Découvrez ci-dessous les résultats détaillés en sélectionnant l'année souhaitée.
+                  Découvrez ci-dessous les résultats détaillés en sélectionnant l&apos;année souhaitée.
               </p>
+              </div>
+              {needsShowMore && (
+                <button
+                  type="button"
+                  onClick={() => setShowMoreDescription(!showMoreDescription)}
+                  className="mt-4 text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1 mx-auto"
+                  aria-expanded={showMoreDescription}
+                >
+                  {showMoreDescription ? 'Voir moins' : 'Voir plus'}
+                  <ChevronDown 
+                    size={16} 
+                    className={`transition-transform ${showMoreDescription ? 'rotate-180' : ''}`}
+                    aria-hidden="true"
+                  />
+                </button>
+              )}
             </div>
           </div>
 
@@ -639,7 +627,7 @@ export default function TauxReussitePage() {  // Liste des années de 2025 à 20
             {/* Colonne 2: Horaires */}
             <div>
               <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
-                Horaires d'Ouverture
+                Horaires d&apos;Ouverture
               </h3>
               <div className="font-[var(--font-inter)] text-xs text-gray-700 space-y-0.5">
                 <p>Lundi au Vendredi : 8h – 12h et 13h – 17h</p>
