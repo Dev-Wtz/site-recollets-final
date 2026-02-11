@@ -1,144 +1,51 @@
 import { MetadataRoute } from 'next';
 
+const BASE_URL = 'https://site-recollets-final.vercel.app';
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://site-recollets-final.vercel.app';
   const now = new Date();
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 1,
-    },
+  const routes: Array<{
+    path: string;
+    changeFrequency: 'weekly' | 'monthly' | 'yearly';
+    priority: number;
+  }> = [
+    // Accueil
+    { path: '', changeFrequency: 'weekly', priority: 1 },
+
     // Structures
-    {
-      url: `${baseUrl}/structures/maternelle`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/structures/primaire`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/structures/college`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/structures/lycee-general-et-technologique`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/structures/lycee-professionnel`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
+    { path: '/structures/ecole', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/structures/college', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/structures/lycee-general-et-technologique', changeFrequency: 'monthly', priority: 0.9 },
+    { path: '/structures/lycee-professionnel', changeFrequency: 'monthly', priority: 0.9 },
+
     // Administration
-    {
-      url: `${baseUrl}/administration/tarif`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/administration/reglement`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/administration/taux-reussite`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.8,
-    },
+    { path: '/administration/reglement', changeFrequency: 'yearly', priority: 0.8 },
+    { path: '/administration/tarif', changeFrequency: 'yearly', priority: 0.8 },
+    { path: '/administration/taux-reussite', changeFrequency: 'yearly', priority: 0.8 },
+    { path: '/administration/fournitures-scolaires', changeFrequency: 'yearly', priority: 0.7 },
+
     // Restauration
-    {
-      url: `${baseUrl}/restauration/maternelle`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/restauration/cantine`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/restauration/cafeteria`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    },
-    // Fournitures Scolaires
-    {
-      url: `${baseUrl}/fournitures-scolaires/ecole`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/fournitures-scolaires/college`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/fournitures-scolaires/lycee-pro`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.7,
-    },
+    { path: '/restauration/maternelle', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/restauration/cantine', changeFrequency: 'weekly', priority: 0.7 },
+    { path: '/restauration/cafeteria', changeFrequency: 'weekly', priority: 0.7 },
+
     // Sport
-    {
-      url: `${baseUrl}/sport/calendrier-sportif`,
-      lastModified: now,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/sport/resultats-sportifs`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/sport/inscription-unss`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.6,
-    },
+    { path: '/sport/calendrier-sportif', changeFrequency: 'monthly', priority: 0.6 },
+    { path: '/sport/resultats-sportifs', changeFrequency: 'weekly', priority: 0.6 },
+    { path: '/sport/inscription-unss', changeFrequency: 'yearly', priority: 0.6 },
+
     // Activités
-    {
-      url: `${baseUrl}/activites/animation`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/activites/sorties-scolaires`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/activites/les-choucas`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 0.6,
-    },
+    { path: '/activites/animation', changeFrequency: 'weekly', priority: 0.6 },
+    { path: '/activites/sorties-scolaires', changeFrequency: 'weekly', priority: 0.6 },
+    { path: '/activites/les-choucas', changeFrequency: 'weekly', priority: 0.6 },
+    { path: '/activites/ateliers', changeFrequency: 'weekly', priority: 0.6 },
   ];
+
+  return routes.map(({ path, changeFrequency, priority }) => ({
+    url: `${BASE_URL}${path}`,
+    lastModified: now,
+    changeFrequency,
+    priority,
+  }));
 }
-
-
-

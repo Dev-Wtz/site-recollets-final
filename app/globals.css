@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* ────────────────────────────────────────────
+   Variables globales
+   ──────────────────────────────────────────── */
+
 :root {
   --background: #ffffff;
   --foreground: #1a1a1a;
@@ -20,66 +24,65 @@ body {
   font-family: var(--font-inter);
 }
 
-/* Animation pour la galerie photo auto-défilante */
+/* ────────────────────────────────────────────
+   Animations : galerie photo
+   ──────────────────────────────────────────── */
+
 @keyframes scroll-horizontal {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
 }
 
 .animate-scroll-horizontal {
   animation: scroll-horizontal 60s linear infinite;
   will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
-/* Animation de fondu très rapide pour les pages */
+/* ────────────────────────────────────────────
+   Animations : bandeau défilant
+   ──────────────────────────────────────────── */
+
+@keyframes scroll-banner-infinite {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-scroll-banner-infinite {
+  animation: scroll-banner-infinite 130s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* ────────────────────────────────────────────
+   Animations : fondu de page
+   ──────────────────────────────────────────── */
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 .animate-fade-in {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Masquer la scrollbar tout en gardant le défilement */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* IE et Edge */
-  scrollbar-width: none;  /* Firefox */
-}
+/* ────────────────────────────────────────────
+   Animations : flèches de défilement
+   ──────────────────────────────────────────── */
 
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari et Opera */
-}
-
-/* Animation pour les flèches de défilement - Plus fluide et professionnelle */
 @keyframes arrow-pulse-left {
-  0%, 100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(-6px);
-    opacity: 0.8;
-  }
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50%      { transform: translateX(-6px); opacity: 0.8; }
 }
 
 @keyframes arrow-pulse-right {
-  0%, 100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-  50% {
-    transform: translateX(6px);
-    opacity: 0.8;
-  }
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50%      { transform: translateX(6px); opacity: 0.8; }
 }
 
 .animate-arrow-left {
@@ -90,74 +93,28 @@ body {
   animation: arrow-pulse-right 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-/* Animation pour le trait rouge entre les articles */
-@keyframes line-expand {
-  0%, 100% {
-    width: 25%;
-  }
-  50% {
-    width: 85%;
-  }
+/* ────────────────────────────────────────────
+   Utilitaires
+   ──────────────────────────────────────────── */
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.animate-line-expand {
-  animation: line-expand 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
 }
 
-/* Animations pour le bouton de contact flottant */
-@keyframes pulse-ring {
-  0% {
-    box-shadow: 0 10px 40px rgba(140, 21, 21, 0.4), 0 0 20px rgba(140, 21, 21, 0.3);
-  }
-  50% {
-    box-shadow: 0 10px 50px rgba(140, 21, 21, 0.6), 0 0 30px rgba(140, 21, 21, 0.5);
-  }
-  100% {
-    box-shadow: 0 10px 40px rgba(140, 21, 21, 0.4), 0 0 20px rgba(140, 21, 21, 0.3);
-  }
-}
+/* ────────────────────────────────────────────
+   Bandeau rouge (compatibilité tous navigateurs)
+   ──────────────────────────────────────────── */
 
-@keyframes bounce-subtle {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 2s ease-in-out infinite;
-}
-
-.animate-bounce-subtle {
-  animation: bounce-subtle 2s ease-in-out infinite;
-}
-
-/* Animation pour le défilement automatique infini du bandeau */
-@keyframes scroll-banner-infinite {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-scroll-banner-infinite {
-  animation: scroll-banner-infinite 130s linear infinite;
-  will-change: transform;
-}
-
-/* Bandeau rouge - Garantir l'affichage du fond rouge sur tous les navigateurs */
 .banner-rouge {
   background-color: #8C1515 !important;
   background: linear-gradient(to right, #8C1515, #a01919) !important;
-  background-repeat: no-repeat !important;
-  background-size: 100% 100% !important;
-  min-height: 60px !important;
-  position: relative !important;
-  z-index: 1 !important;
+  position: relative;
+  z-index: 1;
 }
 
 .banner-rouge * {
@@ -166,4 +123,42 @@ body {
 
 .banner-rouge p {
   color: #ffffff !important;
+}
+
+/* ────────────────────────────────────────────
+   Optimisations de performance
+   ──────────────────────────────────────────── */
+
+/* Améliorer le rendu des polices */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Optimiser les images */
+img {
+  content-visibility: auto;
+}
+
+/* Réduire le paint pour les éléments fixes */
+.fixed {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Optimiser les transitions */
+* {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Préchargement des ressources critiques */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

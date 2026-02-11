@@ -12,6 +12,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: 'https://site-recollets-final.vercel.app/sitemap.xml',
   };
 }
-
-
-
