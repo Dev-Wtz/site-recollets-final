@@ -36,13 +36,17 @@ const HERO_NAV_LINKS = [
 ];
 
 const QUICK_LINKS = [
+  { href: '/administration/reglement', label: 'Règlement intérieur' },
   { href: '/administration/tarif', label: 'Tarifs' },
   { href: '/restauration/cantine', label: 'Menu Cantine' },
   { href: '/restauration/cafeteria', label: 'Menu Cafeteria' },
-  { href: '/structures/ecole#contact', label: 'Contact École' },
-  { href: '/structures/college#contact', label: 'Contact Collège' },
-  { href: '/structures/lycee-general-et-technologique#contact', label: 'Contact Lycée' },
-  { href: '/structures/lycee-professionnel#contact', label: 'Contact Lycée Pro' },
+] as const;
+
+const CONTACT_LINKS = [
+  { href: '/structures/ecole#contact', label: 'École' },
+  { href: '/structures/college#contact', label: 'Collège' },
+  { href: '/structures/lycee-general-et-technologique#contact', label: 'Lycée' },
+  { href: '/structures/lycee-professionnel#contact', label: 'Lycée Pro' },
 ] as const;
 
 /* ────────────────────────────────────────────
@@ -188,6 +192,7 @@ export default function Home() {
     toggle: toggleShowMoreWelcome,
   } = useShowMoreText(8);
   const [isStatsVisible, setIsStatsVisible] = useState(false);
+  const [contactsOpen, setContactsOpen] = useState(false);
   const [reussite, setReussite] = useState(0);
   const [eleves, setEleves] = useState(0);
   const [annee, setAnnee] = useState(0);
@@ -195,6 +200,7 @@ export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
+  const heroSectionRef = useRef<HTMLElement>(null);
 
   // --- Données mémorisées ---
   const sortedEvents = useMemo(() => {
@@ -209,83 +215,85 @@ export default function Home() {
     return [...items, ...items]; // Duplication pour boucle infinie
   }, []);
 
-  // --- Effet : ajustement dynamique de la taille du titre ---
+  // --- Effet : ajustement dynamique de la taille du titre (temps réel) ---
   useEffect(() => {
     const adjustFontSize = () => {
       if (!titleRef.current || !subtitleRef.current) return;
 
-      const doAdjust = () => {
-        requestAnimationFrame(() => {
-          const windowWidth = window.innerWidth;
-          const isMobile = windowWidth < 850;
-          const targetWidth = windowWidth * (isMobile ? 0.90 : 0.75);
-          const titleEl = titleRef.current;
-          const subtitleEl = subtitleRef.current;
-          if (!titleEl || !subtitleEl) return;
+      const windowWidth = window.innerWidth;
+      const isMobile = windowWidth < 850;
+      const targetWidth = windowWidth * (isMobile ? 0.90 : 0.75);
+      const titleEl = titleRef.current;
+      const subtitleEl = subtitleRef.current;
+      if (!titleEl || !subtitleEl) return;
 
-          // Mesure du titre
-          const titleFont = getComputedStyle(titleEl).fontFamily || 'Playfair Display, serif';
-          const textToMeasure = isMobile ? 'Récollets' : 'Les Récollets';
-          const measureEl = document.createElement('span');
-          measureEl.style.cssText = `position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:${titleFont};font-weight:bold;letter-spacing:-0.02em`;
-          measureEl.textContent = textToMeasure;
-          document.body.appendChild(measureEl);
+      // Mesure du titre
+      const titleFont = getComputedStyle(titleEl).fontFamily || 'Playfair Display, serif';
+      const textToMeasure = 'Les Récollets';
+      const measureEl = document.createElement('span');
+      measureEl.style.cssText = `position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:${titleFont};font-weight:bold;letter-spacing:-0.02em`;
+      measureEl.textContent = textToMeasure;
+      document.body.appendChild(measureEl);
 
-          let titleSize = targetWidth / 8.5;
-          measureEl.style.fontSize = `${titleSize}px`;
+      let titleSize = targetWidth / 8.5;
+      measureEl.style.fontSize = `${titleSize}px`;
 
-          for (let i = 0; i < 20; i++) {
-            const currentWidth = measureEl.getBoundingClientRect().width;
-            if (Math.abs(currentWidth - targetWidth) <= 2) break;
-            titleSize *= targetWidth / currentWidth;
-            measureEl.style.fontSize = `${titleSize}px`;
-          }
-
-          document.body.removeChild(measureEl);
-          titleEl.style.fontSize = `${titleSize}px`;
-          setTitleFontSize(`${titleSize}px`);
-
-          // Mesure du sous-titre
-          const subtitleFont = getComputedStyle(subtitleEl).fontFamily || 'Inter, sans-serif';
-          let subtitleSize = titleSize * 0.12;
-          const measureSub = document.createElement('span');
-          measureSub.style.cssText = `position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:${subtitleFont};font-weight:900;letter-spacing:0.35em`;
-          measureSub.textContent = 'Ensemble Scolaire Privé';
-          document.body.appendChild(measureSub);
-          measureSub.style.fontSize = `${subtitleSize}px`;
-
-          for (let i = 0; i < 20; i++) {
-            const currentWidth = measureSub.getBoundingClientRect().width;
-            if (Math.abs(currentWidth - targetWidth) <= 2 || currentWidth <= targetWidth) break;
-            subtitleSize *= targetWidth / currentWidth;
-            measureSub.style.fontSize = `${subtitleSize}px`;
-          }
-
-          document.body.removeChild(measureSub);
-          subtitleEl.style.fontSize = `${subtitleSize}px`;
-          setSubtitleFontSize(`${subtitleSize}px`);
-        });
-      };
-
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(doAdjust, { timeout: 2000 });
-      } else {
-        setTimeout(() => requestAnimationFrame(doAdjust), 500);
+      for (let i = 0; i < 20; i++) {
+        const currentWidth = measureEl.getBoundingClientRect().width;
+        if (Math.abs(currentWidth - targetWidth) <= 2) break;
+        titleSize *= targetWidth / currentWidth;
+        measureEl.style.fontSize = `${titleSize}px`;
       }
+
+      document.body.removeChild(measureEl);
+      titleEl.style.fontSize = `${titleSize}px`;
+      setTitleFontSize(`${titleSize}px`);
+
+      // Mesure du sous-titre
+      const subtitleFont = getComputedStyle(subtitleEl).fontFamily || 'Inter, sans-serif';
+      let subtitleSize = titleSize * 0.12;
+      const measureSub = document.createElement('span');
+      measureSub.style.cssText = `position:absolute;top:-9999px;left:-9999px;visibility:hidden;white-space:nowrap;font-family:${subtitleFont};font-weight:900;letter-spacing:0.35em`;
+      measureSub.textContent = 'Ensemble Scolaire Privé';
+      document.body.appendChild(measureSub);
+      measureSub.style.fontSize = `${subtitleSize}px`;
+
+      for (let i = 0; i < 20; i++) {
+        const currentWidth = measureSub.getBoundingClientRect().width;
+        if (Math.abs(currentWidth - targetWidth) <= 2 || currentWidth <= targetWidth) break;
+        subtitleSize *= targetWidth / currentWidth;
+        measureSub.style.fontSize = `${subtitleSize}px`;
+      }
+
+      document.body.removeChild(measureSub);
+      subtitleEl.style.fontSize = `${subtitleSize}px`;
+      setSubtitleFontSize(`${subtitleSize}px`);
     };
 
-    const timer = setTimeout(adjustFontSize, 300);
-    let resizeTimer: NodeJS.Timeout;
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(adjustFontSize, 200);
+    // Exécution immédiate au prochain frame
+    let rafId = requestAnimationFrame(adjustFontSize);
+
+    // ResizeObserver + rAF throttle pour réactivité temps réel
+    let pendingRaf: number | null = null;
+    const scheduleAdjust = () => {
+      if (pendingRaf !== null) return;
+      pendingRaf = requestAnimationFrame(() => {
+        pendingRaf = null;
+        adjustFontSize();
+      });
     };
 
-    window.addEventListener('resize', handleResize, { passive: true });
+    const ro = new ResizeObserver(scheduleAdjust);
+    if (heroSectionRef.current) ro.observe(heroSectionRef.current);
+
+    // Fallback resize (orientation, DevTools, etc.)
+    window.addEventListener('resize', scheduleAdjust, { passive: true });
+
     return () => {
-      clearTimeout(timer);
-      clearTimeout(resizeTimer);
-      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(rafId);
+      if (pendingRaf !== null) cancelAnimationFrame(pendingRaf);
+      ro.disconnect();
+      window.removeEventListener('resize', scheduleAdjust);
     };
   }, []);
 
@@ -349,7 +357,7 @@ export default function Home() {
       <Navbar isHomePage />
 
       {/* ═══════ Hero Section ═══════ */}
-      <section className="relative h-[100svh] min-h-[500px] max-h-[900px] md:max-h-none md:h-screen overflow-hidden">
+      <section ref={heroSectionRef} className="relative h-[100svh] min-h-[500px] max-h-[900px] md:max-h-none md:h-screen overflow-hidden">
         {/* Navigation secondaire (desktop uniquement) */}
         <div className="hidden lg:block absolute top-14 left-0 right-0 z-10">
           <div className="max-w-4xl xl:max-w-5xl mx-auto px-4">
@@ -516,10 +524,39 @@ export default function Home() {
                     key={link.href}
                     href={link.href}
                     className="block text-sm sm:text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-2 sm:pb-3 lg:border-b lg:pb-3"
+                    suppressHydrationWarning
                   >
                     {link.label}
                   </Link>
                 ))}
+                {/* Contacts déroulant */}
+                <div className="relative col-span-2 md:col-span-4 lg:col-span-1">
+                  <button
+                    type="button"
+                    onClick={() => setContactsOpen(!contactsOpen)}
+                    onBlur={() => setTimeout(() => setContactsOpen(false), 150)}
+                    className="w-full flex items-center justify-between text-sm sm:text-base text-[#006CB8] hover:text-[#8C1515] transition-colors font-medium border-b border-gray-200 pb-2 sm:pb-3 lg:border-b lg:pb-3 text-left"
+                    aria-expanded={contactsOpen}
+                    aria-haspopup="true"
+                  >
+                    Contacts
+                    <ChevronDown size={16} className={`flex-shrink-0 transition-transform ${contactsOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  {contactsOpen && (
+                    <div className="absolute left-0 right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-10">
+                      {CONTACT_LINKS.map((link) => (
+                        <Link
+                          key={link.href}
+                          href={link.href}
+                          className="block px-4 py-2 text-sm sm:text-base text-[#006CB8] hover:text-[#8C1515] hover:bg-gray-50 transition-colors"
+                          onClick={() => setContactsOpen(false)}
+                        >
+                          {link.label}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
