@@ -34,7 +34,7 @@ export default function CantinePage() {
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
                   Le restaurant scolaire des Récollets propose une restauration
                   de qualité. Nos repas sont préparés quotidiennement sur place
-                  par notre équipe de restauration, garantissant qualité
+                  par notre équipe de restauration, garantissant une qualité
                   nutritionnelle.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
@@ -69,7 +69,7 @@ export default function CantinePage() {
               <div className="relative w-full max-w-6xl">
                 <img
                   src="/MenuCantine.png"
-                  alt="Menu Cantine - Les Récollets"
+                  alt="Menu Restaurant Scolaire - Les Récollets"
                   className="w-full h-auto rounded-lg shadow-2xl"
                   loading="lazy"
                   decoding="async"

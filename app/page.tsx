@@ -38,8 +38,8 @@ const HERO_NAV_LINKS = [
 const QUICK_LINKS = [
   { href: '/administration/reglement', label: 'Règlement intérieur' },
   { href: '/administration/tarif', label: 'Tarifs' },
-  { href: '/restauration/cantine', label: 'Menu Cantine' },
-  { href: '/restauration/cafeteria', label: 'Menu Cafeteria' },
+  { href: '/restauration/cantine', label: 'Menu Restaurant Scolaire' },
+  { href: '/restauration/cafeteria', label: 'Menu Cafétéria du Lycée' },
 ] as const;
 
 const CONTACT_LINKS = [
@@ -160,7 +160,7 @@ const RAW_EVENTS = [
   {
     titre: 'Championnat Grand Est UGSEL de bad',
     date: '30 mars 2023',
-    texte: 'Nos filles ont brillé en décrochant 5 qualification pour le championnat de France en Mai prochain.',
+    texte: 'Nos filles ont brillé en décrochant 5 qualifications pour le championnat de France en mai prochain.',
     link: '/sport/resultats-sportifs',
   },
   {
@@ -595,19 +595,19 @@ export default function Home() {
               className={`max-w-4xl mx-auto space-y-4 sm:space-y-6 text-gray-800 leading-relaxed ${!showMoreWelcome && needsShowMoreWelcome ? 'line-clamp-[5]' : ''}`}
             >
               <p className="font-[var(--font-inter)] text-sm sm:text-base">
-                L&apos;École Notre-Dame, le Collège, le Lycée Général et Technologique ainsi que le Lycée Professionnel Notre-Dame constituent l&apos;Ensemble Scolaire Privé Catholique des Récollets. Il a pour vocation d&apos;accueillir des garçons et des filles de toutes origines sans distinction aucune et pour ambition de les aider à grandir en humanité en ne réduisant pas chaque Jeune à ses résultats scolaires aussi excellents soient-ils.
+                L&apos;École Notre-Dame, le Collège, le Lycée Général et Technologique et le Lycée Professionnel Notre-Dame forment l&apos;Ensemble Scolaire Privé Catholique des Récollets. Il a pour vocation d&apos;accueillir des garçons et des filles de toutes origines, sans aucune distinction, et pour ambition de les aider à grandir en humanité sans réduire chaque jeune à ses seuls résultats scolaires, aussi excellents soient-ils.
               </p>
               <p className="font-[var(--font-inter)] text-sm sm:text-base">
-                Être à l&apos;écoute de chacun, l&apos;aider à prendre confiance en lui en découvrant ses potentialités, l&apos;encourager à travailler à la hauteur de celles-ci et, sans tomber dans le manichéisme, lui faire prendre conscience que tout ne se vaut pas : le savoir-être est révélateur d&apos;une intégration et non des repères dont on parle tant !
+                Être à l&apos;écoute de chacun, l&apos;aider à prendre confiance en lui en découvrant ses potentialités, l&apos;encourager à travailler à la hauteur de celles-ci et, sans tomber dans le manichéisme, lui faire prendre conscience que tout ne se vaut pas : le savoir-être est le signe d&apos;une intégration réussie, et non pas seulement des repères dont on parle tant.
               </p>
               <p className="font-[var(--font-inter)] text-sm sm:text-base">
-                Vaste programme, certes exigeant (vertu de l&apos;exemple pour tous les membres de notre Communauté Éducative) mais oh combien exaltant !
+                Vaste programme, certes exigeant — la vertu de l&apos;exemple pour tous les membres de notre communauté éducative — mais ô combien exaltant !
               </p>
               <p className="font-[var(--font-inter)] text-sm sm:text-base">
-                L&apos;École se doit de former les Citoyens de demain ; nous sommes partie prenante de cette mission confiée au système éducatif sans oublier, en tant qu&apos;Établissement Catholique d&apos;Enseignement, de faire découvrir à tous les Jeunes qui nous sont confiés le visage de l&apos;autre à travers la diversité des visages rencontrés.
+                L&apos;École se doit de former les citoyens de demain ; nous sommes partie prenante de cette mission confiée au système éducatif, sans oublier, en tant qu&apos;établissement catholique d&apos;enseignement, de faire découvrir à tous les jeunes qui nous sont confiés le visage de l&apos;autre à travers la diversité des visages rencontrés.
               </p>
               <p className="font-[var(--font-playfair)] text-base sm:text-lg lg:text-xl text-[#8C1515] text-right mt-6 sm:mt-8 italic">
-                Signé Mr FRATINI
+                M. FRATINI
               </p>
             </div>
 

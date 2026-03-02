@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import SkipLink from "@/app/components/SkipLink";
+import CookieConsent from "@/app/components/CookieConsent";
 
 /* ────────────────────────────────────────────
    Polices
@@ -97,10 +99,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <meta name="geo.position" content="49.5214;5.7603" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        {children}
+        <SkipLink />
+        <main id="main-content" tabIndex={-1}>
+          {children}
+        </main>
+        <CookieConsent />
       </body>
     </html>
   );

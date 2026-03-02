@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <style>
+    .logo-fill { fill: #0a0a0a; }
+    @media (prefers-color-scheme: dark) {
+      .logo-fill { fill: #ffffff; }
+    }
+  </style>
+  <rect width="32" height="32" rx="6" class="logo-fill" opacity="0.12"/>
+  <path class="logo-fill" d="M10 8h4c3.2 0 5.5 2.3 5.5 5.2 0 2.1-1.2 3.8-2.9 4.6v.1l3.4 6.1h-2.4l-3-5.5h-2.2v5.5H10V8zm2.2 5.8h1.8c1.6 0 2.7-1.1 2.7-2.7 0-1.6-1.1-2.7-2.7-2.7h-1.8v5.4z" fill-rule="evenodd"/>
+</svg>

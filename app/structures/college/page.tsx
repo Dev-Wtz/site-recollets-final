@@ -30,6 +30,7 @@ export default function CollegePage() {
               <ContactCard 
                 secretariat={STRUCTURE_CONTACTS.college.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.college.vieScolaire}
+                vieScolaireLabel="Vie scolaire du collège"
               />
             </div>
             <Link
@@ -48,7 +49,7 @@ export default function CollegePage() {
           {/* Description */}
           <DescriptionSection title="Un collège dynamique et moderne">
             <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg leading-relaxed">
-              Le collège des Récollets accueille les élèves de la 6e à la 3e, proposant un environnement propice à l&apos;apprentissage et à l&apos;épanouissement. Les cours, organisés du lundi au vendredi et mercredi matin, offrent des horaires adaptés à la concentration des élèves.
+              Le collège des Récollets accueille les élèves de la 6e à la 3e, proposant un environnement propice à l&apos;apprentissage et à l&apos;épanouissement. Les cours sont organisés du lundi au vendredi et le mercredi matin, et offrent des horaires adaptés à la concentration des élèves.
             </p>
             <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg leading-relaxed">
               L&apos;équipe pédagogique se dédie à équiper les élèves pour comprendre leur monde et à trouver leur place dans la société. L&apos;enseignement des langues est fortement valorisé. Deux filières sont proposées pour le brevet des collèges : général et professionnel. L&apos;établissement enrichit l&apos;expérience éducative à travers des sorties et des voyages pédagogiques en lien avec les études des élèves.

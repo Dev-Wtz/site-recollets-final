@@ -59,7 +59,7 @@ export default function LesChoucasPage() {
       date: '01 Juillet 2022',
       dateSort: parseDate('01 Juillet 2022'),
       image: '/hero.jpg',
-      texte: 'Participe au prix « Coup de Cœur facebook – APJ » en soutenant ton projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
+      texte: 'Participez au prix « Coup de Cœur Facebook – APJ » en soutenant ton projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 

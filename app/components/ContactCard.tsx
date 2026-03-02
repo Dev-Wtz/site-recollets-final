@@ -2,9 +2,12 @@ import { Phone, Mail, Link2 } from "lucide-react";
 import { memo } from "react";
 import type { StructureContacts } from "@/app/lib/types";
 
-interface ContactCardProps extends StructureContacts {}
+interface ContactCardProps extends StructureContacts {
+  /** Ex. "Vie scolaire de l'école", "Vie scolaire du collège" */
+  vieScolaireLabel?: string;
+}
 
-function ContactCard({ secretariat, vieScolaire }: ContactCardProps) {
+function ContactCard({ secretariat, vieScolaire, vieScolaireLabel = "Vie scolaire" }: ContactCardProps) {
   return (
     <div className="bg-gray-50 rounded-xl p-6 sm:p-8 shadow-lg border border-gray-200">
       <h2 className="font-[var(--font-playfair)] text-xl sm:text-2xl font-bold text-[#8C1515] mb-4">
@@ -12,12 +15,12 @@ function ContactCard({ secretariat, vieScolaire }: ContactCardProps) {
       </h2>
       <div className="space-y-4 font-[var(--font-inter)] text-sm sm:text-base text-gray-700">
         <div>
-          <p className="font-semibold text-gray-900 mb-1">Secrétariat</p>
+          <p className="font-semibold text-gray-900 mb-1">Secrétariat de l&apos;ensemble scolaire</p>
           <p className="flex items-center gap-2">
             <a 
               href={`tel:${secretariat.phoneTel}`} 
               className="inline-flex items-center gap-1.5 hover:text-[#8C1515] transition-colors underline-offset-2 hover:underline" 
-              aria-label="Appeler le secrétariat"
+              aria-label="Appeler le secrétariat de l'ensemble scolaire"
             >
               <Phone size={16} className="flex-shrink-0" />
               {secretariat.phone}
@@ -28,7 +31,7 @@ function ContactCard({ secretariat, vieScolaire }: ContactCardProps) {
             <a 
               href={`mailto:${secretariat.email}`} 
               className="inline-flex items-center gap-1.5 hover:text-[#8C1515] transition-colors break-all underline-offset-2 hover:underline" 
-              aria-label="Envoyer un email au secrétariat"
+              aria-label="Envoyer un email au secrétariat de l'ensemble scolaire"
             >
               <Mail size={16} className="flex-shrink-0" />
               {secretariat.email}
@@ -37,12 +40,12 @@ function ContactCard({ secretariat, vieScolaire }: ContactCardProps) {
           </p>
         </div>
         <div>
-          <p className="font-semibold text-gray-900 mb-1">Vie scolaire</p>
+          <p className="font-semibold text-gray-900 mb-1">{vieScolaireLabel}</p>
           <p className="flex items-center gap-2">
             <a 
               href={`tel:${vieScolaire.phoneTel}`} 
               className="inline-flex items-center gap-1.5 hover:text-[#8C1515] transition-colors underline-offset-2 hover:underline" 
-              aria-label="Appeler la vie scolaire"
+              aria-label={`Appeler la ${vieScolaireLabel.toLowerCase()}`}
             >
               <Phone size={16} className="flex-shrink-0" />
               {vieScolaire.phone}
@@ -53,7 +56,7 @@ function ContactCard({ secretariat, vieScolaire }: ContactCardProps) {
             <a 
               href={`mailto:${vieScolaire.email}`} 
               className="inline-flex items-center gap-1.5 hover:text-[#8C1515] transition-colors break-all underline-offset-2 hover:underline" 
-              aria-label="Envoyer un email à la vie scolaire"
+              aria-label={`Envoyer un email à la ${vieScolaireLabel.toLowerCase()}`}
             >
               <Mail size={16} className="flex-shrink-0" />
               {vieScolaire.email}

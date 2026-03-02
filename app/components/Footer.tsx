@@ -1,4 +1,15 @@
+import Link from "next/link";
 import { CONTAINER_CLASS, FOOTER } from "@/app/lib/constants";
+import CookieBannerTrigger from "@/app/components/CookieBannerTrigger";
+
+const LEGAL_LINKS = [
+  { href: "/legal/mentions-legales", label: "Mentions légales" },
+  { href: "/legal/confidentialite", label: "Confidentialité" },
+  { href: "/legal/cgu", label: "CGU" },
+  { href: "/legal/cookies", label: "Cookies" },
+  { href: "/legal/charte-ugc", label: "Charte UGC" },
+  { href: "/legal/accessibilite", label: "Accessibilité" },
+] as const;
 
 export default function Footer() {
   return (
@@ -25,30 +36,24 @@ export default function Footer() {
               <p>{FOOTER.hours.weekend}</p>
             </div>
           </div>
-          <div className="sm:col-span-2 lg:col-span-1">
+          <div>
             <h3 className="font-[var(--font-inter)] text-xs font-bold mb-1.5 uppercase tracking-wide text-[#8C1515]">
-              Contact
+              Informations légales
             </h3>
-            <div className="font-[var(--font-inter)] text-xs text-gray-700 space-y-0.5 leading-snug">
+            <nav className="font-[var(--font-inter)] text-xs text-gray-700 space-y-1 leading-snug" aria-label="Pages légales">
+              {LEGAL_LINKS.map((link) => (
+                <p key={link.href}>
+                  <Link href={link.href} className="hover:text-[#8C1515] transition-colors">
+                    {link.label}
+                  </Link>
+                </p>
+              ))}
               <p>
-                <span className="text-gray-500">Tél :</span>{" "}
-                <a
-                  href={`tel:${FOOTER.phone}`}
-                  className="hover:text-[#8C1515] transition-colors"
-                >
-                  {FOOTER.phoneDisplay}
-                </a>
+                <CookieBannerTrigger className="hover:text-[#8C1515] transition-colors">
+                  Gérer les cookies
+                </CookieBannerTrigger>
               </p>
-              <p>
-                <span className="text-gray-500">Mail :</span>{" "}
-                <a
-                  href={`mailto:${FOOTER.email}`}
-                  className="hover:text-[#8C1515] transition-colors break-all"
-                >
-                  {FOOTER.email}
-                </a>
-              </p>
-            </div>
+            </nav>
           </div>
         </div>
       </div>

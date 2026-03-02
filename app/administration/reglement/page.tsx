@@ -23,7 +23,7 @@ export default function ReglementPage() {
                 Vivre Ensemble
               </h3>
               <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                L&apos;ensemble des règles qui suivent a pour but de favoriser la vie en communautaire dans l&apos;établissement, d&apos;instaurer un climat de confiance et de dialogue, en pleine connaissance de ses droits et de ses devoirs, de garantir la tolérance et le respect d&apos;autrui, ainsi que la protection de chacun contre toute agression physique ou morale.
+                L&apos;ensemble des règles qui suivent a pour but de favoriser la vie en communauté dans l&apos;établissement, d&apos;instaurer un climat de confiance et de dialogue, en pleine connaissance de ses droits et de ses devoirs, de garantir la tolérance et le respect d&apos;autrui, ainsi que la protection de chacun contre toute agression physique ou morale.
               </p>
               <p className="font-[var(--font-inter)] text-base lg:text-lg text-gray-700 leading-relaxed">
                 Ce règlement constitue un contrat de vie scolaire, passé entre l&apos;établissement, les parents ou personnes responsables de l&apos;enfant et les élèves qui s&apos;engagent à le respecter.
@@ -43,7 +43,7 @@ export default function ReglementPage() {
                   · La présence des élèves à tous les cours prévus à l&apos;emploi du temps de leur division est obligatoire. L&apos;inscription à une option facultative (latin, DP3, Accompagnement éducatif...) entraîne l&apos;obligation d&apos;assiduité pendant tout le cycle concerné.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Toute absence prévisible doit faire l&apos;objet d&apos;une information écrite des parents. En cas d&apos;absence imprévisible (maladie, accident...), le bureau des surveillants doit être informé le matin avant 09h et l&apos;après-midi 15h (téléphone : <a href="tel:0382259928" className="text-[#8C1515] hover:underline">03 82 25 99 28</a>). Pour toutes autres demandes, téléphoner au secrétariat du collège (téléphone : <a href="tel:0382259920" className="text-[#8C1515] hover:underline">03 82 25 99 20</a>).
+                  · Toute absence prévisible doit faire l&apos;objet d&apos;une information écrite des parents. En cas d&apos;absence imprévisible (maladie, accident...), le bureau des surveillants doit être informé le matin avant 09h et l&apos;après-midi 15h (téléphone : <a href="tel:0382259928" className="text-[#8C1515] hover:underline">03 82 25 99 28</a>). Pour toute autre demande, téléphoner au secrétariat du collège (téléphone : <a href="tel:0382259920" className="text-[#8C1515] hover:underline">03 82 25 99 20</a>).
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · Dans tous les cas, dès son retour, l&apos;élève présentera aux surveillants un billet d&apos;absence signé par les parents dans le carnet de correspondance indiquant le motif de l&apos;absence.
@@ -67,7 +67,7 @@ export default function ReglementPage() {
                   · En cas d&apos;absence prévue d&apos;un professeur, l&apos;emploi du temps habituel pourra être modifié ou les élèves libérés. Les parents en seront informés par le biais du carnet de correspondance. Seuls les élèves autorisés par les parents (mot signé et vérifié avant le changement) pourront quitter l&apos;établissement.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Le collège se réserve le droit de tous changements dans l&apos;emploi du temps au cours de l&apos;année (dans la grille d&apos;horaires d&apos;ouverture de l&apos;établissement 8h00 à 11h50 et 13h à 16h50). Les activités extrascolaires ne peuvent pas faire l&apos;objet d&apos;un motif d&apos;absence valable.
+                  · Le collège se réserve le droit d&apos;apporter tout changement dans l&apos;emploi du temps au cours de l&apos;année (dans la grille d&apos;horaires d&apos;ouverture de l&apos;établissement 8h00 à 11h50 et 13h à 16h50). Les activités extrascolaires ne peuvent pas faire l&apos;objet d&apos;un motif d&apos;absence valable.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · Les sorties non autorisées seront sanctionnées.
@@ -76,7 +76,7 @@ export default function ReglementPage() {
                   · Avant de rentrer en classe, tout élève en retard passe au bureau des surveillants avec son carnet de correspondance. Des retards injustifiés et fréquents seront sanctionnés.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Les autorisations de sorties peuvent à tous moments être supprimées en cas de manquements répétés au règlement.
+                  · Les autorisations de sortie peuvent à tout moment être supprimées en cas de manquements répétés au règlement.
                 </p>
               </div>
             </div>
@@ -88,13 +88,13 @@ export default function ReglementPage() {
               </h3>
               <div className="space-y-4 text-gray-700">
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Chaque membre de la communauté scolaire est responsable de l&apos;ordre et de la propreté de l&apos;établissement (papières, rangement des salles, respect du matériel, propreté des toilettes...). Si la dégradation est volontaire ou la conséquence d&apos;un acte d&apos;indiscipline ou d&apos;une négligence caractérisée, la réparation financière sera totale ou partielle par la famille, sans exclusion d&apos;éventuelles sanctions disciplinaires.
+                  · Chaque membre de la communauté scolaire est responsable de l&apos;ordre et de la propreté de l&apos;établissement (papiers, rangement des salles, respect du matériel, propreté des toilettes...). Si la dégradation est volontaire ou la conséquence d&apos;un acte d&apos;indiscipline ou d&apos;une négligence caractérisée, la réparation financière sera totale ou partielle par la famille, sans exclusion d&apos;éventuelles sanctions disciplinaires.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · En cas de perte ou de dégradation des manuels scolaires prêtés par l&apos;établissement, la responsabilité de l&apos;élève est engagée. Des sanctions pourront être appliquées (remboursement ou remplacement de l&apos;ouvrage).
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Les élèves doivent se présenter dans une tenue vestimentaire propre et décente. Une tenue incorrecte ou trop dénudée, de même qu&apos;un maquillage à outrance ne sera pas acceptée au sein de l&apos;établissement.
+                  · Les élèves doivent se présenter dans une tenue vestimentaire propre et décente. Une tenue incorrecte ou trop dénudée, de même qu&apos;un maquillage à outrance ne seront pas acceptés au sein de l&apos;établissement.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · Le port de couvre-chef (casquette, bonnet, bandana...) est interdit dans les bâtiments (couloirs, classes, restaurant scolaire, gymnase...).
@@ -103,7 +103,7 @@ export default function ReglementPage() {
                   · Les téléphones portables, les baladeurs audio ou autres appareils électroniques comme consoles de jeu ne sont pas autorisés dans le collège. Les élèves n&apos;apporteront pas de sommes importantes ou d&apos;objets de valeur ne présentant pas d&apos;utilité scolaire. En cas de manquement au règlement ils pourront être confisqués quelques jours.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · L&apos;enregistrement d&apos;un cours ainsi que la prise de photographies dans l&apos;établissement d&apos;élèves, de professeurs ou personnel est interdit et peut être puni par la loi.
+                  · L&apos;enregistrement d&apos;un cours ainsi que la prise de photographies dans l&apos;établissement d&apos;élèves, de professeurs ou du personnel est interdit et peut être puni par la loi.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · Les cours d&apos;EPS sont obligatoires au même titre que les autres cours. Une tenue correcte est exigée pour le cours d&apos;EPS. Tout oubli de tenue sportive sera sanctionné.
@@ -118,7 +118,7 @@ export default function ReglementPage() {
               </h3>
               <div className="space-y-4 text-gray-700">
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Chacun fera preuve de politesse à l&apos;égard d&apos;autrui (élèves et adultes de l&apos;établissement, quelque soit sa fonction). Il sera interdit toute violence verbale ou physique.
+                  · Chacun fera preuve de politesse à l&apos;égard d&apos;autrui (élèves et adultes de l&apos;établissement, quelle que soit sa fonction). Toute violence verbale ou physique sera interdite.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · L&apos;élève ne pourra en aucun cas fumer ni introduire de tabac ou autres produits illicites à l&apos;intérieur du collège. Le chewing-gum est interdit en classe.
@@ -156,11 +156,11 @@ export default function ReglementPage() {
             {/* Section 6 */}
             <div className="border-l-4 border-[#8C1515] pl-6">
               <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515] mb-4">
-                6/ NON RESPECT DU RÈGLEMENT
+                6/ NON-RESPECT DU RÈGLEMENT
               </h3>
               <div className="space-y-4 text-gray-700">
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
-                  · Le non respect du règlement et de la discipline sera sanctionné.
+                  · Le non-respect du règlement et de la discipline sera sanctionné.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm lg:text-base leading-relaxed">
                   · Les heures de retenue sont fixées par les surveillants ou les professeurs et non par les parents.

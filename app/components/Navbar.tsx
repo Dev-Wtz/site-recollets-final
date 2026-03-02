@@ -33,8 +33,8 @@ const NAV_ITEMS: readonly NavItem[] = [
     label: 'Restauration', key: 'restauration',
     links: [
       { href: '/restauration/maternelle', label: 'Menu Maternelle' },
-      { href: '/restauration/cantine', label: 'Menu Cantine' },
-      { href: '/restauration/cafeteria', label: 'Menu Cafétéria' },
+      { href: '/restauration/cantine', label: 'Menu Restaurant Scolaire' },
+      { href: '/restauration/cafeteria', label: 'Menu Cafétéria du Lycée' },
     ],
   },
   {
@@ -102,6 +102,7 @@ export default function Navbar({ isHomePage = false, activePage }: NavbarProps) 
 
   const isActive = (href: string): boolean => activePage === href;
   const visibleItems = isHomePage ? NAV_ITEMS.filter((item) => !item.hideOnHome) : NAV_ITEMS;
+  const mobileMenuItems = NAV_ITEMS;
   const activeClass = (href: string): string => isActive(href) ? 'bg-[#8C1515] text-white' : '';
 
   const headerBgClass = isHomePage
@@ -203,7 +204,7 @@ export default function Navbar({ isHomePage = false, activePage }: NavbarProps) 
       {isMobileMenuOpen && (
         <div className="fixed top-14 left-0 right-0 bg-white text-gray-800 shadow-xl z-[60] max-h-[80vh] overflow-y-auto max-[849px]:block min-[850px]:hidden">
           <div className="max-w-[1400px] mx-auto px-4 py-4">
-            {visibleItems.map((item) => (
+            {mobileMenuItems.map((item) => (
               <div key={item.key} className="mb-2">
                 <button
                   onClick={() => toggleSubmenu(item.key)}

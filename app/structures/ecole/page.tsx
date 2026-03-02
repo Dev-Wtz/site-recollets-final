@@ -56,6 +56,7 @@ export default function EcolePage() {
               <ContactCard 
                 secretariat={STRUCTURE_CONTACTS.ecole.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.ecole.vieScolaire}
+                vieScolaireLabel="Vie scolaire de l'école"
               />
             </div>
             <Link

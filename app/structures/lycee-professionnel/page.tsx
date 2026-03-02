@@ -30,6 +30,7 @@ export default function LyceeProfessionnelPage() {
               <ContactCard 
                 secretariat={STRUCTURE_CONTACTS.lyceePro.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.lyceePro.vieScolaire}
+                vieScolaireLabel="Vie scolaire du lycée professionnel"
               />
             </div>
             <Link

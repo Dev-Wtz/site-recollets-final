@@ -40,6 +40,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/activites/sorties-scolaires', changeFrequency: 'weekly', priority: 0.6 },
     { path: '/activites/les-choucas', changeFrequency: 'weekly', priority: 0.6 },
     { path: '/activites/ateliers', changeFrequency: 'weekly', priority: 0.6 },
+
+    // Pages légales
+    { path: '/legal/mentions-legales', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/legal/confidentialite', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/legal/cgu', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/legal/cookies', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/legal/charte-ugc', changeFrequency: 'yearly', priority: 0.4 },
+    { path: '/legal/accessibilite', changeFrequency: 'yearly', priority: 0.4 },
   ];
 
   return routes.map(({ path, changeFrequency, priority }) => ({

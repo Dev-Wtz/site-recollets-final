@@ -22,7 +22,7 @@ export default function CafeteriaPage() {
         <div className={CONTAINER_CLASS}>
           <div className="mb-8 sm:mb-10 lg:mb-12">
             <h2 className="font-[var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#8C1515] mb-4 sm:mb-6 text-center">
-              Menu Cafétéria
+              Menu Cafétéria du Lycée
             </h2>
             <div className="w-24 h-1 bg-[#8C1515] mx-auto mb-8"></div>
 
@@ -68,7 +68,7 @@ export default function CafeteriaPage() {
               <div className="relative w-full max-w-6xl">
                 <img
                   src="/MenuCafeteria.png"
-                  alt="Menu Cafétéria - Les Récollets"
+                  alt="Menu Cafétéria du Lycée - Les Récollets"
                   className="w-full h-auto rounded-lg shadow-2xl"
                   loading="lazy"
                   decoding="async"

@@ -19,28 +19,65 @@ export const FOOTER = {
   phoneDisplay: "03 82 25 99 20",
   email: "accueil.ensemblescolaire@lesrecollets.org",
   hours: {
-    week: "Lundi au Vendredi : 8h – 12h et 13h – 17h",
+    week: "Lundi au Vendredi : 8h – 17h",
     wednesday: "Mercredi : 8h – 12h",
     weekend: "Samedi, Dimanche et Jours Fériés : Fermé",
   },
 } as const;
 
+/**
+ * Données légales (LCEN, RGPD, CGU).
+ * À compléter : voir LEGAL_QUESTIONNAIRE.md ou la section « Questions » en bas de ce fichier.
+ */
+export const LEGAL = {
+  /** Dénomination exacte de l'entité éditrice du site */
+  editorName: "Ensemble Scolaire Privé Les Récollets",
+  /** Forme juridique */
+  legalForm: "OGEC",
+  /** Siège social – adresse complète */
+  headquarters: "44 rue du Général Pershing, 54400 Longwy",
+  /** Numéro SIRET (14 chiffres) */
+  siret: "933 664 674 00019",
+  /** RCS (si applicable) – vide si pas inscrit */
+  rcs: "",
+  /** Capital social (si société) – vide pour OGEC */
+  capital: "",
+  /** Directeur de la publication */
+  publicationDirector: "M. FRATINI, Chef d'établissement",
+  /** Hébergeur du site */
+  host: {
+    name: "Vercel Inc.",
+    address: "440 N Barranca Ave #4133, Covina, CA 91723, USA",
+  },
+  /** Contact pour les demandes RGPD / données personnelles */
+  privacyContact: "Devwtz@gmail.com",
+  /** Délégué à la Protection des Données (optionnel) */
+  dpo: "",
+} as const;
+
+/** Téléphone et email du secrétariat de l'ensemble scolaire – utilisés pour toutes les structures */
+const SECRETARIAT_ENSEMBLE = {
+  phone: "03 82 25 99 20",
+  phoneTel: "0382259920",
+  email: "accueil.ensemblescolaire@lesrecollets.org",
+} as const;
+
 /** Contact secrétariat et vie scolaire par établissement */
 export const STRUCTURE_CONTACTS = {
   ecole: {
-    secretariat: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "secretariat.ecole@lesrecollets.org" },
+    secretariat: SECRETARIAT_ENSEMBLE,
     vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.ecole@lesrecollets.org" },
   },
   college: {
-    secretariat: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "secretariat.college@lesrecollets.org" },
+    secretariat: SECRETARIAT_ENSEMBLE,
     vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.college@lesrecollets.org" },
   },
   lycee: {
-    secretariat: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "secretariat.lycee@lesrecollets.org" },
+    secretariat: SECRETARIAT_ENSEMBLE,
     vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.lycee@lesrecollets.org" },
   },
   lyceePro: {
-    secretariat: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "secretariat.lyceepro@lesrecollets.org" },
+    secretariat: SECRETARIAT_ENSEMBLE,
     vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.lyceepro@lesrecollets.org" },
   },
 } as const;

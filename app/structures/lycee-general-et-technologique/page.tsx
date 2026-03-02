@@ -30,6 +30,7 @@ export default function LyceeGeneralEtTechnologiquePage() {
               <ContactCard 
                 secretariat={STRUCTURE_CONTACTS.lycee.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.lycee.vieScolaire}
+                vieScolaireLabel="Vie scolaire du lycée"
               />
             </div>
             <Link
@@ -51,7 +52,7 @@ export default function LyceeGeneralEtTechnologiquePage() {
               Le lycée général et technologique des Récollets, une institution de taille modeste, accueille les élèves du secondaire. Les cours se déroulent du lundi au vendredi et le mercredi matin, avec des horaires adaptés pour le bien-être des élèves.
             </p>
             <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg leading-relaxed">
-              L&apos;équipe pédagogique se dédie à équiper les élèves pour comprendre leur monde et à trouver leur place dans la société. Une variété d&apos;options et de spécialités sont proposées à partir de la seconde. Le lycée organise également des sorties et des voyages pédagogiques pour enrichir l&apos;expérience éducative et préparer les élèves à l&apos;avenir.
+              L&apos;équipe pédagogique se dédie à équiper les élèves pour comprendre leur monde et à trouver leur place dans la société. Une variété d&apos;options et de spécialités est proposée à partir de la seconde. Le lycée organise également des sorties et des voyages pédagogiques pour enrichir l&apos;expérience éducative et préparer les élèves à l&apos;avenir.
             </p>
           </DescriptionSection>
 

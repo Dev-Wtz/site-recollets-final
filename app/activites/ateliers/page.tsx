@@ -62,9 +62,9 @@ export default function AteliersPage() {
     },
     {
       id: 5,
-      titre: 'Club Donjon et Dragon',
+      titre: 'Club Donjons et Dragons',
       image: '/dongon.jpeg',
-      texte: 'Le club Donjon et Dragon permet aux élèves de développer leur imagination, leur esprit d\'équipe et leur créativité narrative. Les participants créent des personnages, vivent des aventures épiques et apprennent à collaborer dans un univers fantastique riche en défis et en découvertes.',
+      texte: 'Le club Donjons et Dragons permet aux élèves de développer leur imagination, leur esprit d\'équipe et leur créativité narrative. Les participants créent des personnages, vivent des aventures épiques et apprennent à collaborer dans un univers fantastique riche en défis et en découvertes.',
     },
   ];
 
