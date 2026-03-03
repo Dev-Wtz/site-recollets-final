@@ -78,6 +78,6 @@ export const STRUCTURE_CONTACTS = {
   },
   lyceePro: {
     secretariat: SECRETARIAT_ENSEMBLE,
-    vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.lyceepro@lesrecollets.org" },
+    vieScolaire: { phone: "03 82 23 19 36", phoneTel: "0382231936", email: "vie-scolaire-lp@lesrecollets.org" },
   },
 } as const;
