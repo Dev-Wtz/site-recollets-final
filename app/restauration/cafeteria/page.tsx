@@ -3,10 +3,12 @@
 import { ChevronDown, Download } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import NextImage from "next/image";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
 const PDF_CAFETERIA = "/Menu_Cafeteriat.pdf";
+const IMAGE_CAFETERIA = "/Menu_Cafeteriat.webp.webp";
 
 export default function CafeteriaPage() {
   const {
@@ -67,11 +69,16 @@ export default function CafeteriaPage() {
 
           <div className="flex flex-col items-center gap-4">
             <div className="flex justify-center w-full">
-              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 min-h-[70vh] sm:min-h-[80vh]">
-                <iframe
-                  src={`${PDF_CAFETERIA}#view=FitH`}
-                  title="Menu CafÃ©tÃ©ria du LycÃ©e - Les RÃ©collets"
-                  className="w-full h-[70vh] sm:h-[80vh]"
+              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100">
+                <NextImage
+                  src={IMAGE_CAFETERIA}
+                  alt="Menu Cafétéria du Lycée - Les Récollets"
+                  width={1600}
+                  height={900}
+                  className="w-full h-auto object-contain"
+                  quality={85}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
+                  loading="lazy"
                 />
               </div>
             </div>
