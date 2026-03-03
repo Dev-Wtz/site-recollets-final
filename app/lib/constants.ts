@@ -70,7 +70,7 @@ export const STRUCTURE_CONTACTS = {
   },
   college: {
     secretariat: SECRETARIAT_ENSEMBLE,
-    vieScolaire: { phone: "03 82 25 99 20", phoneTel: "0382259920", email: "viescolaire.college@lesrecollets.org" },
+    vieScolaire: { phone: "03 82 25 99 28", phoneTel: "0382259928", email: "surveillants@lesrecollets.org" },
   },
   lycee: {
     secretariat: SECRETARIAT_ENSEMBLE,
