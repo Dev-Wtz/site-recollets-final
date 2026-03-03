@@ -14,7 +14,7 @@ interface MenuImageWithLightboxProps {
 }
 
 /**
- * Affiche le menu sans cadre : 90 % de la largeur de l'écran par défaut.
+ * Affiche le menu sans cadre : taille de l'écran (100 % largeur, hauteur adaptée).
  * Clic sur l'image ouvre une lightbox pour l'agrandir.
  */
 export default function MenuImageWithLightbox({
@@ -44,11 +44,11 @@ export default function MenuImageWithLightbox({
       <button
         type="button"
         onClick={() => setLightboxOpen(true)}
-        className="block w-full flex justify-center px-2 sm:px-4 focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2 rounded-lg cursor-zoom-in"
+        className="block w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex justify-center focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2 cursor-zoom-in"
         aria-label="Agrandir le menu"
       >
         <span
-          className={`flex justify-center w-full ${rotated ? "w-[90vw] max-w-[90vw] h-[70vh] sm:h-[78vh] overflow-x-auto overflow-y-hidden" : "w-[90vw] max-w-[90vw]"}`}
+          className={`flex justify-center items-center w-full ${rotated ? "h-[88vh] overflow-x-auto overflow-y-hidden" : "min-h-[88vh]"}`}
         >
           <NextImage
             src={src}
@@ -58,10 +58,10 @@ export default function MenuImageWithLightbox({
             className={
               rotated
                 ? "max-w-none h-full w-auto object-contain object-center rotate-90 select-none pointer-events-none"
-                : "w-full h-auto object-contain object-center select-none pointer-events-none"
+                : "w-full h-auto object-contain object-center select-none pointer-events-none min-h-[85vh]"
             }
             quality={90}
-            sizes="90vw"
+            sizes="100vw"
             loading="lazy"
             draggable={false}
           />
