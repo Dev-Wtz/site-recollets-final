@@ -14,7 +14,7 @@ interface MenuImageWithLightboxProps {
 }
 
 /**
- * Affiche le menu sans cadre : grand sur desktop, plus petit sur mobile.
+ * Affiche le menu sans cadre : 90 % de la largeur de l'écran par défaut.
  * Clic sur l'image ouvre une lightbox pour l'agrandir.
  */
 export default function MenuImageWithLightbox({
@@ -48,7 +48,7 @@ export default function MenuImageWithLightbox({
         aria-label="Agrandir le menu"
       >
         <span
-          className={`flex justify-center w-full ${rotated ? "h-[55vh] sm:h-[62vh] md:h-[72vh] overflow-x-auto overflow-y-hidden" : "max-w-[85%] sm:max-w-[92%] md:max-w-6xl"}`}
+          className={`flex justify-center w-full ${rotated ? "w-[90vw] max-w-[90vw] h-[70vh] sm:h-[78vh] overflow-x-auto overflow-y-hidden" : "w-[90vw] max-w-[90vw]"}`}
         >
           <NextImage
             src={src}
@@ -61,7 +61,7 @@ export default function MenuImageWithLightbox({
                 : "w-full h-auto object-contain object-center select-none pointer-events-none"
             }
             quality={90}
-            sizes="(max-width: 640px) 85vw, (max-width: 1024px) 92vw, 1200px"
+            sizes="90vw"
             loading="lazy"
             draggable={false}
           />
