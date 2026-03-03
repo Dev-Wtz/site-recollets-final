@@ -6,7 +6,7 @@ import Footer from "@/app/components/Footer";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const PDF_CAFETERIA = "/Menu Cafétériat.pdf";
+const PDF_CAFETERIA = "/Menu_Cafeteriat.pdf";
 
 export default function CafeteriaPage() {
   const {

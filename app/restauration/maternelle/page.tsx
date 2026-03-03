@@ -5,7 +5,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { useEffect, useState, useRef, useCallback } from 'react';
 
-const PDF_MATERNELLE = '/Menu Maternelle.pdf';
+const PDF_MATERNELLE = '/Menu_Maternelle.pdf';
 
 export default function MaternellePage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);

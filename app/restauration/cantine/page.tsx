@@ -6,7 +6,7 @@ import Footer from "@/app/components/Footer";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const PDF_CANTINE = "/Menu Cantine.pdf";
+const PDF_CANTINE = "/Menu_Cantine.pdf";
 
 export default function CantinePage() {
   const {
