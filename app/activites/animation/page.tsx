@@ -48,8 +48,8 @@ export default function AnimationPage() {
     {
       id: 2,
       titre: 'Décoration de Noël',
-      date: '01 Décembre 2024',
-      dateSort: parseDate('01 Décembre 2024'),
+      date: '01 Décembre 2025',
+      dateSort: parseDate('01 Décembre 2025'),
       image: '/decoration.jpeg',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },

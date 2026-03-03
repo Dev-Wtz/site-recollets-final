@@ -48,21 +48,23 @@ export default function MenuImageWithLightbox({
         aria-label="Agrandir le menu"
       >
         <span
-          className={`flex justify-center items-center w-full bg-gray-50/50 ${rotated ? "h-[100vh] overflow-x-auto overflow-y-hidden scroll-smooth" : "relative w-full h-[100vh] min-h-[640px]"}`}
+          className={`flex justify-center items-center w-full bg-gray-50/50 ${rotated ? "min-h-0" : "relative w-full h-[100vh] min-h-[640px]"}`}
         >
           {rotated ? (
-            <NextImage
-              src={src}
-              alt={alt}
-              width={width}
-              height={height}
-              className="max-w-none h-full w-auto object-contain object-center rotate-90 select-none pointer-events-none flex-shrink-0"
-              quality={90}
-              sizes="100vw"
-              loading="lazy"
-              draggable={false}
-              priority={false}
-            />
+            <span className="flex justify-center items-center w-[90vw] max-w-full mx-auto">
+              <NextImage
+                src={src}
+                alt={alt}
+                width={width}
+                height={height}
+                className="w-auto h-[90vw] max-h-none object-contain object-center rotate-90 select-none pointer-events-none"
+                quality={90}
+                sizes="90vw"
+                loading="lazy"
+                draggable={false}
+                priority={false}
+              />
+            </span>
           ) : (
             <NextImage
               src={src}

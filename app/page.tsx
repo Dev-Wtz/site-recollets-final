@@ -65,7 +65,7 @@ function parseDate(dateStr: string): Date {
     return new Date(year, month - 1, day);
   }
 
-  // Format "Décembre 2024"
+  // Format "Décembre 2025"
   const matchMonth = dateStr.match(new RegExp(`${MONTH_REGEX}\\s+(\\d{4})`, 'i'));
   if (matchMonth) {
     return new Date(parseInt(matchMonth[2]), MONTH_MAP[matchMonth[1].toLowerCase()] - 1, 1);
@@ -123,7 +123,7 @@ const RAW_EVENTS = [
   },
   {
     titre: 'Décoration de Noël',
-    date: 'Décembre 2024',
+    date: 'Décembre 2025',
     texte: "Les élèves de l'ensemble scolaire des Récollets se sont mobilisés pour décorer l'établissement aux couleurs de Noël.",
     link: '/activites/animation',
   },
