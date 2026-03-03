@@ -44,27 +44,38 @@ export default function MenuImageWithLightbox({
       <button
         type="button"
         onClick={() => setLightboxOpen(true)}
-        className="block w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] flex justify-center focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2 cursor-zoom-in"
+        className="block w-full flex justify-center focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2 cursor-zoom-in rounded-lg overflow-hidden"
         aria-label="Agrandir le menu"
       >
         <span
-          className={`flex justify-center items-center w-full ${rotated ? "h-[88vh] overflow-x-auto overflow-y-hidden" : "min-h-[88vh]"}`}
+          className={`flex justify-center items-center w-full bg-gray-50/50 ${rotated ? "h-[100vh] overflow-x-auto overflow-y-hidden scroll-smooth" : "relative w-full h-[100vh] min-h-[640px]"}`}
         >
-          <NextImage
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            className={
-              rotated
-                ? "max-w-none h-full w-auto object-contain object-center rotate-90 select-none pointer-events-none"
-                : "w-full h-auto object-contain object-center select-none pointer-events-none min-h-[85vh]"
-            }
-            quality={90}
-            sizes="100vw"
-            loading="lazy"
-            draggable={false}
-          />
+          {rotated ? (
+            <NextImage
+              src={src}
+              alt={alt}
+              width={width}
+              height={height}
+              className="max-w-none h-full w-auto object-contain object-center rotate-90 select-none pointer-events-none flex-shrink-0"
+              quality={90}
+              sizes="100vw"
+              loading="lazy"
+              draggable={false}
+              priority={false}
+            />
+          ) : (
+            <NextImage
+              src={src}
+              alt={alt}
+              fill
+              className="object-contain object-center select-none pointer-events-none"
+              quality={90}
+              sizes="100vw"
+              loading="lazy"
+              draggable={false}
+              priority={false}
+            />
+          )}
         </span>
       </button>
 

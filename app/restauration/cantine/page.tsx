@@ -68,20 +68,28 @@ export default function CantinePage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <MenuImageWithLightbox
-              src={IMAGE_CANTINE}
-              alt="Menu Restaurant Scolaire - Les Récollets"
-              rotated
-            />
-            <a
-              href={PDF_CANTINE}
-              download="Menu-Cantine-Les-Recollets.pdf"
-              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
-            >
-              <Download size={20} />
-              Télécharger le menu
-            </a>
+        </div>
+
+        {/* Bloc menu pleine largeur pour affichage optimisé */}
+        <div className="w-full">
+          <div className="flex flex-col items-center gap-6 py-4">
+            <div className="w-full max-w-[100vw]">
+              <MenuImageWithLightbox
+                src={IMAGE_CANTINE}
+                alt="Menu Restaurant Scolaire - Les Récollets"
+                rotated
+              />
+            </div>
+            <div className={CONTAINER_CLASS}>
+              <a
+                href={PDF_CANTINE}
+                download="Menu-Cantine-Les-Recollets.pdf"
+                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
+              >
+                <Download size={20} />
+                Télécharger le menu
+              </a>
+            </div>
           </div>
         </div>
       </section>

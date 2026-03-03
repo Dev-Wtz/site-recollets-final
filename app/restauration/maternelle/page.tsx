@@ -4,6 +4,7 @@ import { ChevronDown, Download } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
+import { CONTAINER_CLASS } from "@/app/lib/constants";
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 const PDF_MATERNELLE = '/Menu_Maternelle.pdf';
@@ -96,23 +97,29 @@ export default function MaternellePage() {
               )}
             </div>
           </div>
+        </div>
 
-          {/* Menu sans cadre : grand sur desktop, plus petit sur mobile ; clic = agrandir */}
-          <div className="flex flex-col items-center gap-4">
-            <MenuImageWithLightbox
-              src={IMAGE_MATERNELLE}
-              alt="Menu Maternelle - Les Récollets"
-              rotated
-            />
-            <button
-              type="button"
-              onClick={handleDownloadMenu}
-              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2"
-              aria-label="Télécharger le menu maternelle"
-            >
-              <Download size={20} aria-hidden="true" />
-              Télécharger le menu
-            </button>
+        {/* Bloc menu pleine largeur pour affichage optimisé */}
+        <div className="w-full">
+          <div className="flex flex-col items-center gap-6 py-4">
+            <div className="w-full max-w-[100vw]">
+              <MenuImageWithLightbox
+                src={IMAGE_MATERNELLE}
+                alt="Menu Maternelle - Les Récollets"
+                rotated
+              />
+            </div>
+            <div className={CONTAINER_CLASS}>
+              <button
+                type="button"
+                onClick={handleDownloadMenu}
+                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2"
+                aria-label="Télécharger le menu maternelle"
+              >
+                <Download size={20} aria-hidden="true" />
+                Télécharger le menu
+              </button>
+            </div>
           </div>
         </div>
       </section>
