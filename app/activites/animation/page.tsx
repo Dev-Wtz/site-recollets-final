@@ -42,7 +42,7 @@ export default function AnimationPage() {
       titre: 'Marché de Noël interne et Vente de chocolat',
       date: '12 Décembre 2025',
       dateSort: parseDate('12 Décembre 2025'),
-      image: '/decoration.jpeg',
+      image: '/Marche_de_noel.jpg',
       texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
     },
     {
