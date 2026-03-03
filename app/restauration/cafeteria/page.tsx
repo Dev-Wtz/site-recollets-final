@@ -64,18 +64,19 @@ export default function CafeteriaPage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <div className="flex justify-center w-full">
-              <div className="relative w-[90%] rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-4 px-2 sm:px-4">
+            <div className="flex justify-center w-full max-w-4xl">
+              <div className="relative w-full md:w-[90%] rounded-xl shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center">
                 <NextImage
                   src={IMAGE_CAFETERIA}
                   alt="Menu Cafeteria du Lycee - Les Recollets"
                   width={900}
                   height={1600}
-                  className="w-full h-auto object-contain"
-                  quality={85}
-                  sizes="90vw"
+                  className="w-full h-auto object-contain object-center select-none"
+                  quality={90}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 800px"
                   loading="lazy"
+                  draggable={false}
                 />
               </div>
             </div>

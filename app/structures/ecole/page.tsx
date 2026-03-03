@@ -57,6 +57,7 @@ export default function EcolePage() {
                 secretariat={STRUCTURE_CONTACTS.ecole.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.ecole.vieScolaire}
                 vieScolaireLabel="Vie scolaire de l'école"
+                showVieScolaire={false}
               />
             </div>
             <Link
