@@ -34,7 +34,7 @@ export default function LyceeGeneralEtTechnologiquePage() {
               />
             </div>
             <Link
-              href="/reglement-interieur-college.pdf"
+              href="/RI_Lycee.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="lg:w-64 flex-shrink-0 bg-[#8C1515] text-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-[#a01919] transition-colors flex flex-col items-center justify-center text-center group focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2"
