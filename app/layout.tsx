@@ -49,6 +49,9 @@ export const metadata: Metadata = {
   publisher: "Les Récollets",
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: "/" },
+  verification: {
+    google: "CrhA1behZUoZ_kn3UBSAFUQcjeS8bMnUyS9ggJCPO7M",
+  },
   robots: {
     index: true,
     follow: true,

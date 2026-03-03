@@ -1,6 +1,10 @@
 /** Constantes partagées du site Les Récollets */
 
-export const SITE_URL = "https://site-recollets-final.vercel.app";
+/** URL canonique du site. En production, définir NEXT_PUBLIC_SITE_URL=https://lesrecollets.org dans Vercel. */
+export const SITE_URL =
+  typeof process !== "undefined" && process.env.NEXT_PUBLIC_SITE_URL
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : "https://site-recollets-final.vercel.app";
 
 export const COLORS = {
   primary: "#8C1515",
