@@ -26,7 +26,7 @@ export default function CafeteriaPage() {
         <div className={CONTAINER_CLASS}>
           <div className="mb-8 sm:mb-10 lg:mb-12">
             <h2 className="font-[var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#8C1515] mb-4 sm:mb-6 text-center">
-              Menu Cafétéria du Lycée
+              Menu Cafeteria du Lycee
             </h2>
             <div className="w-24 h-1 bg-[#8C1515] mx-auto mb-8"></div>
 
@@ -36,19 +36,16 @@ export default function CafeteriaPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? "line-clamp-[5]" : ""}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  La cafétéria des Récollets offre un espace convivial où les
-                  élèves peuvent se restaurer avec des produits de qualité. Nous
-                  proposons une sélection variée de plats chauds, salades,
-                  sandwiches et desserts.
+                  La cafeteria des Recollets offre un espace convivial ou les eleves peuvent se restaurer avec des
+                  produits de qualite. Nous proposons une selection variee de plats chauds, salades, sandwiches et
+                  desserts.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  Notre équipe de restauration veille à proposer des options
-                  équilibrées et savoureuses. La cafétéria est un lieu de
-                  convivialité où les élèves peuvent se retrouver autour
-                  d&apos;un repas de qualité.
+                  Notre equipe de restauration veille a proposer des options equilibrees et savoureuses. La cafeteria
+                  est un lieu de convivialite ou les eleves peuvent se retrouver autour d&apos;un repas de qualite.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  Découvrez ci-dessous nos menus de la semaine.
+                  Decouvrez ci-dessous nos menus de la semaine.
                 </p>
               </div>
               {needsShowMore && (
@@ -72,7 +69,7 @@ export default function CafeteriaPage() {
               <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100">
                 <NextImage
                   src={IMAGE_CAFETERIA}
-                  alt="Menu Caf�t�ria du Lyc�e - Les R�collets"
+                  alt="Menu Cafeteria du Lycee - Les Recollets"
                   width={1600}
                   height={900}
                   className="w-full h-auto object-contain"
@@ -88,7 +85,7 @@ export default function CafeteriaPage() {
               className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
             >
               <Download size={20} />
-              Télécharger le menu
+              Telecharger le menu
             </a>
           </div>
         </div>
@@ -98,3 +95,4 @@ export default function CafeteriaPage() {
     </div>
   );
 }
+
