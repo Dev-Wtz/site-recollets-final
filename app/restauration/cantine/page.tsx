@@ -70,13 +70,13 @@ export default function CantinePage() {
 
           <div className="flex flex-col items-center gap-4 px-2 sm:px-4">
             <div className="flex justify-center w-full max-w-5xl">
-              <div className="relative w-full md:w-[90%] h-[65vh] sm:h-[72vh] md:h-[78vh] rounded-xl shadow-2xl overflow-hidden border border-gray-200 bg-gray-100">
+              <div className="relative w-full md:w-[90%] h-[65vh] sm:h-[72vh] md:h-[78vh] rounded-xl shadow-2xl overflow-auto border border-gray-200 bg-gray-100 flex items-center justify-center">
                 <NextImage
                   src={IMAGE_CANTINE}
                   alt="Menu Restaurant Scolaire - Les Récollets"
                   width={1600}
                   height={900}
-                  className="w-full h-full object-cover object-center rotate-90 select-none"
+                  className="max-w-none h-full w-auto object-contain object-center rotate-90 select-none"
                   quality={90}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 95vw, 1200px"
                   loading="lazy"
