@@ -6,6 +6,8 @@ import Footer from "@/app/components/Footer";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
+const PDF_CANTINE = "/Menu Cantine.pdf";
+
 export default function CantinePage() {
   const {
     ref: descriptionRef,
@@ -66,19 +68,17 @@ export default function CantinePage() {
 
           <div className="flex flex-col items-center gap-4">
             <div className="flex justify-center w-full">
-              <div className="relative w-full max-w-6xl">
-                <img
-                  src="/MenuCantine.png"
-                  alt="Menu Restaurant Scolaire - Les Récollets"
-                  className="w-full h-auto rounded-lg shadow-2xl"
-                  loading="lazy"
-                  decoding="async"
+              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 min-h-[70vh] sm:min-h-[80vh]">
+                <iframe
+                  src={`${PDF_CANTINE}#view=FitH`}
+                  title="Menu Restaurant Scolaire - Les Récollets"
+                  className="w-full h-[70vh] sm:h-[80vh]"
                 />
               </div>
             </div>
             <a
-              href="/MenuCantine.png"
-              download="Menu-Cantine-Les-Recollets.png"
+              href={PDF_CANTINE}
+              download="Menu-Cantine-Les-Recollets.pdf"
               className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
             >
               <Download size={20} />

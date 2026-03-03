@@ -6,6 +6,8 @@ import Footer from "@/app/components/Footer";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
+const PDF_CAFETERIA = "/Menu Caf�t�riat.pdf";
+
 export default function CafeteriaPage() {
   const {
     ref: descriptionRef,
@@ -65,19 +67,17 @@ export default function CafeteriaPage() {
 
           <div className="flex flex-col items-center gap-4">
             <div className="flex justify-center w-full">
-              <div className="relative w-full max-w-6xl">
-                <img
-                  src="/MenuCafeteria.png"
-                  alt="Menu Cafétéria du Lycée - Les Récollets"
-                  className="w-full h-auto rounded-lg shadow-2xl"
-                  loading="lazy"
-                  decoding="async"
+              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 min-h-[70vh] sm:min-h-[80vh]">
+                <iframe
+                  src={`${PDF_CAFETERIA}#view=FitH`}
+                  title="Menu Cafétéria du Lycée - Les Récollets"
+                  className="w-full h-[70vh] sm:h-[80vh]"
                 />
               </div>
             </div>
             <a
-              href="/MenuCafeteria.png"
-              download="Menu-Cafeteria-Les-Recollets.png"
+              href={PDF_CAFETERIA}
+              download="Menu-Cafeteria-Les-Recollets.pdf"
               className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
             >
               <Download size={20} />

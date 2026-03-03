@@ -3,8 +3,9 @@
 import { ChevronDown, Download } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import NextImage from 'next/image';
 import { useEffect, useState, useRef, useCallback } from 'react';
+
+const PDF_MATERNELLE = '/Menu Maternelle.pdf';
 
 export default function MaternellePage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
@@ -35,8 +36,8 @@ export default function MaternellePage() {
   const handleDownloadMenu = useCallback(() => {
     try {
       const link = document.createElement('a');
-      link.href = '/MenuMaternelle.png';
-      link.download = 'Menu-Maternelle-Les-Recollets.png';
+      link.href = PDF_MATERNELLE;
+      link.download = 'Menu-Maternelle-Les-Recollets.pdf';
       link.setAttribute('rel', 'noopener noreferrer');
       document.body.appendChild(link);
       link.click();
@@ -94,20 +95,14 @@ export default function MaternellePage() {
             </div>
           </div>
 
-          {/* Image du menu avec bouton de téléchargement */}
+          {/* PDF du menu avec bouton de téléchargement */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex justify-center w-full">
-              <div className="relative w-full max-w-6xl">
-                <NextImage
-                  src="/MenuMaternelle.png"
-                  alt="Menu Maternelle - Les Récollets"
-                  width={1200}
-                  height={1600}
-                  className="w-full h-auto rounded-lg shadow-2xl"
-                  loading="lazy"
-                  quality={90}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
-                  priority={false}
+              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 min-h-[70vh] sm:min-h-[80vh]">
+                <iframe
+                  src={`${PDF_MATERNELLE}#view=FitH`}
+                  title="Menu Maternelle - Les Récollets"
+                  className="w-full h-[70vh] sm:h-[80vh]"
                 />
               </div>
             </div>
