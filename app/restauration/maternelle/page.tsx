@@ -97,16 +97,16 @@ export default function MaternellePage() {
             </div>
           </div>
 
-          {/* Menu en image paysage + bouton de téléchargement du PDF */}
+          {/* Menu en image paysage (rotation) + bouton de téléchargement du PDF */}
           <div className="flex flex-col items-center gap-4">
             <div className="flex justify-center w-full">
-              <div className="relative w-full max-w-6xl rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100">
+              <div className="relative w-full max-w-6xl h-[70vh] sm:h-[80vh] rounded-lg shadow-2xl overflow-hidden border border-gray-200 bg-gray-100 flex items-center justify-center">
                 <NextImage
                   src={IMAGE_MATERNELLE}
                   alt="Menu Maternelle - Les Récollets"
                   width={1600}
                   height={900}
-                  className="w-full h-auto object-contain"
+                  className="max-w-none h-full w-auto object-contain rotate-90"
                   quality={85}
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                   loading="lazy"
