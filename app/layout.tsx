@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 import SkipLink from "@/app/components/SkipLink";
 import CookieConsent from "@/app/components/CookieConsent";
+import OpenDayPopup from "@/app/components/OpenDayPopup";
 
 /* ────────────────────────────────────────────
    Polices
@@ -104,11 +106,13 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
+        <OpenDayPopup />
         <SkipLink />
         <main id="main-content" tabIndex={-1}>
           {children}
         </main>
         <CookieConsent />
+        <Analytics />
       </body>
     </html>
   );

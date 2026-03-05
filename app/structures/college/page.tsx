@@ -40,8 +40,7 @@ export default function CollegePage() {
               className="lg:w-64 flex-shrink-0 bg-[#8C1515] text-white rounded-xl p-6 shadow-lg border border-gray-200 hover:bg-[#a01919] transition-colors flex flex-col items-center justify-center text-center group focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2"
             >
               <FileText className="w-10 h-10 mb-3 opacity-90" aria-hidden="true" />
-              <h3 className="font-[var(--font-inter)] font-bold text-base mb-1">Règlement intérieur</h3>
-              <p className="font-[var(--font-inter)] text-xs opacity-90 mb-2">Consulter le règlement</p>
+              <h3 className="font-[var(--font-inter)] font-bold text-base mb-1">Règlement intérieur du collège</h3>
               <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
           </div>

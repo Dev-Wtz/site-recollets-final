@@ -36,8 +36,8 @@ const HERO_NAV_LINKS = [
 ];
 
 const QUICK_LINKS = [
-  { href: '/administration/reglement', label: 'Règlement intérieur' },
   { href: '/administration/tarif', label: 'Tarifs' },
+  { href: '/restauration/maternelle', label: 'Menu Maternelle' },
   { href: '/restauration/cantine', label: 'Menu Restaurant Scolaire' },
   { href: '/restauration/cafeteria', label: 'Menu Cafétéria du Lycée' },
 ] as const;
@@ -116,8 +116,14 @@ function formatEventDate(dateStr: string): { day: string; month: string } {
 
 const RAW_EVENTS = [
   {
+    titre: 'Journée Portes Ouvertes',
+    date: '20 mars 2026',
+    texte: "Journée portes ouvertes le 20 mars 2026 de 17h à 19h30 pour découvrir l'ensemble scolaire Les Récollets.",
+    link: '/structures/lycee-general-et-technologique',
+  },
+  {
     titre: 'Marché de Noël interne et Vente de chocolat',
-    date: '12 décembre',
+    date: '12 décembre 2025',
     texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires.',
     link: '/activites/animation',
   },
@@ -129,31 +135,25 @@ const RAW_EVENTS = [
   },
   {
     titre: 'Rentrée scolaire',
-    date: '1er septembre',
+    date: '1er septembre 2025',
     texte: "Rentrée scolaire pour tous les élèves de l'établissement. Un moment important qui marque le début d'une nouvelle année scolaire riche en apprentissages et en découvertes.",
     link: '/activites/sorties-scolaires',
   },
   {
     titre: 'Baden Baden - Marché de Noël en Allemagne',
-    date: '17 octobre',
+    date: '17 octobre 2025',
     texte: "Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s'immerger dans les traditions allemandes.",
     link: '/activites/sorties-scolaires',
   },
   {
     titre: 'Festival du film italien',
-    date: '6 novembre',
+    date: '6 novembre 2025',
     texte: "Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d'expression artistique à travers le 7ème art.",
     link: '/activites/sorties-scolaires',
   },
   {
-    titre: 'Séjour au ski',
-    date: '7 au 12 décembre',
-    texte: "Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.",
-    link: '/activites/sorties-scolaires',
-  },
-  {
     titre: 'Musée Pompidou',
-    date: '11 et 15 décembre',
+    date: '11 et 15 décembre 2025',
     texte: "Visite du Musée Pompidou. Les élèves découvrent les collections d'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.",
     link: '/activites/sorties-scolaires',
   },
