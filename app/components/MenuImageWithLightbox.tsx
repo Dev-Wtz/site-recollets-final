@@ -1,6 +1,5 @@
 "use client";
 
-import NextImage from "next/image";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 
@@ -16,6 +15,7 @@ interface MenuImageWithLightboxProps {
 /**
  * Affiche le menu sans cadre : taille de l'écran (100 % largeur, hauteur adaptée).
  * Clic sur l'image ouvre une lightbox pour l'agrandir.
+ * Utilise <img> natif pour éviter tout mismatch d'hydratation avec next/image.
  */
 export default function MenuImageWithLightbox({
   src,
@@ -25,6 +25,11 @@ export default function MenuImageWithLightbox({
   height = 900,
 }: MenuImageWithLightboxProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -50,34 +55,34 @@ export default function MenuImageWithLightbox({
         <span
           className={`flex justify-center items-center w-full bg-gray-50/50 ${rotated ? "min-h-0" : "relative w-full h-[100vh] min-h-[640px]"}`}
         >
-          {rotated ? (
-            <span className="flex justify-center items-center w-[90vw] max-w-full mx-auto">
-              <NextImage
-                src={src}
-                alt={alt}
-                width={width}
-                height={height}
-                className="w-auto h-[90vw] max-h-none object-contain object-center rotate-90 select-none pointer-events-none"
-                quality={90}
-                sizes="90vw"
-                loading="lazy"
-                draggable={false}
-                priority={false}
-              />
-            </span>
-          ) : (
-            <NextImage
-              src={src}
-              alt={alt}
-              fill
-              className="object-contain object-center select-none pointer-events-none"
-              quality={90}
-              sizes="100vw"
-              loading="lazy"
-              draggable={false}
-              priority={false}
-            />
-          )}
+          {mounted &&
+            (rotated ? (
+              <span className="flex justify-center items-center w-[90vw] max-w-full mx-auto">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={alt}
+                  width={width}
+                  height={height}
+                  className="w-auto h-[90vw] max-h-none object-contain object-center rotate-90 select-none pointer-events-none"
+                  loading="lazy"
+                  draggable={false}
+                  decoding="async"
+                />
+              </span>
+            ) : (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={alt}
+                  className="absolute inset-0 w-full h-full object-contain object-center select-none pointer-events-none"
+                  loading="lazy"
+                  draggable={false}
+                  decoding="async"
+                />
+              </>
+            ))}
         </span>
       </button>
 

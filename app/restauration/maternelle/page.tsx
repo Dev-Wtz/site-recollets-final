@@ -8,7 +8,8 @@ import { CONTAINER_CLASS } from "@/app/lib/constants";
 import { useEffect, useState, useRef, useCallback } from 'react';
 
 const PDF_MATERNELLE = '/Menu_Maternelle.pdf';
-const IMAGE_MATERNELLE = '/Menu_Maternelle.webp.webp';
+/** Image du menu affichée : public/Menu_Maternelle.webp.webp — ?v=2 évite le cache (ancienne image) */
+const IMAGE_MATERNELLE = '/Menu_Maternelle.webp.webp?v=2';
 
 export default function MaternellePage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);

@@ -8,7 +8,8 @@ import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
 const PDF_CAFETERIA = "/Menu_Cafeteriat.pdf";
-const IMAGE_CAFETERIA = "/Menu_Cafeteriat.webp.webp";
+/** Image du menu affichée : public/Menu_Cafeteriat.webp.webp — ?v=2 évite le cache (ancienne image) */
+const IMAGE_CAFETERIA = "/Menu_Cafeteriat.webp.webp?v=2";
 
 export default function CafeteriaPage() {
   const {

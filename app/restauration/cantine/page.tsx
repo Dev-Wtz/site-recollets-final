@@ -8,7 +8,8 @@ import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
 const PDF_CANTINE = "/Menu_Cantine.pdf";
-const IMAGE_CANTINE = "/Menu_Cantine.webp.webp";
+/** ?v=2 évite le cache (ancienne image) */
+const IMAGE_CANTINE = "/Menu_Cantine.webp.webp?v=2";
 
 export default function CantinePage() {
   const {
