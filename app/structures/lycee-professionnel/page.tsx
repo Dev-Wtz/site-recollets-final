@@ -31,6 +31,7 @@ export default function LyceeProfessionnelPage() {
                 secretariat={STRUCTURE_CONTACTS.lyceePro.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.lyceePro.vieScolaire}
                 vieScolaireLabel="Vie scolaire du lycée professionnel"
+                address="1 rue du Bois Prieur, 54350 Mont-Saint-Martin"
               />
             </div>
             <Link

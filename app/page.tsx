@@ -116,16 +116,16 @@ function formatEventDate(dateStr: string): { day: string; month: string } {
 
 const RAW_EVENTS = [
   {
-    titre: 'Journée Portes Ouvertes',
+    titre: 'Journée Portes Ouvertes Ecole - College - Lycée Général',
     date: '20 mars 2026',
     texte: "Journée portes ouvertes le 20 mars 2026 de 17h à 19h30 pour découvrir l'ensemble scolaire Les Récollets.",
     link: '/structures/lycee-general-et-technologique',
   },
   {
-    titre: 'Marché de Noël interne et Vente de chocolat',
-    date: '12 décembre 2025',
-    texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires.',
-    link: '/activites/animation',
+    titre: 'Journée Portes Ouvertes Lycée Professionnel',
+    date: '27 mars 2026',
+    texte: "Journée portes ouvertes du lycée professionnel le 27 mars 2026 de 15h à 20h (vide-dressing ouvert à tous).",
+    link: '/structures/lycee-professionnel',
   },
   {
     titre: 'Décoration de Noël',
@@ -489,13 +489,12 @@ export default function Home() {
                 {sortedEvents.map((event, index) => {
                   const { day, month } = formatEventDate(event.date);
                   return (
-                    <Link
+                    <div
                       key={index}
-                      href={event.link}
-                      className="flex gap-4 sm:gap-5 border-b border-gray-200 pb-4 sm:pb-5 hover:bg-gray-50 -mx-2 px-2 rounded transition-all cursor-pointer group"
+                      className="flex gap-4 sm:gap-5 border-b border-gray-200 pb-4 sm:pb-5 -mx-2 px-2 rounded"
                     >
                       <div className="flex-shrink-0 text-center flex flex-col justify-center min-w-[48px]">
-                        <div className="font-[var(--font-inter)] text-3xl sm:text-4xl font-bold text-[#8C1515] leading-none group-hover:text-[#a01919] transition-colors">
+                        <div className="font-[var(--font-inter)] text-3xl sm:text-4xl font-bold text-[#8C1515] leading-none">
                           {day}
                         </div>
                         <div className="text-[10px] sm:text-xs text-gray-600 font-[var(--font-inter)] uppercase mt-1 tracking-wide">
@@ -503,11 +502,11 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="flex-1 flex items-center">
-                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base leading-tight group-hover:text-[#8C1515] transition-colors">
+                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base leading-tight">
                           {event.titre}
                         </h3>
                       </div>
-                    </Link>
+                    </div>
                   );
                 })}
               </div>

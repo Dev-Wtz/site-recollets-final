@@ -31,6 +31,7 @@ export default function CollegePage() {
                 secretariat={STRUCTURE_CONTACTS.college.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.college.vieScolaire}
                 vieScolaireLabel="Vie scolaire du collège"
+                address="44 Rue du Général Pershing, 54400 Longwy"
               />
             </div>
             <Link

@@ -42,7 +42,7 @@ export default function LesChoucasPage() {
       titre: '2 nouveaux projets',
       date: '15 Mars 2023',
       dateSort: parseDate('15 Mars 2023'),
-      image: '/decoration.jpeg',
+      image: 'https://images.unsplash.com/photo-1759761314180-810c213bdbed?auto=format&fit=crop&w=1200&q=80',
       texte: 'Bravo aux jeunes des Récollets qui ont œuvré pour offrir du matériel adapté à Ilyana et à Karim. Ainsi la tradition des Choucas se perpétue. Merci à tous.',
     },
     {
@@ -50,7 +50,7 @@ export default function LesChoucasPage() {
       titre: 'Jus de pomme de la solidarité',
       date: '29 Septembre 2022',
       dateSort: parseDate('29 Septembre 2022'),
-      image: '/rentree.jpeg',
+      image: 'https://images.unsplash.com/photo-1534336810865-0beae4c81278?auto=format&fit=crop&w=1200&q=80',
       texte: '29 septembre 2022 : Ramassage des pommes au profit de l\'opération « Jus de pomme de la solidarité ». Les élèves de la classe de 3ème Newton, accompagnés de leurs professeurs, sont allés ramasser les pommes dans les vergers à Baslieux. Une fois les pommes ramassées, ils ont pu découvrir le pressoir dans le village afin de découvrir comment est fabriqué le jus de pomme et goûter du jus fraîchement pressé. Cette sortie a permis aux élèves de récolter 1,2 tonnes de pommes permettant au final de faire 785 litres. Le jus de pomme sera prochainement proposé à la vente au profit de l\'association « Les Choucas » qui a pour projet cette année de financer un fauteuil pivotant afin de permettre à un enfant en situation de handicap d\'accéder à l\'automobile familiale.',
     },
     {
@@ -58,7 +58,7 @@ export default function LesChoucasPage() {
       titre: 'Coup de Cœur Facebook APJ',
       date: '01 Juillet 2022',
       dateSort: parseDate('01 Juillet 2022'),
-      image: '/hero.jpg',
+      image: 'https://images.unsplash.com/photo-1637531503805-edf4685e455f?auto=format&fit=crop&w=1200&q=80',
       texte: 'Participez au prix « Coup de Cœur Facebook – APJ » en soutenant ton projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());

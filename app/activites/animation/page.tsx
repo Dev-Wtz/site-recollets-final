@@ -42,7 +42,7 @@ export default function AnimationPage() {
       titre: 'Marché de Noël interne et Vente de chocolat',
       date: '12 Décembre 2025',
       dateSort: parseDate('12 Décembre 2025'),
-      image: '/Marche_de_noel.jpg',
+      image: 'https://images.unsplash.com/photo-1544212415-85fec3f52087?auto=format&fit=crop&w=1200&q=80',
       texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
     },
     {
@@ -50,7 +50,7 @@ export default function AnimationPage() {
       titre: 'Décoration de Noël',
       date: '01 Décembre 2025',
       dateSort: parseDate('01 Décembre 2025'),
-      image: '/decoration.jpeg',
+      image: 'https://images.unsplash.com/photo-1543598098-622a5e218f43?auto=format&fit=crop&w=1200&q=80',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());

@@ -31,6 +31,7 @@ export default function LyceeGeneralEtTechnologiquePage() {
                 secretariat={STRUCTURE_CONTACTS.lycee.secretariat}
                 vieScolaire={STRUCTURE_CONTACTS.lycee.vieScolaire}
                 vieScolaireLabel="Vie scolaire du lycée"
+                address="7 rue Alfred Mézières, 54400 Longwy"
               />
             </div>
             <Link

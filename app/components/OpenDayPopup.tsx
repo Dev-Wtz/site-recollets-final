@@ -9,8 +9,8 @@ export default function OpenDayPopup() {
     if (typeof window === "undefined") return;
 
     const now = new Date();
-    const eventEnd = new Date(2026, 2, 20, 19, 30); // 20 mars 2026, 19h30
-    if (now > eventEnd) return;
+    const lastEventEnd = new Date(2026, 2, 27, 20, 0); // 27 mars 2026, 20h00
+    if (now > lastEventEnd) return;
 
     setIsOpen(true);
   }, []);
@@ -49,15 +49,31 @@ export default function OpenDayPopup() {
         <h2 className="font-[var(--font-playfair)] text-2xl sm:text-3xl md:text-4xl font-bold text-[#8C1515] mb-3 tracking-wide uppercase">
           Journée portes ouvertes 2026
         </h2>
-        <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 font-semibold mb-1">
-          Vendredi 20 mars
-        </p>
-        <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 mb-4 font-semibold">
-          De 17h à 19h30
-        </p>
-        <p className="font-[var(--font-inter)] text-xs sm:text-sm text-gray-700">
-          Venez découvrir l&apos;ensemble scolaire Les Récollets, rencontrer les équipes et visiter les lieux.
-        </p>
+        <div className="space-y-4">
+          <div>
+            <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 font-semibold">
+              Vendredi 20 mars — de 17h à 19h30
+            </p>
+            <p className="font-[var(--font-inter)] text-xs sm:text-sm text-gray-700">
+              École • Collège • Lycée Général
+            </p>
+          </div>
+
+          <div>
+            <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 font-semibold">
+              Vendredi 27 mars — de 15h à 20h
+            </p>
+            <p className="font-[var(--font-inter)] text-xs sm:text-sm text-gray-700">
+              Lycée Professionnel (vide-dressing ouvert à tous)
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-5 border-t border-gray-200/70">
+          <p className="font-[var(--font-inter)] text-sm sm:text-base text-gray-900">
+            Coordonnées et adresse : consultez la page dédiée à votre établissement.
+          </p>
+        </div>
       </div>
     </div>
   );
