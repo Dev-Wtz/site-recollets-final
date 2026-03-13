@@ -5,12 +5,14 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import BlogArticle from "@/app/components/BlogArticle";
 import { parseDate } from "@/app/lib/dateUtils";
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import CategoryFilter, { CATEGORIES, type Category } from "@/app/components/CategoryFilter";
 
 export default function AnimationPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
   const [expandedArticles, setExpandedArticles] = useState<Record<number, boolean>>({});
+  const [selectedCategories, setSelectedCategories] = useState<Set<Category>>(() => new Set(CATEGORIES));
   const descriptionRef = useRef<HTMLDivElement>(null);
 
   // Vérifier si la description fait plus de 8 lignes
@@ -43,6 +45,7 @@ export default function AnimationPage() {
       date: '12 Décembre 2025',
       dateSort: parseDate('12 Décembre 2025'),
       image: 'https://images.unsplash.com/photo-1544212415-85fec3f52087?auto=format&fit=crop&w=1200&q=80',
+      category: 'Collège',
       texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
     },
     {
@@ -51,9 +54,15 @@ export default function AnimationPage() {
       date: '01 Décembre 2025',
       dateSort: parseDate('01 Décembre 2025'),
       image: 'https://images.unsplash.com/photo-1543598098-622a5e218f43?auto=format&fit=crop&w=1200&q=80',
+      category: 'Collège',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
+
+  const filteredArticles = useMemo(
+    () => articles.filter((a) => selectedCategories.has(a.category as Category)),
+    [articles, selectedCategories],
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -96,20 +105,31 @@ export default function AnimationPage() {
             </div>
           </div>
 
+          <div className="max-w-6xl mx-auto mb-8">
+            <CategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
+          </div>
+
           {/* Articles */}
           <div className="max-w-6xl mx-auto space-y-8">
-            {articles.map((article) => (
-              <BlogArticle
-                key={article.id}
-                id={article.id}
-                titre={article.titre}
-                date={article.date}
-                image={article.image}
-                texte={article.texte}
-                expanded={expandedArticles[article.id]}
-                onToggle={() => toggleArticle(article.id)}
-              />
-            ))}
+            {filteredArticles.length > 0 ? (
+              filteredArticles.map((article) => (
+                <BlogArticle
+                  key={article.id}
+                  id={article.id}
+                  titre={article.titre}
+                  date={article.date}
+                  image={article.image}
+                  texte={article.texte}
+                  category={article.category}
+                  expanded={expandedArticles[article.id]}
+                  onToggle={() => toggleArticle(article.id)}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-500 font-[var(--font-inter)] py-12">
+                Aucune animation pour cette sélection.
+              </p>
+            )}
           </div>
         </div>
       </section>

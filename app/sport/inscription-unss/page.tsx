@@ -76,7 +76,7 @@ export default function InscriptionUnssPage() {
           {/* Image d'inscription UNSS */}
           <div className="flex justify-center">
             <img
-              src="/InscriptionUnss.png"
+              src="/Images/Sport/InscriptionUnss.png"
               alt="Inscription UNSS - Les Récollets"
               className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
             />

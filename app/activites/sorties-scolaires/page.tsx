@@ -5,12 +5,14 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import BlogArticle from "@/app/components/BlogArticle";
 import { parseDate } from "@/app/lib/dateUtils";
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import CategoryFilter, { CATEGORIES, type Category } from "@/app/components/CategoryFilter";
 
 export default function SortiesScolairesPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
   const [expandedArticles, setExpandedArticles] = useState<Record<number, boolean>>({});
+  const [selectedCategories, setSelectedCategories] = useState<Set<Category>>(() => new Set(CATEGORIES));
   const descriptionRef = useRef<HTMLDivElement>(null);
 
   // Vérifier si la description fait plus de 8 lignes
@@ -44,6 +46,7 @@ export default function SortiesScolairesPage() {
       dateSort: parseDate('01 Septembre 2025'),
       image: '/rentree.jpeg',
       images: [],
+      category: 'Collège',
       texte: 'Rentrée scolaire pour tous les élèves de l\'établissement. Un moment important qui marque le début d\'une nouvelle année scolaire riche en apprentissages et en découvertes.',
     },
     {
@@ -51,8 +54,9 @@ export default function SortiesScolairesPage() {
       titre: 'Baden Baden - Marché de Noël en Allemagne',
       date: '17 Octobre 2025',
       dateSort: parseDate('17 Octobre 2025'),
-      image: '/baden.jpeg',
+      image: '/Images/College/Baden/baden.jpeg',
       images: [],
+      category: 'Collège',
       texte: 'Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s&apos;immerger dans les traditions allemandes et de pratiquer la langue dans un contexte authentique.',
     },
     {
@@ -60,8 +64,9 @@ export default function SortiesScolairesPage() {
       titre: 'Festival du film italien',
       date: '06 Novembre 2025',
       dateSort: parseDate('06 Novembre 2025'),
-      image: '/festival.png',
+      image: '/Images/College/Festival%20italien/festival.png',
       images: [],
+      category: 'Collège',
       texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7ème art.',
     },
     {
@@ -69,8 +74,9 @@ export default function SortiesScolairesPage() {
       titre: 'Séjour au ski',
       date: '07 Décembre 2025',
       dateSort: parseDate('07 Décembre 2025'),
-      image: '/ski.jpeg',
+      image: '/Images/College/Ski/ski.jpeg',
       images: [],
+      category: 'Collège',
       texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d&apos;hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
     },
     {
@@ -78,11 +84,17 @@ export default function SortiesScolairesPage() {
       titre: 'Musée Pompidou',
       date: '11 Décembre 2025',
       dateSort: parseDate('11 Décembre 2025'),
-      image: '/pompidou.jpg',
+      image: '/Images/College/Pompidou/pompidou.jpg',
       images: [],
+      category: 'Collège',
       texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
+
+  const filteredArticles = useMemo(
+    () => articles.filter((a) => selectedCategories.has(a.category as Category)),
+    [articles, selectedCategories],
+  );
 
   return (
     <div className="min-h-screen bg-white">
@@ -125,21 +137,32 @@ export default function SortiesScolairesPage() {
             </div>
           </div>
 
+          <div className="max-w-6xl mx-auto mb-8">
+            <CategoryFilter selected={selectedCategories} onChange={setSelectedCategories} />
+          </div>
+
           {/* Articles */}
           <div className="max-w-6xl mx-auto space-y-8">
-            {articles.map((article) => (
-              <BlogArticle
-                key={article.id}
-                id={article.id}
-                titre={article.titre}
-                date={article.date}
-                image={article.image}
-                images={article.images}
-                texte={article.texte}
-                expanded={expandedArticles[article.id]}
-                onToggle={() => toggleArticle(article.id)}
-              />
-            ))}
+            {filteredArticles.length > 0 ? (
+              filteredArticles.map((article) => (
+                <BlogArticle
+                  key={article.id}
+                  id={article.id}
+                  titre={article.titre}
+                  date={article.date}
+                  image={article.image}
+                  images={article.images}
+                  texte={article.texte}
+                  category={article.category}
+                  expanded={expandedArticles[article.id]}
+                  onToggle={() => toggleArticle(article.id)}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-500 font-[var(--font-inter)] py-12">
+                Aucune sortie scolaire pour cette sélection.
+              </p>
+            )}
           </div>
         </div>
       </section>

@@ -41,7 +41,7 @@ export default function ResultatsSportifsPage() {
       titre: 'Championnat Grand Est UGSEL de bad',
       date: '30 mars 2023',
       dateSort: parseDate('30 Mars 2023'),
-      image: '/championnat.jpg',
+      image: '/Images/Sport/championnat.jpg',
       texte: 'Hier, une délégation de 9 collégiens et lycéens a participé au championnat Grand Est UGSEL de badminton à Pont-à-Mousson. Nos filles ont brillé en décrochant 5 qualifications pour le championnat de France en mai prochain. En benjamine : Stella Bourgeois termine 4ème. En minime : Stella est 1ère 🥇, Loriane est 2ème 🥈. En lycée : Élodie est 3ème 🥉. Bravo à tous !',
     },
     {
@@ -49,7 +49,7 @@ export default function ResultatsSportifsPage() {
       titre: 'Olympiades UNSS LYCÉE',
       date: '30 mars 2023',
       dateSort: parseDate('30 Mars 2023'),
-      image: '/olympiade.jpg',
+      image: '/Images/Sport/olympiade.jpg',
       texte: 'Une délégation de 26 lycéens a participé à la 3ème journée des olympiades UNSS LYCÉE à Jarny. Bravo à tous pour leurs belles performances.',
     },
     {
@@ -57,7 +57,7 @@ export default function ResultatsSportifsPage() {
       titre: 'Championnats de France de natation (UGSEL)',
       date: '17 mars 2023',
       dateSort: parseDate('17 Mars 2023'),
-      image: '/natations.jpg',
+      image: '/Images/Sport/natations.jpg',
       texte: 'Notre établissement est à présent connu dans le Nord ! Nos 12 nageurs ont disputé le championnat de France de natation Ugsel durant ces deux derniers jours à Cambrai et le moins qu\'on puisse dire c\'est qu\'ils ne sont pas passés inaperçus. D\'abord déclarés CHAMPIONS DE FRANCE 🇫🇷 par équipe mardi, ils ont enchaîné les appels au podium avec 2 nouveaux titres ce matin : Lou sur 100m Nage libre et Guillaume sur 100m Dos. 3 médailles d\'argent 🥈🥈🥈 : en relais, Lou 200m 4 nages et Guillaume 100m nage libre. 3 médailles de Bronze 🥉🥉🥉 : en relais, Romane sur 100m dos et 200m 4 nages. Encore bravo à tous !',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());

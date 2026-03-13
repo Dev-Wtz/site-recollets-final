@@ -7,9 +7,7 @@ import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const PDF_CANTINE = "/Menu_Cantine.pdf";
-/** ?v=2 évite le cache (ancienne image) */
-const IMAGE_CANTINE = "/Menu_Cantine.webp.webp?v=2";
+const MENU_CANTINE = "/Images/Menus/Menu_Cantine.jpg";
 
 export default function CantinePage() {
   const {
@@ -76,21 +74,19 @@ export default function CantinePage() {
           <div className="flex flex-col items-center gap-6 py-4">
             <div className="w-full max-w-[100vw]">
               <MenuImageWithLightbox
-                src={IMAGE_CANTINE}
+                src={MENU_CANTINE}
                 alt="Menu Restaurant Scolaire - Les Récollets"
                 rotated
               />
             </div>
-            <div className={CONTAINER_CLASS}>
-              <a
-                href={PDF_CANTINE}
-                download="Menu-Cantine-Les-Recollets.pdf"
-                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
-              >
-                <Download size={20} />
-                Télécharger le menu
-              </a>
-            </div>
+            <a
+              href={MENU_CANTINE}
+              download="Menu-Cantine-Les-Recollets.jpg"
+              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
+            >
+              <Download size={20} />
+              Télécharger le menu
+            </a>
           </div>
         </div>
       </section>

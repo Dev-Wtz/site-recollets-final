@@ -5,7 +5,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const PDF_TARIFS = "/Tableau_tarifs_26-27_OGEC.pdf";
+const PDF_TARIFS = "/Images/tarif/Tableau_tarifs_26-27_OGEC.pdf";
 
 export default function TarifPage() {
   return (

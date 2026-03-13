@@ -4,12 +4,10 @@ import { ChevronDown, Download } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
-import { CONTAINER_CLASS } from "@/app/lib/constants";
-import { useEffect, useState, useRef, useCallback } from 'react';
 
-const PDF_MATERNELLE = '/Menu_Maternelle.pdf';
-/** Image du menu affichée : public/Menu_Maternelle.webp.webp — ?v=2 évite le cache (ancienne image) */
-const IMAGE_MATERNELLE = '/Menu_Maternelle.webp.webp?v=2';
+import { useEffect, useState, useRef } from 'react';
+
+const MENU_MATERNELLE = '/Images/Menus/Menu_Maternelle.jpg';
 
 export default function MaternellePage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
@@ -37,20 +35,6 @@ export default function MaternellePage() {
   }, []);
 
   // Fonction optimisée pour télécharger le menu
-  const handleDownloadMenu = useCallback(() => {
-    try {
-      const link = document.createElement('a');
-      link.href = PDF_MATERNELLE;
-      link.download = 'Menu-Maternelle-Les-Recollets.pdf';
-      link.setAttribute('rel', 'noopener noreferrer');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Erreur lors du téléchargement du menu:', error);
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -105,22 +89,19 @@ export default function MaternellePage() {
           <div className="flex flex-col items-center gap-6 py-4">
             <div className="w-full max-w-[100vw]">
               <MenuImageWithLightbox
-                src={IMAGE_MATERNELLE}
+                src={MENU_MATERNELLE}
                 alt="Menu Maternelle - Les Récollets"
                 rotated
               />
             </div>
-            <div className={CONTAINER_CLASS}>
-              <button
-                type="button"
-                onClick={handleDownloadMenu}
-                className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg focus:outline-none focus:ring-2 focus:ring-[#8C1515] focus:ring-offset-2"
-                aria-label="Télécharger le menu maternelle"
-              >
-                <Download size={20} aria-hidden="true" />
-                Télécharger le menu
-              </button>
-            </div>
+            <a
+              href={MENU_MATERNELLE}
+              download="Menu-Maternelle-Les-Recollets.jpg"
+              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
+            >
+              <Download size={20} />
+              Télécharger le menu
+            </a>
           </div>
         </div>
       </section>

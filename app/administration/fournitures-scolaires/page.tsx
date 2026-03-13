@@ -255,14 +255,14 @@ export default function FournituresScolairesPage() {
               </h3>
               <div className="flex justify-center">
                 <iframe
-                  src={`/${classeActuelle.fichier}.pdf#view=FitH&toolbar=1&navpanes=0&scrollbar=1`}
+                  src={`/Images/fournitures/${classeActuelle.fichier}.pdf#view=FitH&toolbar=1&navpanes=0&scrollbar=1`}
                   className="w-full max-w-6xl aspect-[210/297] max-h-[85vh] rounded-lg shadow-2xl border-2 border-gray-200"
                   title={`Fournitures ${classeActuelle.nom}`}
                 />
               </div>
               <div className="text-center mt-4">
                 <a
-                  href={`/${classeActuelle.fichier}.pdf`}
+                  href={`/Images/fournitures/${classeActuelle.fichier}.pdf`}
                   download
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold"
                 >

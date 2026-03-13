@@ -78,7 +78,7 @@ export default function CalendrierSportifPage() {
                 Calendrier UNSS - Collège
               </h3>
               <img
-                src="/CalendrierUnssCollege.png"
+                src="/Images/Sport/CalendrierUnssCollege.png"
                 alt="Calendrier UNSS Collège - Les Récollets"
                 className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
               />
@@ -90,7 +90,7 @@ export default function CalendrierSportifPage() {
                 Calendrier UNSS - Lycée
               </h3>
               <img
-                src="/CalendrierUnssLycee.png"
+                src="/Images/Sport/CalendrierUnssLycee.png"
                 alt="Calendrier UNSS Lycée - Les Récollets"
                 className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
               />

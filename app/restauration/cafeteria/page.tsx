@@ -7,9 +7,7 @@ import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const PDF_CAFETERIA = "/Menu_Cafeteriat.pdf";
-/** Image du menu affichée : public/Menu_Cafeteriat.webp.webp — ?v=2 évite le cache (ancienne image) */
-const IMAGE_CAFETERIA = "/Menu_Cafeteriat.webp.webp?v=2";
+const MENU_CAFETERIA = "/Images/Menus/Menu_Cafeteriat.jpg";
 
 export default function CafeteriaPage() {
   const {
@@ -67,18 +65,18 @@ export default function CafeteriaPage() {
 
           <div className="flex flex-col items-center gap-4">
             <MenuImageWithLightbox
-              src={IMAGE_CAFETERIA}
+              src={MENU_CAFETERIA}
               alt="Menu Cafeteria du Lycee - Les Recollets"
               width={900}
               height={1600}
             />
             <a
-              href={PDF_CAFETERIA}
-              download="Menu-Cafeteria-Les-Recollets.pdf"
+              href={MENU_CAFETERIA}
+              download="Menu-Cafeteria-Les-Recollets.jpg"
               className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
             >
               <Download size={20} />
-              Telecharger le menu
+              Télécharger le menu
             </a>
           </div>
         </div>

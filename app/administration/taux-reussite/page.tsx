@@ -215,7 +215,7 @@ export default function TauxReussitePage() {
               </h3>
               <div className="flex justify-center">
                 <img
-                  src={`/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
+                  src={`/Images/Resultat/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
                   alt={`Résultats des examens ${anneeActuelle.annee} - Les Récollets`}
                   className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
                 />

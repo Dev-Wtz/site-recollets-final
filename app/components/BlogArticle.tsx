@@ -14,6 +14,7 @@ interface BlogArticleProps {
   texte: string;
   expanded?: boolean;
   onToggle?: () => void;
+  category?: string;
 }
 
 /** Retourne true si le src est une image réelle (non vide, non placeholder) */
@@ -39,6 +40,7 @@ function BlogArticle({
   texte,
   expanded = false,
   onToggle,
+  category,
 }: BlogArticleProps) {
   const textRef = useRef<HTMLParagraphElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -98,6 +100,11 @@ function BlogArticle({
             quality={75}
             priority={false}
           />
+          {category && (
+            <span className="absolute top-2 left-2 z-10 bg-white/90 backdrop-blur-sm text-[#8C1515] font-[var(--font-inter)] font-bold text-[11px] sm:text-xs px-2.5 py-1 rounded-full shadow-sm pointer-events-none">
+              {category}
+            </span>
+          )}
           {/* Overlay au survol - uniquement s'il y a des images à voir */}
           {galleryImages.length >= 1 && (
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center">
