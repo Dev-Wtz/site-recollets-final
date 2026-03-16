@@ -45,7 +45,6 @@ function ImageGallery({
       if (e.key === "ArrowLeft") goPrev();
     };
 
-    setCurrentIndex(initialIndex);
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 

@@ -83,7 +83,7 @@ export default function ResultatsSportifsPage() {
                   Retrouvez ici les résultats des compétitions sportives UNSS auxquelles participent nos élèves. Les performances de nos équipes et de nos sportifs sont régulièrement mises à jour.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Le sport est un vecteur d'excellence et de dépassement de soi. Nous sommes fiers de suivre et de partager les résultats de nos élèves dans les différentes disciplines sportives.
+                  Le sport est un vecteur d&apos;excellence et de dépassement de soi. Nous sommes fiers de suivre et de partager les résultats de nos élèves dans les différentes disciplines sportives.
                 </p>
               </div>
               {needsShowMore && (

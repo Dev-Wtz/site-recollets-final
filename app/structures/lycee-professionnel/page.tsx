@@ -8,6 +8,7 @@ import DescriptionSection from "@/app/components/DescriptionSection";
 import ClassList from "@/app/components/ClassList";
 import QuickLinks from "@/app/components/QuickLinks";
 import { CONTAINER_CLASS, SECTION_PADDING, STRUCTURE_CONTACTS } from "@/app/lib/constants";
+import AutoPlayVideo from "@/app/components/AutoPlayVideo";
 
 const CLASSES_LP = ['Seconde Professionnelle', 'Première Professionnelle', 'Terminale Professionnelle'] as const;
 
@@ -44,6 +45,20 @@ export default function LyceeProfessionnelPage() {
               <h3 className="font-[var(--font-inter)] font-bold text-base mb-1">Règlement intérieur du lycée professionnel</h3>
               <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
+          </div>
+
+          {/* Vidéo de présentation du Lycée Professionnel */}
+          <div className="mb-8 sm:mb-12 lg:mb-16 border-t border-gray-200 pt-8 sm:pt-10 lg:pt-12">
+            <h2 className="font-[var(--font-playfair)] text-2xl sm:text-3xl lg:text-4xl font-bold text-[#8C1515] mb-4 text-center">
+              Découvrir le Lycée Professionnel en vidéo
+            </h2>
+            <div className="relative w-full max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl border border-gray-200 bg-black mx-auto">
+              <AutoPlayVideo
+                src="/Images/LP/Le LP ND en 7 min.mp4"
+                title="Vidéo de présentation du Lycée Professionnel des Récollets"
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
 
           {/* Description */}

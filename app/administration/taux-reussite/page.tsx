@@ -4,6 +4,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { useState, useEffect, useRef } from 'react';
+import NextImage from "next/image";
 
 const ANNEES = [
   { annee: 2025, extension: 'png' },
@@ -214,10 +215,13 @@ export default function TauxReussitePage() {
                 Résultats {anneeActuelle.annee}
               </h3>
               <div className="flex justify-center">
-                <img
+                <NextImage
                   src={`/Images/Resultat/ResultatsExamens${anneeActuelle.annee}.${anneeActuelle.extension}`}
                   alt={`Résultats des examens ${anneeActuelle.annee} - Les Récollets`}
+                  width={1400}
+                  height={900}
                   className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
                 />
               </div>
             </div>

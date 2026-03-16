@@ -2,7 +2,7 @@
 
 import { ChevronDown, Images } from "lucide-react";
 import NextImage from "next/image";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import ImageGallery from "./ImageGallery";
 
 interface BlogArticleProps {
@@ -32,7 +32,6 @@ function isRealImage(src: string): boolean {
  * - Bouton Images (n) avec le nombre réel d'images ; pas d'images vides ni placeholders
  */
 function BlogArticle({
-  id,
   titre,
   date,
   image,
@@ -42,9 +41,9 @@ function BlogArticle({
   onToggle,
   category,
 }: BlogArticleProps) {
-  const textRef = useRef<HTMLParagraphElement>(null);
-  const [isOverflowing, setIsOverflowing] = useState(false);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const MAX_CHARS = 180;
+  const needsTruncation = texte.length > MAX_CHARS;
 
   const galleryImages = useMemo(() => {
     const main = isRealImage(image) ? [image] : [];
@@ -59,25 +58,6 @@ function BlogArticle({
   const closeGallery = useCallback(() => {
     setIsGalleryOpen(false);
   }, []);
-
-  // Détecte si le texte déborde
-  useEffect(() => {
-    const checkOverflow = () => {
-      if (textRef.current && !expanded) {
-        const hasOverflow = textRef.current.scrollHeight > textRef.current.clientHeight;
-        setIsOverflowing(hasOverflow);
-      }
-    };
-
-    checkOverflow();
-    const timer = setTimeout(checkOverflow, 100);
-    window.addEventListener('resize', checkOverflow);
-
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('resize', checkOverflow);
-    };
-  }, [expanded, texte]);
 
   return (
     <article className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
@@ -132,36 +112,21 @@ function BlogArticle({
             {titre}
           </h3>
 
-          {/* Texte - Limité à la taille de la photo */}
+          {/* Texte - Limité à 300 caractères */}
           <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
-            <div
-              ref={textRef}
-              className={`font-[var(--font-inter)] text-sm text-gray-700 leading-relaxed ${!expanded ? "line-clamp-5" : "overflow-y-auto flex-1 min-h-0"}`}
-            >
-              {texte}
-            </div>
+            <p className={`font-[var(--font-inter)] text-sm text-gray-700 leading-relaxed whitespace-pre-line ${expanded ? "overflow-y-auto flex-1 min-h-0" : ""}`}>
+              {!expanded && needsTruncation ? `${texte.slice(0, MAX_CHARS).trimEnd()}…` : texte}
+            </p>
 
-            {/* Boutons - en bas à gauche, Tout voir au-dessus de Images */}
             <div className="mt-2 flex flex-col items-start gap-2 shrink-0">
-              {/* Tout voir - UNIQUEMENT s'il y a plus de 5 lignes de texte */}
-              {!expanded && isOverflowing && onToggle && (
+              {needsTruncation && onToggle && (
                 <button
                   onClick={onToggle}
                   className="text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
-                  aria-expanded={false}
+                  aria-expanded={expanded}
                 >
-                  Tout voir
-                  <ChevronDown size={16} className="transition-transform" aria-hidden="true" />
-                </button>
-              )}
-              {expanded && onToggle && (
-                <button
-                  onClick={onToggle}
-                  className="text-[#8C1515] hover:text-[#a01919] font-[var(--font-inter)] font-semibold text-sm transition-colors flex items-center gap-1"
-                  aria-expanded={true}
-                >
-                  Voir moins
-                  <ChevronDown size={16} className="transition-transform rotate-180" aria-hidden="true" />
+                  {expanded ? "Afficher moins" : "Afficher plus"}
+                  <ChevronDown size={16} className={`transition-transform ${expanded ? "rotate-180" : ""}`} aria-hidden="true" />
                 </button>
               )}
               {/* Bouton Images - en dessous de Tout voir ; affiche toujours le nombre réel d'images */}
@@ -181,11 +146,11 @@ function BlogArticle({
       </div>
 
       {/* Galerie lightbox - uniquement s'il y a au moins une image réelle */}
-      {galleryImages.length >= 1 && (
+      {isGalleryOpen && galleryImages.length >= 1 && (
         <ImageGallery
           images={galleryImages}
           title={titre}
-          isOpen={isGalleryOpen}
+          isOpen
           onClose={closeGallery}
         />
       )}

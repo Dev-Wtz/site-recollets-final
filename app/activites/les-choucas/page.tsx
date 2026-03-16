@@ -59,7 +59,7 @@ export default function LesChoucasPage() {
       date: '01 Juillet 2022',
       dateSort: parseDate('01 Juillet 2022'),
       image: 'https://images.unsplash.com/photo-1637531503805-edf4685e455f?auto=format&fit=crop&w=1200&q=80',
-      texte: 'Participez au prix « Coup de Cœur Facebook – APJ » en soutenant ton projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
+      texte: 'Participez au prix « Coup de Cœur Facebook – APJ » en soutenant votre projet favori ! Le projet le plus soutenu remporte une belle récompense par la MSA pour la réalisation de son projet !',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 
@@ -83,10 +83,10 @@ export default function LesChoucasPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  L'association « Les Choucas » est un projet de solidarité porté par les élèves de l'Ensemble Scolaire Privé des Récollets. Elle a pour vocation de venir en aide aux personnes en situation de handicap en finançant du matériel adapté et en organisant des actions de solidarité.
+                  L&apos;association « Les Choucas » est un projet de solidarité porté par les élèves de l&apos;Ensemble Scolaire Privé des Récollets. Elle a pour vocation de venir en aide aux personnes en situation de handicap en finançant du matériel adapté et en organisant des actions de solidarité.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Cette association permet aux élèves de s'engager dans des projets concrets, de développer leur sens de la solidarité et de contribuer à améliorer le quotidien de personnes en situation de handicap.
+                  Cette association permet aux élèves de s&apos;engager dans des projets concrets, de développer leur sens de la solidarité et de contribuer à améliorer le quotidien de personnes en situation de handicap.
                 </p>
               </div>
               {needsShowMore && (

@@ -88,10 +88,10 @@ export default function AteliersPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  Les ateliers proposés par l'établissement offrent aux élèves l'opportunité de développer leurs compétences, leurs passions et leurs talents dans un cadre convivial et bienveillant.
+                  Les ateliers proposés par l&apos;établissement offrent aux élèves l&apos;opportunité de développer leurs compétences, leurs passions et leurs talents dans un cadre convivial et bienveillant.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Découvrez ci-dessous les différents clubs et ateliers disponibles pour enrichir l'expérience éducative de nos élèves.
+                  Découvrez ci-dessous les différents clubs et ateliers disponibles pour enrichir l&apos;expérience éducative de nos élèves.
                 </p>
               </div>
               {needsShowMore && (

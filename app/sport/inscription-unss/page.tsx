@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { useEffect, useState, useRef } from 'react';
+import NextImage from "next/image";
 
 export default function InscriptionUnssPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
@@ -49,13 +50,13 @@ export default function InscriptionUnssPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  L'Union Nationale du Sport Scolaire (UNSS) permet à tous les élèves de pratiquer une activité sportive dans le cadre de l'établissement. Les activités UNSS sont encadrées par des professeurs d'EPS et permettent de participer à des compétitions inter-établissements.
+                  L&apos;Union Nationale du Sport Scolaire (UNSS) permet à tous les élèves de pratiquer une activité sportive dans le cadre de l&apos;établissement. Les activités UNSS sont encadrées par des professeurs d&apos;EPS et permettent de participer à des compétitions inter-établissements.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  L'inscription à l'UNSS est ouverte à tous les élèves du collège et du lycée. Elle favorise le développement personnel, l'esprit d'équipe et les valeurs du sport : respect, fair-play et dépassement de soi.
+                  L&apos;inscription à l&apos;UNSS est ouverte à tous les élèves du collège et du lycée. Elle favorise le développement personnel, l&apos;esprit d&apos;équipe et les valeurs du sport : respect, fair-play et dépassement de soi.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  Retrouvez ci-dessous toutes les informations nécessaires pour l'inscription.
+                  Retrouvez ci-dessous toutes les informations nécessaires pour l&apos;inscription.
                 </p>
               </div>
               {needsShowMore && (
@@ -75,10 +76,13 @@ export default function InscriptionUnssPage() {
 
           {/* Image d'inscription UNSS */}
           <div className="flex justify-center">
-            <img
+            <NextImage
               src="/Images/Sport/InscriptionUnss.png"
               alt="Inscription UNSS - Les Récollets"
+              width={1400}
+              height={900}
               className="w-full max-w-6xl h-auto rounded-lg shadow-2xl"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 1200px"
             />
           </div>
         </div>

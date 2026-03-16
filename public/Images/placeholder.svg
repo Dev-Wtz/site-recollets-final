@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="title desc">
+  <title id="title">Image temporaire</title>
+  <desc id="desc">Image de remplacement en attendant le visuel d�finitif.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#374151"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)" />
+  <rect x="80" y="80" width="1040" height="640" rx="32" fill="none" stroke="#4B5563" stroke-width="4" stroke-dasharray="12 10"/>
+  <g fill="none" stroke="#6B7280" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="420" cy="360" r="80"/>
+    <path d="M260 580l140-160 120 120 120-160 220 200H260z"/>
+  </g>
+  <text x="50%" y="55%" text-anchor="middle" fill="#E5E7EB" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="42" letter-spacing="4">
+    VISUEL EN COURS
+  </text>
+  <text x="50%" y="63%" text-anchor="middle" fill="#9CA3AF" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22">
+    Contenu affich� automatiquement
+  </text>
+</svg>

@@ -193,9 +193,9 @@ export default function Home() {
   } = useShowMoreText(8);
   const [isStatsVisible, setIsStatsVisible] = useState(false);
   const [contactsOpen, setContactsOpen] = useState(false);
-  const [reussite, setReussite] = useState(0);
-  const [eleves, setEleves] = useState(0);
-  const [annee, setAnnee] = useState(0);
+  const [, setReussite] = useState(0);
+  const [, setEleves] = useState(0);
+  const [, setAnnee] = useState(0);
 
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -271,7 +271,7 @@ export default function Home() {
     };
 
     // Exécution immédiate au prochain frame
-    let rafId = requestAnimationFrame(adjustFontSize);
+    const rafId = requestAnimationFrame(adjustFontSize);
 
     // ResizeObserver + rAF throttle pour réactivité temps réel
     let pendingRaf: number | null = null;

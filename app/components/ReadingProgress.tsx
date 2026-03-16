@@ -1,33 +1,37 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
 import { memo } from "react";
+import { useSyncExternalStore } from "react";
+
+function getProgressSnapshot(): number {
+  if (typeof window === "undefined") return 0;
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (docHeight <= 0) return 0;
+  return Math.min((scrollTop / docHeight) * 100, 100);
+}
+
+function subscribeToScroll(onStoreChange: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+
+  let rafId = 0;
+  const notify = () => {
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(onStoreChange);
+  };
+
+  window.addEventListener("scroll", notify, { passive: true });
+  window.addEventListener("resize", notify, { passive: true });
+
+  return () => {
+    window.removeEventListener("scroll", notify);
+    window.removeEventListener("resize", notify);
+    if (rafId) cancelAnimationFrame(rafId);
+  };
+}
 
 function ReadingProgress() {
-  const [progress, setProgress] = useState(0);
-
-  const updateProgress = useCallback(() => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const percent = docHeight > 0 ? Math.min((scrollTop / docHeight) * 100, 100) : 0;
-    setProgress(percent);
-  }, []);
-
-  useEffect(() => {
-    updateProgress();
-    
-    let rafId: number;
-    const handleScroll = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(updateProgress);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, [updateProgress]);
+  const progress = useSyncExternalStore(subscribeToScroll, getProgressSnapshot, () => 0);
 
   return (
     <div

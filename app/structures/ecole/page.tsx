@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Clock, ExternalLink, Phone, Mail, Link2, FileText } from "lucide-react";
+import { ChevronDown, ExternalLink, FileText } from "lucide-react";
 import Link from "next/link";
 import NextImage from "next/image";
 import Navbar from "@/app/components/Navbar";

@@ -1,19 +1,13 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 
 export default function OpenDayPopup() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
+  const [isOpen, setIsOpen] = useState(() => {
     const now = new Date();
     const lastEventEnd = new Date(2026, 2, 27, 20, 0); // 27 mars 2026, 20h00
-    if (now > lastEventEnd) return;
-
-    setIsOpen(true);
-  }, []);
+    return now <= lastEventEnd;
+  });
 
   const close = useCallback(() => {
     setIsOpen(false);

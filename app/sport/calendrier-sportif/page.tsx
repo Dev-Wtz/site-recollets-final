@@ -4,6 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { useEffect, useState, useRef } from 'react';
+import NextImage from "next/image";
 
 export default function CalendrierSportifPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
@@ -49,10 +50,10 @@ export default function CalendrierSportifPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  Retrouvez ci-dessous les calendriers sportifs UNSS pour le collège et le lycée. Ces calendriers vous permettront de suivre toutes les compétitions et événements sportifs de l'année scolaire.
+                  Retrouvez ci-dessous les calendriers sportifs UNSS pour le collège et le lycée. Ces calendriers vous permettront de suivre toutes les compétitions et événements sportifs de l&apos;année scolaire.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Les activités sportives sont un élément essentiel de la formation des élèves, favorisant le développement physique, l'esprit d'équipe et les valeurs de respect et de dépassement de soi.
+                  Les activités sportives sont un élément essentiel de la formation des élèves, favorisant le développement physique, l&apos;esprit d&apos;équipe et les valeurs de respect et de dépassement de soi.
                 </p>
               </div>
               {needsShowMore && (
@@ -77,10 +78,13 @@ export default function CalendrierSportifPage() {
               <h3 className="font-[var(--font-playfair)] text-xl sm:text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4 sm:mb-6 text-center">
                 Calendrier UNSS - Collège
               </h3>
-              <img
+              <NextImage
                 src="/Images/Sport/CalendrierUnssCollege.png"
                 alt="Calendrier UNSS Collège - Les Récollets"
+                width={1200}
+                height={900}
                 className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
+                sizes="(max-width: 1024px) 100vw, 768px"
               />
             </div>
 
@@ -89,10 +93,13 @@ export default function CalendrierSportifPage() {
               <h3 className="font-[var(--font-playfair)] text-xl sm:text-2xl lg:text-3xl font-bold text-[#8C1515] mb-4 sm:mb-6 text-center">
                 Calendrier UNSS - Lycée
               </h3>
-              <img
+              <NextImage
                 src="/Images/Sport/CalendrierUnssLycee.png"
                 alt="Calendrier UNSS Lycée - Les Récollets"
+                width={1200}
+                height={900}
                 className="w-full max-w-2xl h-auto rounded-lg shadow-2xl"
+                sizes="(max-width: 1024px) 100vw, 768px"
               />
             </div>
           </div>

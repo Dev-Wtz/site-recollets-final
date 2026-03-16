@@ -25,11 +25,6 @@ export default function MenuImageWithLightbox({
   height = 900,
 }: MenuImageWithLightboxProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!lightboxOpen) return;
@@ -55,34 +50,33 @@ export default function MenuImageWithLightbox({
         <span
           className={`flex justify-center items-center w-full bg-gray-50/50 ${rotated ? "min-h-0" : "relative w-full h-[100vh] min-h-[640px]"}`}
         >
-          {mounted &&
-            (rotated ? (
-              <span className="flex justify-center items-center w-[90vw] max-w-full mx-auto">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={src}
-                  alt={alt}
-                  width={width}
-                  height={height}
-                  className="w-auto h-[90vw] max-h-none object-contain object-center rotate-90 select-none pointer-events-none"
-                  loading="lazy"
-                  draggable={false}
-                  decoding="async"
-                />
-              </span>
-            ) : (
-              <>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={src}
-                  alt={alt}
-                  className="absolute inset-0 w-full h-full object-contain object-center select-none pointer-events-none"
-                  loading="lazy"
-                  draggable={false}
-                  decoding="async"
-                />
-              </>
-            ))}
+          {rotated ? (
+            <span className="flex justify-center items-center w-[90vw] max-w-full mx-auto">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt={alt}
+                width={width}
+                height={height}
+                className="w-auto h-[90vw] max-h-none object-contain object-center rotate-90 select-none pointer-events-none"
+                loading="lazy"
+                draggable={false}
+                decoding="async"
+              />
+            </span>
+          ) : (
+            <>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={src}
+                alt={alt}
+                className="absolute inset-0 w-full h-full object-contain object-center select-none pointer-events-none"
+                loading="lazy"
+                draggable={false}
+                decoding="async"
+              />
+            </>
+          )}
         </span>
       </button>
 

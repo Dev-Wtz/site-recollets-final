@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import {
-  COOKIE_CONSENT_KEY,
   COOKIE_CONSENT_SHOW_EVENT,
   getStoredConsent,
   setStoredConsent,
@@ -20,8 +19,13 @@ function wasBannerClosedThisSession(): boolean {
 }
 
 export default function CookieConsent() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const consent = getStoredConsent();
+    if (consent) return false;
+    if (wasBannerClosedThisSession()) return false;
+    return true;
+  });
   const [showDetails, setShowDetails] = useState(false);
   const [prefs, setPrefs] = useState<CookieConsentState["consent"]>({
     necessary: true,
@@ -61,24 +65,6 @@ export default function CookieConsent() {
   }, [prefs, hideBanner]);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isMounted) return;
-    const consent = getStoredConsent();
-    if (consent) {
-      setIsVisible(false);
-      return;
-    }
-    if (wasBannerClosedThisSession()) {
-      setIsVisible(false);
-      return;
-    }
-    setIsVisible(true);
-  }, [isMounted]);
-
-  useEffect(() => {
     const handleShow = () => {
       clearConsent();
       sessionStorage.removeItem(STORAGE_KEY);
@@ -89,7 +75,7 @@ export default function CookieConsent() {
     return () => window.removeEventListener(COOKIE_CONSENT_SHOW_EVENT, handleShow);
   }, []);
 
-  if (!isMounted || !isVisible) return null;
+  if (!isVisible) return null;
 
   const btnClass =
     "font-[var(--font-inter)] px-2.5 py-1.5 text-xs font-semibold rounded focus:outline-none focus:ring-2 focus:ring-offset-1 transition-colors";

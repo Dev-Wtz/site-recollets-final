@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import { CONTAINER_CLASS, SECTION_PADDING, FOOTER, LEGAL, SITE_URL } from "@/app/lib/constants";
+import { CONTAINER_CLASS, SECTION_PADDING, LEGAL, SITE_URL } from "@/app/lib/constants";
 
 export default function ConfidentialitePage() {
   return (

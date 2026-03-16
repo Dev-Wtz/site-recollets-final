@@ -57,7 +57,7 @@ export default function SortiesScolairesPage() {
       image: '/Images/College/Baden/baden.jpeg',
       images: [],
       category: 'Collège',
-      texte: 'Sortie à Baden Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s&apos;immerger dans les traditions allemandes et de pratiquer la langue dans un contexte authentique.',
+      texte: 'Sortie à Baden-Baden pour découvrir le marché de Noël en Allemagne. Une expérience culturelle et linguistique qui permet aux élèves de s\'immerger dans les traditions allemandes et de pratiquer la langue dans un contexte authentique.',
     },
     {
       id: 3,
@@ -67,7 +67,7 @@ export default function SortiesScolairesPage() {
       image: '/Images/College/Festival%20italien/festival.png',
       images: [],
       category: 'Collège',
-      texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7ème art.',
+      texte: 'Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d\'expression artistique à travers le 7e art.',
     },
     {
       id: 4,
@@ -77,7 +77,7 @@ export default function SortiesScolairesPage() {
       image: '/Images/College/Ski/ski.jpeg',
       images: [],
       category: 'Collège',
-      texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d&apos;hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
+      texte: 'Séjour au ski pour les élèves. Une expérience sportive et conviviale qui permet de découvrir les sports d\'hiver, de renforcer la cohésion de groupe et de vivre des moments inoubliables en montagne.',
     },
     {
       id: 5,
@@ -88,6 +88,39 @@ export default function SortiesScolairesPage() {
       images: [],
       category: 'Collège',
       texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
+    },
+    {
+      id: 6,
+      titre: 'Sorties scolaires du Lycée Professionnel',
+      dateSort: parseDate('01 Décembre 2025'),
+      image: '/Images/LP/Sortie/Metz_1.jpeg',
+      images: [
+        '/Images/LP/Sortie/Metz_2.jpeg',
+        '/Images/LP/Sortie/Mus%C3%A9e_Pompidou_LP.jpeg',
+        '/Images/LP/Sortie/Cous_assise_1.jpeg',
+        '/Images/LP/Sortie/March%C3%A9_de_No%C3%ABl_1.jpeg',
+        '/Images/LP/Sortie/March%C3%A9_de_No%C3%ABl_2.jpeg',
+        '/Images/LP/Sortie/March%C3%A9_de_No%C3%ABl_3.jpeg',
+      ],
+      category: 'Lycée Professionnel',
+      texte: 'Certaines sorties sont culturelles, comme les visites de musées, d\'autres s\'inscrivent davantage dans le cadre pédagogique, comme l\'assistance à des cours d\'assises, et d\'autres sont simplement conviviales, comme les sorties au marché de Noël.',
+    },
+    {
+      id: 7,
+      titre: 'Sortie au Fort de Fermont — Classes de 6ème',
+      date: '12 Mars 2026',
+      dateSort: parseDate('12 Mars 2026'),
+      image: '/Images/College/Fort%20de%20Fermont/Fermont_1.jpg',
+      images: [
+        '/Images/College/Fort%20de%20Fermont/Fermont_2.jpg',
+        '/Images/College/Fort%20de%20Fermont/Fermont_3.jpg',
+        '/Images/College/Fort%20de%20Fermont/Fermont_4.jpg',
+        '/Images/College/Fort%20de%20Fermont/Fermont_5.jpg',
+        '/Images/College/Fort%20de%20Fermont/Fermont_6.jpg',
+        '/Images/College/Fort%20de%20Fermont/Fermont_7.jpg',
+      ],
+      category: 'Collège',
+      texte: 'Les 5 classes de 6èmes ont vécu une belle journée de découverte en se rendant au Fort de Fermont. Pendant plus de deux heures, les élèves ont suivi une visite guidée qui leur a permis de mieux comprendre le rôle de la Ligne Maginot durant la Seconde Guerre mondiale. La visite d\'un petit musée a complété ce moment d\'histoire en illustrant concrètement la vie des soldats et les événements de l\'époque.\n\nLa journée s\'est poursuivie avec une séance de cinéma. Une sortie variée et enrichissante qui a beaucoup plu à tous nos élèves de sixième.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 

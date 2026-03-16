@@ -49,6 +49,79 @@ export default function AnimationPage() {
       texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
     },
     {
+      id: 8,
+      titre: 'Stages en entreprise — L\'exemple de David',
+      dateSort: parseDate('01 Juin 2025'),
+      image: '/Images/LP/article_david.png',
+      category: 'Lycée Professionnel',
+      texte: 'Les stages en lycée professionnel sont très importants ; ils représentent un enjeu crucial pour l\'obtention du baccalauréat.\n\nVoici l\'exemple d\'un élève très ambitieux, David, en Bac professionnel AGORA (gestion administration) qui a effectué ses stages en Première et en Terminale à l\'Assemblée nationale.',
+    },
+    {
+      id: 7,
+      titre: 'Interventions de professionnels',
+      dateSort: parseDate('01 Octobre 2025'),
+      image: '/Images/LP/Intervention/intervention_1.jpeg',
+      images: [
+        '/Images/LP/Intervention/Intervention_2.jpeg',
+        '/Images/LP/Intervention/Intervention_3.jpeg',
+        '/Images/LP/Intervention/Intervention_4.jpeg',
+        '/Images/LP/Intervention/Intervention_5.jpg',
+      ],
+      category: 'Lycée Professionnel',
+      texte: 'Des professionnels interviennent auprès des élèves afin de les accompagner dans leur parcours scolaire, leur orientation future, en leur faisant découvrir le monde professionnel, le processus de recrutement et en partageant leurs expériences.',
+    },
+    {
+      id: 6,
+      titre: 'Sensibilisation et défense de causes',
+      dateSort: parseDate('01 Novembre 2025'),
+      image: '/Images/LP/Defence_Cause/Discimination_1.jpeg',
+      images: [
+        '/Images/LP/Defence_Cause/Discrimination_2.jpeg',
+        '/Images/LP/Defence_Cause/Cause_1.jpg',
+        '/Images/LP/Defence_Cause/Cause_2.png',
+        '/Images/LP/Defence_Cause/Cause_3.jpg',
+      ],
+      category: 'Lycée Professionnel',
+      texte: 'Au sein du lycée, des temps de sensibilisation à différentes causes sont régulièrement organisés : lutte contre les discriminations (journée où les élèves ont porté deux chaussures différentes), prévention du harcèlement, sensibilisation à la protection de l\'environnement, interventions d\'associations ou de professionnels pour informer les élèves sur certains risques liés à l\'adolescence...',
+    },
+    {
+      id: 5,
+      titre: 'Cohésion et moments de partage',
+      dateSort: parseDate('01 Octobre 2025'),
+      image: '/Images/LP/Cohesion/Cohesion_1.jpeg',
+      images: [
+        '/Images/LP/Cohesion/Cohesion_2.jpeg',
+        '/Images/LP/Cohesion/Cohesion_3.jpeg',
+        '/Images/LP/Cohesion/Cohesion_4.jpeg',
+        '/Images/LP/Cohesion/Cohesion_5.jpeg',
+        '/Images/LP/Cohesion/Cohesion_6.jpeg',
+        '/Images/LP/Cohesion/Cohesion_7.jpeg',
+        '/Images/LP/Cohesion/Cohesion_8.jpeg',
+        '/Images/LP/Cohesion/Cohesion__9.jpeg',
+        '/Images/LP/Cohesion/Cohesion_10.jpeg',
+        '/Images/LP/Cohesion/Cohesion_11.jpeg',
+        '/Images/LP/Cohesion/Cohesion_12.jpg',
+      ],
+      category: 'Lycée Professionnel',
+      texte: 'Les moments de partage sont essentiels pour l\'ambiance et la cohésion du lycée : tutorat entre élèves de Terminale et de Seconde, échanges avec les élèves du primaire, moments sportifs, petits-déjeuners interclasses, célébration de Noël, etc.',
+    },
+    {
+      id: 3,
+      titre: 'Journée d\'intégration',
+      dateSort: parseDate('01 Septembre 2025'),
+      image: '/Images/LP/Integration/LP_Integration_1.jpeg',
+      images: [
+        '/Images/LP/Integration/LP_Integration_2.jpeg',
+        '/Images/LP/Integration/LP_Integration_3.jpeg',
+        '/Images/LP/Integration/LP_Integration_4.jpeg',
+        '/Images/LP/Integration/LP_Integration_5.jpeg',
+        '/Images/LP/Integration/LP_Integration_6.jpeg',
+        '/Images/LP/Integration/LP_Integration_7.jpeg',
+      ],
+      category: 'Lycée Professionnel',
+      texte: 'Chaque début d\'année, le lycée professionnel organise une journée d\'intégration pour que les élèves se rencontrent. En équipe, à travers différentes épreuves ludiques et sportives, ils font également connaissance avec leurs professeurs dans une ambiance conviviale.',
+    },
+    {
       id: 2,
       titre: 'Décoration de Noël',
       date: '01 Décembre 2025',
@@ -84,10 +157,10 @@ export default function AnimationPage() {
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
               >
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
-                  Découvrez les différentes animations organisées tout au long de l'année scolaire à l'Ensemble Scolaire Privé des Récollets. Ces moments de convivialité et de partage renforcent les liens entre les élèves et contribuent à créer une ambiance chaleureuse au sein de l'établissement.
+                  Découvrez les différentes animations organisées tout au long de l&apos;année scolaire à l&apos;Ensemble Scolaire Privé des Récollets. Ces moments de convivialité et de partage renforcent les liens entre les élèves et contribuent à créer une ambiance chaleureuse au sein de l&apos;établissement.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed">
-                  Chaque animation est l'occasion pour nos élèves de s'impliquer, de créer et de partager des moments inoubliables ensemble.
+                  Chaque animation est l&apos;occasion pour nos élèves de s&apos;impliquer, de créer et de partager des moments inoubliables ensemble.
                 </p>
               </div>
               {needsShowMore && (
@@ -119,6 +192,7 @@ export default function AnimationPage() {
                   titre={article.titre}
                   date={article.date}
                   image={article.image}
+                  images={'images' in article ? article.images as string[] : undefined}
                   texte={article.texte}
                   category={article.category}
                   expanded={expandedArticles[article.id]}
