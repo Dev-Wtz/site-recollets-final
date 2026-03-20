@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 import path from "path";
 
+const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.trim() ?? "";
+const normalizedBasePath =
+  rawBasePath.length === 0
+    ? ""
+    : `/${rawBasePath.replace(/^\/+|\/+$/g, "")}`;
+
 const nextConfig: NextConfig = {
+  basePath: normalizedBasePath,
+  assetPrefix: normalizedBasePath || undefined,
   turbopack: {
     root: path.resolve(__dirname),
   },
