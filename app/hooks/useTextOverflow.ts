@@ -22,7 +22,7 @@ export function useTextOverflow() {
     const timer = setTimeout(checkOverflow, 100);
 
     // Vérifie aussi au redimensionnement
-    window.addEventListener('resize', checkOverflow);
+    window.addEventListener('resize', checkOverflow, { passive: true });
 
     return () => {
       clearTimeout(timer);

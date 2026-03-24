@@ -137,21 +137,6 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Optimiser les images */
-img {
-  content-visibility: auto;
-}
-
-/* Réduire le paint pour les éléments fixes */
-.fixed {
-  will-change: transform;
-  transform: translateZ(0);
-}
-
-/* Optimiser les transitions */
-* {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 /* Préchargement des ressources critiques */
 @media (prefers-reduced-motion: reduce) {

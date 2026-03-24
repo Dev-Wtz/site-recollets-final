@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 interface AutoPlayVideoProps {
   src: string;
@@ -8,7 +8,7 @@ interface AutoPlayVideoProps {
   className?: string;
 }
 
-export default function AutoPlayVideo({ src, title, className }: AutoPlayVideoProps) {
+function AutoPlayVideo({ src, title, className }: AutoPlayVideoProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [hasUserPaused, setHasUserPaused] = useState(false);
   const [needsUnmute, setNeedsUnmute] = useState(false);
@@ -119,3 +119,4 @@ export default function AutoPlayVideo({ src, title, className }: AutoPlayVideoPr
   );
 }
 
+export default memo(AutoPlayVideo);

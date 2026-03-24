@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
+import dynamic from "next/dynamic";
 import SkipLink from "@/app/components/SkipLink";
-import CookieConsent from "@/app/components/CookieConsent";
-import OpenDayPopup from "@/app/components/OpenDayPopup";
+
+const OpenDayPopup = dynamic(() => import("@/app/components/OpenDayPopup"));
+const CookieConsent = dynamic(() => import("@/app/components/CookieConsent"));
 
 /* ────────────────────────────────────────────
    Polices

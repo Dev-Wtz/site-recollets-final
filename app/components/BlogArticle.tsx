@@ -2,8 +2,10 @@
 
 import { ChevronDown, Images } from "lucide-react";
 import NextImage from "next/image";
+import dynamic from "next/dynamic";
 import { memo, useCallback, useMemo, useState } from "react";
-import ImageGallery from "./ImageGallery";
+
+const ImageGallery = dynamic(() => import("./ImageGallery"), { ssr: false });
 
 interface BlogArticleProps {
   id: number;

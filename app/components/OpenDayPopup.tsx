@@ -46,15 +46,6 @@ export default function OpenDayPopup() {
         <div className="space-y-4">
           <div>
             <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 font-semibold">
-              Vendredi 20 mars — de 17h à 19h30
-            </p>
-            <p className="font-[var(--font-inter)] text-xs sm:text-sm text-gray-700">
-              École • Collège • Lycée Général
-            </p>
-          </div>
-
-          <div>
-            <p className="font-[var(--font-inter)] text-base sm:text-lg md:text-xl text-gray-900 font-semibold">
               Vendredi 27 mars — de 15h à 20h
             </p>
             <p className="font-[var(--font-inter)] text-xs sm:text-sm text-gray-700">

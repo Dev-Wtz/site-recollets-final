@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { X } from "lucide-react";
 
 interface MenuImageWithLightboxProps {
@@ -17,7 +17,7 @@ interface MenuImageWithLightboxProps {
  * Clic sur l'image ouvre une lightbox pour l'agrandir.
  * Utilise <img> natif pour éviter tout mismatch d'hydratation avec next/image.
  */
-export default function MenuImageWithLightbox({
+function MenuImageWithLightbox({
   src,
   alt,
   rotated = false,
@@ -113,3 +113,5 @@ export default function MenuImageWithLightbox({
     </>
   );
 }
+
+export default memo(MenuImageWithLightbox);

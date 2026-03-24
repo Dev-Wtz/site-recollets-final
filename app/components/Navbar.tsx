@@ -2,8 +2,7 @@
 
 import { ChevronDown, ArrowLeft, Menu, X } from 'lucide-react';
 import Link from 'next/link';
-import NextImage from 'next/image';
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { memo, useEffect, useState, useRef, useCallback } from 'react';
 
 import type { NavItem } from "@/app/lib/types";
 
@@ -78,7 +77,7 @@ interface NavbarProps {
    Composant
    ──────────────────────────────────────────── */
 
-export default function Navbar({ isHomePage = false, activePage }: NavbarProps) {
+function Navbar({ isHomePage = false, activePage }: NavbarProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -119,13 +118,14 @@ export default function Navbar({ isHomePage = false, activePage }: NavbarProps) 
               {/* Gauche */}
               {isHomePage ? (
                 <div className="absolute left-4 lg:left-8 flex items-center z-10">
-                  <NextImage
+                  <img
                     src="/logo.png"
                     alt="Logo Les Récollets"
                     width={32}
                     height={32}
                     className="brightness-0 invert opacity-90 hover:opacity-100 transition-opacity drop-shadow-[0_0_1px_rgba(255,255,255,0.8)]"
-                    priority
+                    loading="eager"
+                    decoding="async"
                   />
                 </div>
               ) : (
@@ -247,3 +247,5 @@ export default function Navbar({ isHomePage = false, activePage }: NavbarProps) 
     </>
   );
 }
+
+export default memo(Navbar);
