@@ -76,7 +76,7 @@ export default function CantinePage() {
               <MenuImageWithLightbox
                 src={MENU_CANTINE}
                 alt="Menu Restaurant Scolaire - Les Récollets"
-                rotated
+                rotated={false}
               />
             </div>
             <a

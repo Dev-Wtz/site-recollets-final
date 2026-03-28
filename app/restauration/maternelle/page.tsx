@@ -91,7 +91,7 @@ export default function MaternellePage() {
               <MenuImageWithLightbox
                 src={MENU_MATERNELLE}
                 alt="Menu Maternelle - Les Récollets"
-                rotated
+                rotated={false}
               />
             </div>
             <a

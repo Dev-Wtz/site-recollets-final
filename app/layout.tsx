@@ -5,7 +5,6 @@ import { Analytics } from "@vercel/analytics/next";
 import dynamic from "next/dynamic";
 import SkipLink from "@/app/components/SkipLink";
 
-const OpenDayPopup = dynamic(() => import("@/app/components/OpenDayPopup"));
 const CookieConsent = dynamic(() => import("@/app/components/CookieConsent"));
 
 /* ────────────────────────────────────────────
@@ -108,7 +107,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${playfair.variable} ${inter.variable} antialiased`}>
-        <OpenDayPopup />
         <SkipLink />
         <main id="main-content" tabIndex={-1}>
           {children}

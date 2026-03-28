@@ -67,8 +67,7 @@ export default function CafeteriaPage() {
             <MenuImageWithLightbox
               src={MENU_CAFETERIA}
               alt="Menu Cafeteria du Lycee - Les Recollets"
-              width={900}
-              height={1600}
+              rotated={false}
             />
             <a
               href={MENU_CAFETERIA}
