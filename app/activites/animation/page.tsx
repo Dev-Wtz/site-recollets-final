@@ -46,7 +46,7 @@ export default function AnimationPage() {
       dateSort: parseDate('12 Décembre 2025'),
       image: 'https://images.unsplash.com/photo-1544212415-85fec3f52087?auto=format&fit=crop&w=1200&q=80',
       category: 'Collège',
-      texte: 'Marché de Noël interne le 12 décembre avec la vente des créations de Mme SACCHET. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
+      texte: 'Marché de Noël interne le 12 décembre avec la vente de créations. Également, vente de chocolat pour financer les sorties scolaires. Ces événements permettent de renforcer l\'esprit de communauté et de soutenir les projets pédagogiques de l\'établissement.',
     },
     {
       id: 8,
@@ -158,7 +158,7 @@ export default function AnimationPage() {
       ],
       category: 'Collège',
       texte:
-        'Mme Mittelbronn, Yesmina, le Père Stephen et Mme Neri proposent un temps d\'échange avec les élèves volontaires lors des célébrations chrétiennes importantes (l\'Avent, le Carême,...).\n\nCela a lieu les mardis de 13h à 14h, nous accueillons tous les intéressés.\n\nLe déroulement se fait ainsi : le Père Stephen évoque avec eux le thème du jour, il y a un temps de réflexion et d\'échanges. Nos élèves peuvent ainsi poser leurs questions, débattre, s\'intéresser et apprendre des choses. Ensuite, nous leur distribuons une image plastifiée chacun, en rapport avec le "thème" de l\'heure (paix, foi, joie, partage...) et ils écrivent au dos un mot, une prière, une pensée (ce qu\'ils souhaitent). Ils y accrochent ensuite un cordon et suspendent leurs créations sur la rambarde qui donne dans la cour.\n\nLe but est un moment de partage et d\'échange.',
+        'Les professeurs et le Père Stephen proposent un temps d\'échange avec les élèves volontaires lors des célébrations importantes\n\nCela a lieu les mardis de 13h à 14h, nous accueillons tous les intéressés.\n\nLe déroulement se fait ainsi : le Père Stephen évoque avec eux le thème du jour, il y a un temps de réflexion et d\'échanges. Nos élèves peuvent ainsi poser leurs questions, débattre, s\'intéresser et apprendre des choses. Ensuite, nous leur distribuons une image plastifiée chacun, en rapport avec le "thème" de l\'heure et ils écrivent au dos ce qu\'ils souhaitent. Ils y accrochent ensuite un cordon et suspendent leurs créations sur la rambarde qui donne dans la cour.\n\nLe but est un moment de partage et d\'échange.',
     },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 

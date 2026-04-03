@@ -7,6 +7,17 @@ import BlogArticle from "@/app/components/BlogArticle";
 import { parseDate } from "@/app/lib/dateUtils";
 import { useEffect, useState, useRef, useCallback } from 'react';
 
+interface SportResultArticle {
+  id: number;
+  titre: string;
+  date: string;
+  dateSort: Date;
+  image: string;
+  texte: string;
+  category?: string;
+  images?: string[];
+}
+
 export default function ResultatsSportifsPage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
@@ -35,7 +46,47 @@ export default function ResultatsSportifsPage() {
     setExpandedArticles(prev => ({ ...prev, [id]: !prev[id] }));
   }, []);
 
-  const articles = [
+  const articles: SportResultArticle[] = [
+    {
+      id: 4,
+      titre: 'Championnat de France UGSEL de natation',
+      date: '2026',
+      dateSort: parseDate('2026'),
+      category: 'Collège',
+      image: '/Images/Sport/Natation/UNSS Nage.jpeg',
+      texte:
+        'Nos nageurs reviennent du championnat de France UGSEL de natation avec un paquet de médailles !\n\n' +
+        '🥉 Jade, Shana, Aisling, Louanne, Alexandre terminent 3e par équipe.\n\n' +
+        '🥈 Les filles décrochent la médaille d\'argent en relais 4x50m 4 nages.\n\n' +
+        '🥉 Le bronze en relais 4x50m Nage Libre pour les filles.\n\n' +
+        '🥉 Bronze en 100 m Dos pour Alexandre.\n\n' +
+        '🥉 Bronze 200 m 4 nages pour Aisling.\n\n' +
+        'Bravo à tous pour ces très belles performances, merci à leur coach et aux enseignants d\'EPS qui ont fait le déplacement à Dunkerque.\n\n' +
+        'Les récollets sont fiers de leurs sportifs !',
+    },
+    {
+      id: 5,
+      titre: 'Championnat de France Ugsel d\'athlétisme',
+      date: '2026',
+      dateSort: parseDate('2026'),
+      category: 'Collège',
+      image: '/Images/Sport/Athletisme/UNSS Athle.jpg',
+      texte:
+        'Une belle aventure se termine pour nos athlètes en déplacement au championnat de France Ugsel d\'athlétisme à St Brieuc.\n\n' +
+        'Les benjamins terminent 16e par équipe, Matéo 12e sur 36 de son triathlon, Clémence arrache une 5e place sur 200 m et Alexandre a décroché le bronze en sautant 1,86 m !\n\n' +
+        'Bravo à tous !!',
+    },
+    {
+      id: 6,
+      titre: 'Vice-champions départementaux de futsal',
+      date: '2026',
+      dateSort: parseDate('2026'),
+      category: 'Collège',
+      image: '/Images/Sport/Futsal/UNSS Futsal.JPG',
+      texte:
+        'Bravo à nos petits benjamins, vice-champions départementaux de futsal UNSS !\n\n' +
+        'Nous sommes fiers de nos élèves !',
+    },
     {
       id: 1,
       titre: 'Championnat Grand Est UGSEL de bad',
@@ -60,7 +111,11 @@ export default function ResultatsSportifsPage() {
       image: '/Images/Sport/natations.jpg',
       texte: 'Notre établissement est à présent connu dans le Nord ! Nos 12 nageurs ont disputé le championnat de France de natation Ugsel durant ces deux derniers jours à Cambrai et le moins qu\'on puisse dire c\'est qu\'ils ne sont pas passés inaperçus. D\'abord déclarés CHAMPIONS DE FRANCE 🇫🇷 par équipe mardi, ils ont enchaîné les appels au podium avec 2 nouveaux titres ce matin : Lou sur 100m Nage libre et Guillaume sur 100m Dos. 3 médailles d\'argent 🥈🥈🥈 : en relais, Lou 200m 4 nages et Guillaume 100m nage libre. 3 médailles de Bronze 🥉🥉🥉 : en relais, Romane sur 100m dos et 200m 4 nages. Encore bravo à tous !',
     },
-  ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
+  ].sort((a, b) => {
+    const byDate = b.dateSort.getTime() - a.dateSort.getTime();
+    if (byDate !== 0) return byDate;
+    return b.id - a.id;
+  });
 
   return (
     <div className="min-h-screen bg-white">
@@ -110,7 +165,9 @@ export default function ResultatsSportifsPage() {
                 titre={article.titre}
                 date={article.date}
                 image={article.image}
+                images={article.images}
                 texte={article.texte}
+                category={article.category}
                 expanded={expandedArticles[article.id]}
                 onToggle={() => toggleArticle(article.id)}
               />
