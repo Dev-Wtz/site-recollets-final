@@ -130,6 +130,36 @@ export default function AnimationPage() {
       category: 'Collège',
       texte: 'Les élèves de l\'ensemble scolaire des Récollets se sont mobilisés pour décorer l\'établissement aux couleurs de Noël. Cette activité a permis de renforcer l\'esprit de communauté et de partage, tout en créant une ambiance festive et chaleureuse pour tous.',
     },
+    {
+      id: 9,
+      titre: 'Stage Batiks avec Koffi',
+      date: '23 au 27 MARS 2026',
+      // Trie par la date de début (parseDate ne gère pas parfaitement les plages avec année)
+      dateSort: parseDate('23 mars 2026'),
+      image: '/Images/College/Batiks/Batiks1.JPG',
+      images: [
+        '/Images/College/Batiks/Batiks2.JPG',
+        '/Images/College/Batiks/Batiks3.JPG',
+        '/Images/College/Batiks/Batiks4.JPG',
+      ],
+      category: 'Collège',
+      texte:
+        'Super semaine pour les élèves de 5ème qui ont participé à stage de batik entre les 23 et 27 mars 2026. L’artiste batikeur, Koffi Pré qui vient du Togo a initié 114 élèves à la confection de cette peinture traditionnelle sur tissu. Ils ont tous été ravis d’aller à la rencontre de notre artiste et de s’ouvrir à une autre culture.\n\nLa participation de nos élèves a permis de récolter des fonds pour le village de Tawa au Togo. Un grand merci à eux et à Koffi. Rendez-vous l’année prochaine.',
+    },
+    {
+      id: 10,
+      titre: 'Pastorale',
+      dateSort: parseDate('01 Janvier 2026'),
+      image: '/Images/College/Pastorale/pastorale2.jpeg',
+      images: [
+        '/Images/College/Pastorale/pastorale1.jpeg',
+        '/Images/College/Pastorale/pastorale3.jpeg',
+        '/Images/College/Pastorale/pastorale4.jpeg',
+      ],
+      category: 'Collège',
+      texte:
+        'Mme Mittelbronn, Yesmina, le Père Stephen et Mme Neri proposent un temps d\'échange avec les élèves volontaires lors des célébrations chrétiennes importantes (l\'Avent, le Carême,...).\n\nCela a lieu les mardis de 13h à 14h, nous accueillons tous les intéressés.\n\nLe déroulement se fait ainsi : le Père Stephen évoque avec eux le thème du jour, il y a un temps de réflexion et d\'échanges. Nos élèves peuvent ainsi poser leurs questions, débattre, s\'intéresser et apprendre des choses. Ensuite, nous leur distribuons une image plastifiée chacun, en rapport avec le "thème" de l\'heure (paix, foi, joie, partage...) et ils écrivent au dos un mot, une prière, une pensée (ce qu\'ils souhaitent). Ils y accrochent ensuite un cordon et suspendent leurs créations sur la rambarde qui donne dans la cour.\n\nLe but est un moment de partage et d\'échange.',
+    },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 
   const filteredArticles = useMemo(

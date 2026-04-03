@@ -40,6 +40,8 @@ function MenuImageWithLightbox({
     };
   }, [lightboxOpen]);
 
+  const useRotatedPreviewLayout = rotated;
+
   return (
     <>
       <button
@@ -51,25 +53,25 @@ function MenuImageWithLightbox({
         <span
           className={clsx(
             "flex justify-center items-center w-full bg-gray-50/50",
-            rotated ? "min-h-0" : "relative w-full h-[100vh] min-h-[640px]"
+            useRotatedPreviewLayout ? "min-h-0" : "relative w-full h-[100vh] min-h-[640px]"
           )}
         >
           {/* Same span > span > img tree for both modes to avoid hydration mismatches */}
           <span
             className={clsx(
               "flex justify-center items-center mx-auto max-w-full",
-              rotated ? "w-[90vw]" : "absolute inset-0"
+              useRotatedPreviewLayout ? "w-[90vw]" : "absolute inset-0"
             )}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={src}
               alt={alt}
-              width={rotated ? width : undefined}
-              height={rotated ? height : undefined}
+              width={useRotatedPreviewLayout ? width : undefined}
+              height={useRotatedPreviewLayout ? height : undefined}
               className={clsx(
                 "object-contain object-center select-none pointer-events-none",
-                rotated
+                useRotatedPreviewLayout
                   ? "h-[90vw] w-auto max-h-none rotate-90"
                   : "absolute inset-0 h-full w-full"
               )}
