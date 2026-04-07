@@ -48,12 +48,25 @@ export default function ResultatsSportifsPage() {
 
   const articles: SportResultArticle[] = [
     {
+      id: 7,
+      titre: 'Championnat de France de Judo',
+      date: '2026',
+      dateSort: parseDate('2026'),
+      category: 'Collège',
+      image: '/Images/Sport/Judo/Judo.jpg',
+      texte:
+        'Un très beau championnat de France pour les judokas des Récollets qui décrochent les 3 couleurs de médailles à Wasquehal à côté de Lille.\n\n' +
+        'Simon termine 3eme, Thibault est vice champion de France et Lana termine championne de France avec l\'équipe du grand est!!\n\n' +
+        'Bravo à tous les 4, Bravo les Récollets une fois de plus vous nous avez fait vivre de belles émotions!',
+    },
+    {
       id: 4,
       titre: 'Championnat de France UGSEL de natation',
       date: '2026',
       dateSort: parseDate('2026'),
       category: 'Collège',
       image: '/Images/Sport/Natation/UNSS Nage.jpeg',
+      images: ['/Images/Sport/Natation/Article sport.jpeg'],
       texte:
         'Nos nageurs reviennent du championnat de France UGSEL de natation avec un paquet de médailles !\n\n' +
         '🥉 Jade, Shana, Aisling, Louanne, Alexandre terminent 3e par équipe.\n\n' +
