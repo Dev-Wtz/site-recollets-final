@@ -152,9 +152,9 @@ const RAW_EVENTS = [
     link: '/activites/sorties-scolaires',
   },
   {
-    titre: 'Musée Pompidou',
-    date: '11 et 15 décembre 2025',
-    texte: "Visite du Musée Pompidou. Les élèves découvrent les collections d'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.",
+    titre: 'Vacances Scolaire',
+    date: '11 avril',
+    texte: "Début des vacances scolaires pour les élèves de l'établissement.",
     link: '/activites/sorties-scolaires',
   },
   {
