@@ -81,13 +81,13 @@ export default function SortiesScolairesPage() {
     },
     {
       id: 5,
-      titre: 'Musée Pompidou',
-      date: '11 Décembre 2025',
-      dateSort: parseDate('11 Décembre 2025'),
-      image: '/Images/College/Pompidou/pompidou.jpg',
+      titre: 'Journée espagnole',
+      date: '30 Avril 2026',
+      dateSort: parseDate('30 Avril 2026'),
+      image: '/hero.jpg',
       images: [],
       category: 'Collège',
-      texte: 'Visite du Musée Pompidou. Les élèves découvrent les collections d\'art moderne et contemporain, enrichissant leur culture artistique et leur sensibilité esthétique.',
+      texte: 'Journée dédiée à la langue et à la culture espagnoles : ateliers, échanges et découvertes pour célébrer le vivre ensemble et l\'ouverture culturelle au sein du collège.',
     },
     {
       id: 6,
@@ -96,7 +96,6 @@ export default function SortiesScolairesPage() {
       image: '/Images/LP/Sortie/Metz_1.jpeg',
       images: [
         '/Images/LP/Sortie/Metz_2.jpeg',
-        '/Images/LP/Sortie/Mus%C3%A9e_Pompidou_LP.jpeg',
         '/Images/LP/Sortie/Cous_assise_1.jpeg',
         '/Images/LP/Sortie/March%C3%A9_de_No%C3%ABl_1.jpeg',
         '/Images/LP/Sortie/March%C3%A9_de_No%C3%ABl_2.jpeg',

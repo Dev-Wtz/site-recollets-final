@@ -116,6 +116,12 @@ function formatEventDate(dateStr: string): { day: string; month: string } {
 
 const RAW_EVENTS = [
   {
+    titre: 'Journée espagnole',
+    date: '30 avril 2026',
+    texte: "Journée dédiée à la langue et à la culture espagnoles : ateliers, découvertes et convivialité au sein de l'établissement.",
+    link: '/activites/sorties-scolaires',
+  },
+  {
     titre: 'Journée Portes Ouvertes Ecole - College - Lycée Général',
     date: '20 mars 2026',
     texte: "Journée portes ouvertes le 20 mars 2026 de 17h à 19h30 pour découvrir l'ensemble scolaire Les Récollets.",
