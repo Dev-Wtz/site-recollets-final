@@ -40,6 +40,16 @@ export default function AnimationPage() {
 
   const articles = [
     {
+      id: 11,
+      titre: 'Journée espagnole',
+      date: '30 Avril 2026',
+      dateSort: parseDate('30 Avril 2026'),
+      image: '/hero.jpg',
+      images: [],
+      category: 'Collège',
+      texte: 'Journée dédiée à la langue et à la culture espagnoles : ateliers, échanges et découvertes pour célébrer le vivre ensemble et l\'ouverture culturelle au sein du collège.',
+    },
+    {
       id: 1,
       titre: 'Marché de Noël interne et Vente de chocolat',
       date: '12 Décembre 2025',

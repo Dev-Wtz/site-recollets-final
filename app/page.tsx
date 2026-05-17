@@ -122,16 +122,16 @@ const RAW_EVENTS = [
     link: '/activites/sorties-scolaires',
   },
   {
-    titre: 'Journée espagnole',
-    date: '30 avril 2026',
-    texte: "Journée dédiée à la langue et à la culture espagnoles : ateliers, découvertes et convivialité au sein de l'établissement.",
+    titre: 'Voyage en Allemagne',
+    date: '7 au 10 avril 2026',
+    texte: "36 élèves germanistes de 5ème et 4ème ont découvert la Bavière et la région de Salzbourg : Allianz Arena, ateliers fromage et chocolat, panorama sur les Alpes à plus de 3000 m.",
     link: '/activites/sorties-scolaires',
   },
   {
-    titre: 'Journée Portes Ouvertes Lycée Professionnel',
-    date: '27 mars 2026',
-    texte: "Journée portes ouvertes du lycée professionnel le 27 mars 2026 de 15h à 20h (vide-dressing ouvert à tous).",
-    link: '/structures/lycee-professionnel',
+    titre: 'Voyage en Normandie',
+    date: 'Avril 2026',
+    texte: "45 élèves de 3ème et 4ème ont exploré les lieux de mémoire du Débarquement : Omaha Beach, mémorial de Caen, Arromanches, char à voile et visite du port du Havre.",
+    link: '/activites/sorties-scolaires',
   },
   {
     titre: 'Décoration de Noël',
@@ -156,30 +156,6 @@ const RAW_EVENTS = [
     date: '6 novembre 2025',
     texte: "Participation au festival du film italien. Les élèves découvrent la richesse du cinéma transalpin et explorent différentes formes d'expression artistique à travers le 7ème art.",
     link: '/activites/sorties-scolaires',
-  },
-  {
-    titre: 'Vacances Scolaire',
-    date: '11 avril',
-    texte: "Début des vacances scolaires pour les élèves de l'établissement.",
-    link: '/activites/sorties-scolaires',
-  },
-  {
-    titre: 'Championnat Grand Est UGSEL de bad',
-    date: '30 mars 2023',
-    texte: 'Nos filles ont brillé en décrochant 5 qualifications pour le championnat de France en mai prochain.',
-    link: '/sport/resultats-sportifs',
-  },
-  {
-    titre: 'Olympiades UNSS LYCÉE',
-    date: '30 mars 2023',
-    texte: 'Bravo à tous pour leurs belles performances.',
-    link: '/sport/resultats-sportifs',
-  },
-  {
-    titre: 'Championnats de France de natation (UGSEL)',
-    date: '17 mars 2023',
-    texte: 'Nos 12 nageurs ont disputé le championnat de France de natation Ugsel durant ces deux derniers jours à Cambrai.',
-    link: '/sport/resultats-sportifs',
   },
 ];
 
