@@ -19,13 +19,7 @@ function wasBannerClosedThisSession(): boolean {
 }
 
 export default function CookieConsent() {
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === "undefined") return false;
-    const consent = getStoredConsent();
-    if (consent) return false;
-    if (wasBannerClosedThisSession()) return false;
-    return true;
-  });
+  const [isVisible, setIsVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [prefs, setPrefs] = useState<CookieConsentState["consent"]>({
     necessary: true,
@@ -65,6 +59,12 @@ export default function CookieConsent() {
   }, [prefs, hideBanner]);
 
   useEffect(() => {
+    // Initialisation côté client uniquement pour éviter les erreurs d'hydratation (SSR)
+    const consent = getStoredConsent();
+    if (!consent && !wasBannerClosedThisSession()) {
+      setIsVisible(true);
+    }
+
     const handleShow = () => {
       clearConsent();
       sessionStorage.removeItem(STORAGE_KEY);
