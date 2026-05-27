@@ -54,33 +54,41 @@ const CONTACT_LINKS = [
    ──────────────────────────────────────────── */
 
 function parseDate(dateStr: string): Date {
-  const currentYear = new Date().getFullYear();
+  const fallbackYear = 2026;
 
   // Format "1er septembre" ou "17 octobre"
   const matchDay = dateStr.match(new RegExp(`(\\d+)(?:er)?\\s+${MONTH_REGEX}(?:\\s+(\\d{4}))?`, 'i'));
   if (matchDay) {
-    const day = parseInt(matchDay[1]);
+    const day = parseInt(matchDay[1], 10);
     const month = MONTH_MAP[matchDay[2].toLowerCase()];
-    const year = matchDay[3] ? parseInt(matchDay[3]) : currentYear;
-    return new Date(year, month - 1, day);
+    const year = matchDay[3] ? parseInt(matchDay[3], 10) : fallbackYear;
+    return new Date(Date.UTC(year, month - 1, day));
   }
 
   // Format "Décembre 2025"
   const matchMonth = dateStr.match(new RegExp(`${MONTH_REGEX}\\s+(\\d{4})`, 'i'));
   if (matchMonth) {
-    return new Date(parseInt(matchMonth[2]), MONTH_MAP[matchMonth[1].toLowerCase()] - 1, 1);
+    const month = MONTH_MAP[matchMonth[1].toLowerCase()];
+    const year = parseInt(matchMonth[2], 10);
+    return new Date(Date.UTC(year, month - 1, 15));
   }
 
   // Format "7 au 12 décembre"
-  const matchRange = dateStr.match(new RegExp(`(\\d+)\\s+au\\s+\\d+\\s+${MONTH_REGEX}`, 'i'));
+  const matchRange = dateStr.match(new RegExp(`(\\d+)\\s+au\\s+\\d+\\s+${MONTH_REGEX}(?:\\s+(\\d{4}))?`, 'i'));
   if (matchRange) {
-    return new Date(currentYear, MONTH_MAP[matchRange[2].toLowerCase()] - 1, parseInt(matchRange[1]));
+    const day = parseInt(matchRange[1], 10);
+    const month = MONTH_MAP[matchRange[2].toLowerCase()];
+    const year = matchRange[3] ? parseInt(matchRange[3], 10) : fallbackYear;
+    return new Date(Date.UTC(year, month - 1, day));
   }
 
   // Format "11 et 15 décembre"
-  const matchAnd = dateStr.match(new RegExp(`(\\d+)\\s+et\\s+\\d+\\s+${MONTH_REGEX}`, 'i'));
+  const matchAnd = dateStr.match(new RegExp(`(\\d+)\\s+et\\s+\\d+\\s+${MONTH_REGEX}(?:\\s+(\\d{4}))?`, 'i'));
   if (matchAnd) {
-    return new Date(currentYear, MONTH_MAP[matchAnd[2].toLowerCase()] - 1, parseInt(matchAnd[1]));
+    const day = parseInt(matchAnd[1], 10);
+    const month = MONTH_MAP[matchAnd[2].toLowerCase()];
+    const year = matchAnd[3] ? parseInt(matchAnd[3], 10) : fallbackYear;
+    return new Date(Date.UTC(year, month - 1, day));
   }
 
   return new Date(0);
@@ -94,7 +102,7 @@ function formatEventDate(dateStr: string): { day: string; month: string } {
 
   const matchMonth = dateStr.match(new RegExp(`${MONTH_REGEX}\\s+(\\d{4})`, 'i'));
   if (matchMonth) {
-    return { day: '01', month: matchMonth[1].substring(0, 3).toUpperCase() };
+    return { day: '-', month: matchMonth[1].substring(0, 3).toUpperCase() };
   }
 
   const matchRange = dateStr.match(new RegExp(`(\\d+)\\s+au\\s+\\d+\\s+${MONTH_REGEX}`, 'i'));
@@ -116,21 +124,21 @@ function formatEventDate(dateStr: string): { day: string; month: string } {
 
 const RAW_EVENTS = [
   {
+    titre: "Journée au Zoo d'Amnéville",
+    date: '26 mai 2026',
+    texte: "Dix professeurs ont accompagné 150 élèves de 5e au zoo d’Amnéville pour y découvrir les métiers du monde animalier et compléter un livret de questions d’orientation.",
+    link: '/activites/sorties-scolaires',
+  },
+  {
+    titre: 'Voyage Paris',
+    date: 'Mai 2026',
+    texte: "Cinq enseignants ont accompagné 43 élèves de la 6e à la classe de 2nde pour 3 jours à Paris : visite de Notre-Dame, croisière sur la Seine, Tour Eiffel et journée à Disneyland.",
+    link: '/activites/sorties-scolaires',
+  },
+  {
     titre: 'Journée des métiers',
     date: '7 mai 2026',
     texte: "Journée consacrée à la découverte des métiers avec des interventions et des échanges pour aider les élèves à construire leur orientation.",
-    link: '/activites/sorties-scolaires',
-  },
-  {
-    titre: 'Voyage en Allemagne',
-    date: '7 au 10 avril 2026',
-    texte: "36 élèves germanistes de 5ème et 4ème ont découvert la Bavière et la région de Salzbourg : Allianz Arena, ateliers fromage et chocolat, panorama sur les Alpes à plus de 3000 m.",
-    link: '/activites/sorties-scolaires',
-  },
-  {
-    titre: 'Voyage en Normandie',
-    date: 'Avril 2026',
-    texte: "45 élèves de 3ème et 4ème ont exploré les lieux de mémoire du Débarquement : Omaha Beach, mémorial de Caen, Arromanches, char à voile et visite du port du Havre.",
     link: '/activites/sorties-scolaires',
   },
   {

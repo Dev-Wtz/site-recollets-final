@@ -155,10 +155,52 @@ export default function SortiesScolairesPage() {
       category: 'Collège',
       texte: 'Les Récollets débarquent en Normandie.\n\n45 élèves de 3ème pour l\'essentiel et quelques élèves de 4ème ont participé du 6 avril au 10 avril 2026 à un séjour en Normandie sur les principaux lieux de mémoire du Débarquement du 6 juin 1944. Au programme, les plages du Débarquement dont Omaha Beach, les cimetières de Colleville (cimetière américain) et de la Cambe (cimetière allemand), la pointe du Hoc, le Mémorial de Caen, le musée du Débarquement d\'Arromanches ainsi que son cinéma 360°, Sainte-Mère-Église et son musée sur les parachutistes américains de l\'Airborne.\n\nDans le cadre du programme de géographie, une visite en bateau du port du Havre a permis de découvrir les infrastructures portuaires et des porte-conteneurs gigantesques.\n\nLe groupe a profité également de moments de détente sur les plages ainsi qu\'à une matinée d\'initiation au char à voile. Soleil et températures printanières étaient au rendez-vous.',
     },
+    {
+      id: 10,
+      titre: 'Voyage Paris',
+      date: 'Mai 2026',
+      dateSort: parseDate('Mai 2026'),
+      image: '/Images/College/Paris/IMG_6960.jpeg',
+      images: [
+        '/Images/College/Paris/IMG_6961.jpeg',
+        '/Images/College/Paris/IMG_6962.jpeg',
+        '/Images/College/Paris/IMG_6963.jpeg',
+        '/Images/College/Paris/IMG_6964.jpeg',
+        '/Images/College/Paris/IMG_6965.jpeg',
+        '/Images/College/Paris/IMG_6966.jpeg',
+        '/Images/College/Paris/IMG_6967.jpeg',
+        '/Images/College/Paris/IMG_6968.jpeg',
+        '/Images/College/Paris/IMG_6969.jpeg',
+        '/Images/College/Paris/IMG_6970.jpeg',
+      ],
+      category: 'Collège et Lycée',
+      texte: 'Lors de ce séjour à Paris, cinq enseignants ont accompagné 43 élèves de la 6e à la classe de 2nde durant 3 jours.\n\nUn programme spécial avait été concocté pour nos élèves : le premier jour nous avons débuté par la visite de la cathédrale Notre-Dame avant un pique-nique en plein air. L’après-midi, une promenade pour admirer la ville des lumières s’est achevée par un moment reposant au jardin des tuileries avant de s’installer à l’hôtel.\n\nLe second jour a démarré par une visite libre du cimetière du Père Lachaise avec un jeu de piste organisé par les professeurs afin que les élèves retrouvent les tombes les plus prestigieuses (au programme : Balzac, Apollinaire, Proust, Oscar Wilde, Jim Morrison, Edith Piaf …). Après le déjeuner nous avons pu profiter d’une croisière sur la Seine en bateau mouche pour admirer les plus beaux monuments de la capitale.\n\nLa journée s’est terminée par un quartier libre à la Tour Eiffel pour le plus grand bonheur de nos élèves.\n\nLe troisième et dernier jour, sans doute le plus attendu, a été consacré au parc Disneyland : manèges, photos, parade et féerie garantis !\n\nC’est donc avec des souvenirs plein la tête et une bonne fatigue que nous sommes rentrés le mercredi dans la nuit, pour un repos bien mérité.',
+    },
+    {
+      id: 11,
+      titre: "Journée au Zoo d'Amnéville",
+      date: '26 Mai 2026',
+      dateSort: parseDate('26 Mai 2026'),
+      image: '/Images/College/Zoo%20amneville/IMG_6939.jpeg',
+      images: [
+        '/Images/College/Zoo%20amneville/IMG_6940.jpeg',
+        '/Images/College/Zoo%20amneville/IMG_6945.jpeg',
+        '/Images/College/Zoo%20amneville/IMG_6948.jpeg',
+        '/Images/College/Zoo%20amneville/IMG_6949.jpeg',
+        '/Images/College/Zoo%20amneville/IMG_6951.jpeg',
+      ],
+      category: 'Collège',
+      texte: 'Dans le cadre du parcours orientation, dix professeurs ont accompagné les 150 élèves de 5e au zoo d’Amnéville dans le but de découvrir les différents métiers, connus ou pas, dans le monde des parcs animaliers.\n\nDe 10h30 à 12h, les élèves ont pu assister à une présentation complète des métiers les plus évidents puis poser leurs questions à des soigneurs, des animateurs pédagogiques, des graphistes, des vétérinaires et autres dans un magnifique cadre : face aux ours polaires.\n\nAprès le repas, ils ont bénéficié d’un « quartier libre » dans l’enceinte du zoo pour compléter un livret de questions d’orientation fourni par les professeurs mais aussi profiter d’une visite libre au milieu des animaux.\n\nUne journée ensoleillée et enrichissante qui a permis d’allier découverte, orientation et plaisir.',
+    },
   ].sort((a, b) => b.dateSort.getTime() - a.dateSort.getTime());
 
   const filteredArticles = useMemo(
-    () => articles.filter((a) => selectedCategories.has(a.category as Category)),
+    () => articles.filter((a) => {
+      if (a.category === 'Collège et Lycée') {
+        return selectedCategories.has('Collège') || selectedCategories.has('Lycée');
+      }
+      return selectedCategories.has(a.category as Category);
+    }),
     [articles, selectedCategories],
   );
 
