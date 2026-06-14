@@ -1,13 +1,10 @@
 "use client";
 
-import { ChevronDown, Download } from "lucide-react";
+import { ChevronDown, Coffee } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
-
-const MENU_CAFETERIA = "/Images/Menus/Menu_Cafeteriat.jpg";
 
 export default function CafeteriaPage() {
   const {
@@ -44,7 +41,7 @@ export default function CafeteriaPage() {
                   est un lieu de convivialite ou les eleves peuvent se retrouver autour d&apos;un repas de qualite.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  Decouvrez ci-dessous nos menus de la semaine.
+                  La cafétéria est fermée pour la fin de l&apos;année scolaire.
                 </p>
               </div>
               {needsShowMore && (
@@ -63,20 +60,16 @@ export default function CafeteriaPage() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center gap-4">
-            <MenuImageWithLightbox
-              src={MENU_CAFETERIA}
-              alt="Menu Cafeteria du Lycee - Les Recollets"
-              rotated={false}
-            />
-            <a
-              href={MENU_CAFETERIA}
-              download="Menu-Cafeteria-Les-Recollets.jpg"
-              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
-            >
-              <Download size={20} />
-              Télécharger le menu
-            </a>
+          <div className="max-w-md mx-auto p-8 rounded-2xl bg-gradient-to-br from-[#FFF5F5] to-[#FFF0F0] border border-[#FAD2D2] shadow-md flex flex-col items-center text-center gap-4 animate-fade-in">
+            <div className="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[#8C1515] border border-[#FCA5A5] mb-2">
+              <Coffee size={32} className="animate-pulse" />
+            </div>
+            <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515]">
+              Cafeteriat Fermée
+            </h3>
+            <p className="font-[var(--font-inter)] text-sm sm:text-base text-gray-700 leading-relaxed">
+              La cafétéria est fermée pour la fin de l&apos;année scolaire. Nous aurons le plaisir de vous retrouver à la rentrée.
+            </p>
           </div>
         </div>
       </section>
