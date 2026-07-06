@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Download } from "lucide-react";
+import { ChevronDown, Utensils } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
@@ -48,7 +48,7 @@ export default function CantinePage() {
                   normes d&apos;hygiène et de sécurité alimentaire.
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  Découvrez ci-dessous nos menus de la semaine.
+                  Le restaurant scolaire est fermé pour la fin de l&apos;année scolaire.
                 </p>
               </div>
               {needsShowMore && (
@@ -69,26 +69,17 @@ export default function CantinePage() {
 
         </div>
 
-        {/* Bloc menu pleine largeur pour affichage optimisé */}
-        <div className="w-full">
-          <div className="flex flex-col items-center gap-6 py-4">
-            <div className="w-full max-w-[100vw]">
-              <MenuImageWithLightbox
-                src={MENU_CANTINE}
-                alt="Menu Restaurant Scolaire - Les Récollets"
-                rotated={false}
-              />
+          <div className="max-w-md mx-auto p-8 rounded-2xl bg-gradient-to-br from-[#FFF5F5] to-[#FFF0F0] border border-[#FAD2D2] shadow-md flex flex-col items-center text-center gap-4 animate-fade-in">
+            <div className="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[#8C1515] border border-[#FCA5A5] mb-2">
+              <Utensils size={32} className="animate-pulse" />
             </div>
-            <a
-              href={MENU_CANTINE}
-              download="Menu-Cantine-Les-Recollets.jpg"
-              className="flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#8C1515] text-white rounded-lg hover:bg-[#a01919] transition-colors font-[var(--font-inter)] font-semibold shadow-lg"
-            >
-              <Download size={20} />
-              Télécharger le menu
-            </a>
+            <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515]">
+              Restaurant Scolaire Fermé
+            </h3>
+            <p className="font-[var(--font-inter)] text-sm sm:text-base text-gray-700 leading-relaxed">
+              Le restaurant scolaire est fermé pour la fin de l&apos;année scolaire. Nous aurons le plaisir de vous retrouver à la rentrée.
+            </p>
           </div>
-        </div>
       </section>
 
       <Footer />
