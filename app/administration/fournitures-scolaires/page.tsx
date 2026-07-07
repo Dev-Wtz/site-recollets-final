@@ -25,8 +25,8 @@ const VOLETS: Volet[] = [
   {
     key: 'ecole', label: 'École',
     classes: [
-      { code: 'PS', nom: 'Petite Section', fichier: 'FourniturePS ' },
-      { code: 'MS', nom: 'Moyenne Section', fichier: 'FournitureMS' },
+      { code: 'PS', nom: 'Petite Section', fichier: 'FourniturePSMS' },
+      { code: 'MS', nom: 'Moyenne Section', fichier: 'FourniturePSMS' },
       { code: 'GS', nom: 'Grande Section', fichier: 'FournitureGS' },
       { code: 'CP', nom: 'CP', fichier: 'FournitureCP' },
       { code: 'CE1', nom: 'CE1', fichier: 'FournitureCE1' },
