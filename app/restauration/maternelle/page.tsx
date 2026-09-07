@@ -1,20 +1,19 @@
 'use client';
 
-import { ChevronDown, Utensils } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
 
 import { useEffect, useState, useRef } from 'react';
 
-const MENU_MATERNELLE = '/Images/Menus/Menu_Maternelle.jpg';
+const MENU_MATERNELLE = '/menus/maternelle.jpg';
 
 export default function MaternellePage() {
   const [showMoreDescription, setShowMoreDescription] = useState(false);
   const [needsShowMore, setNeedsShowMore] = useState(false);
   const descriptionRef = useRef<HTMLDivElement>(null);
 
-  // Vérifier si la description fait plus de 8 lignes
   useEffect(() => {
     const checkDescriptionHeight = () => {
       if (descriptionRef.current) {
@@ -34,7 +33,6 @@ export default function MaternellePage() {
     };
   }, []);
 
-  // Fonction optimisée pour télécharger le menu
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation */}
@@ -50,7 +48,7 @@ export default function MaternellePage() {
             <div className="w-24 h-1 bg-[#8C1515] mx-auto mb-8" aria-hidden="true"></div>
             
             {/* Description */}
-            <div className="max-w-3xl mx-auto mb-12 text-center">
+            <div className="max-w-3xl mx-auto mb-8 text-center">
               <div 
                 ref={descriptionRef}
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? 'line-clamp-[5]' : ''}`}
@@ -60,9 +58,6 @@ export default function MaternellePage() {
                 </p>
                 <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed mb-4">
                   Chaque menu est élaboré par notre équipe de restauration en collaboration avec l&apos;équipe Gourmandises Et Passions, garantissant des repas variés, savoureux et respectueux des besoins spécifiques des enfants en maternelle.
-                </p>
-                <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  La cantine maternelle est fermée pour la fin de l&apos;année scolaire.
                 </p>
               </div>
               {needsShowMore && (
@@ -81,23 +76,21 @@ export default function MaternellePage() {
                 </button>
               )}
             </div>
+
+            {/* Menu Image Component */}
+            <MenuImageWithLightbox
+              src={MENU_MATERNELLE}
+              alt="Menu Maternelle de la semaine"
+              title="Menu Restauration Maternelle"
+              downloadName="menu-maternelle.jpg"
+              orientation="landscape"
+            />
           </div>
         </div>
-
-          <div className="max-w-md mx-auto p-8 rounded-2xl bg-gradient-to-br from-[#FFF5F5] to-[#FFF0F0] border border-[#FAD2D2] shadow-md flex flex-col items-center text-center gap-4 animate-fade-in">
-            <div className="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[#8C1515] border border-[#FCA5A5] mb-2">
-              <Utensils size={32} className="animate-pulse" />
-            </div>
-            <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515]">
-              Cantine Maternelle Fermée
-            </h3>
-            <p className="font-[var(--font-inter)] text-sm sm:text-base text-gray-700 leading-relaxed">
-              La cantine maternelle est fermée pour la fin de l&apos;année scolaire. Nous aurons le plaisir de vous retrouver à la rentrée.
-            </p>
-          </div>
       </section>
 
       <Footer />
     </div>
   );
 }
+

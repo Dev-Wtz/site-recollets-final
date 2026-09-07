@@ -1,13 +1,13 @@
 "use client";
 
-import { ChevronDown, Utensils } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import MenuImageWithLightbox from "@/app/components/MenuImageWithLightbox";
 import { useShowMoreText } from "@/app/hooks/useShowMoreText";
 import { CONTAINER_CLASS, SECTION_PADDING } from "@/app/lib/constants";
 
-const MENU_CANTINE = "/Images/Menus/Menu_Cantine.jpg";
+const MENU_CANTINE = "/menus/self.jpg";
 
 export default function CantinePage() {
   const {
@@ -25,11 +25,11 @@ export default function CantinePage() {
         <div className={CONTAINER_CLASS}>
           <div className="mb-8 sm:mb-10 lg:mb-12">
             <h2 className="font-[var(--font-playfair)] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#8C1515] mb-4 sm:mb-6 text-center">
-              Menu Restaurant Scolaire
+              Menu Restaurant Scolaire (Self)
             </h2>
             <div className="w-24 h-1 bg-[#8C1515] mx-auto mb-8"></div>
 
-            <div className="max-w-3xl mx-auto mb-12 text-center">
+            <div className="max-w-3xl mx-auto mb-8 text-center">
               <div
                 ref={descriptionRef}
                 className={`space-y-4 ${!showMoreDescription && needsShowMore ? "line-clamp-[5]" : ""}`}
@@ -47,9 +47,6 @@ export default function CantinePage() {
                   particulière à la qualité des produits et au respect des
                   normes d&apos;hygiène et de sécurité alimentaire.
                 </p>
-                <p className="font-[var(--font-inter)] text-sm sm:text-base lg:text-lg text-gray-700 leading-relaxed font-semibold text-[#8C1515]">
-                  Le restaurant scolaire est fermé pour la fin de l&apos;année scolaire.
-                </p>
               </div>
               {needsShowMore && (
                 <button
@@ -65,24 +62,21 @@ export default function CantinePage() {
                 </button>
               )}
             </div>
-          </div>
 
+            {/* Menu Image Component */}
+            <MenuImageWithLightbox
+              src={MENU_CANTINE}
+              alt="Menu Self / Restaurant Scolaire de la semaine"
+              title="Menu Restaurant Scolaire (Self)"
+              downloadName="menu-self.jpg"
+              orientation="landscape"
+            />
+          </div>
         </div>
-
-          <div className="max-w-md mx-auto p-8 rounded-2xl bg-gradient-to-br from-[#FFF5F5] to-[#FFF0F0] border border-[#FAD2D2] shadow-md flex flex-col items-center text-center gap-4 animate-fade-in">
-            <div className="w-16 h-16 rounded-full bg-[#FEE2E2] flex items-center justify-center text-[#8C1515] border border-[#FCA5A5] mb-2">
-              <Utensils size={32} className="animate-pulse" />
-            </div>
-            <h3 className="font-[var(--font-playfair)] text-2xl font-bold text-[#8C1515]">
-              Restaurant Scolaire Fermé
-            </h3>
-            <p className="font-[var(--font-inter)] text-sm sm:text-base text-gray-700 leading-relaxed">
-              Le restaurant scolaire est fermé pour la fin de l&apos;année scolaire. Nous aurons le plaisir de vous retrouver à la rentrée.
-            </p>
-          </div>
       </section>
 
       <Footer />
     </div>
   );
 }
+
