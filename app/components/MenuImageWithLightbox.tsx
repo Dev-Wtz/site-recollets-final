@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useState } from "react";
-import { X, ZoomIn, ZoomOut, RotateCw, Download, Maximize2, Calendar, Info } from "lucide-react";
+import { X, ZoomIn, ZoomOut, RotateCw, Download, Maximize2, Calendar } from "lucide-react";
 import clsx from "clsx";
 
 interface MenuImageWithLightboxProps {
@@ -55,7 +55,7 @@ function MenuImageWithLightbox({
       {/* Top Bar / Header */}
       <div className="flex flex-col sm:flex-row items-center justify-between bg-gradient-to-r from-[#8C1515] to-[#A31C1C] text-white p-4 rounded-t-2xl shadow-md gap-3">
         <div className="flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-amber-300 shrink-0" />
+          <Calendar className="w-5 h-5 text-white/90 shrink-0" />
           <h3 className="font-semibold text-base sm:text-lg font-[var(--font-inter)] tracking-wide">
             {title}
           </h3>
@@ -75,7 +75,7 @@ function MenuImageWithLightbox({
           <a
             href={src}
             download={fileName}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-amber-400 hover:bg-amber-300 text-[#8C1515] rounded-lg text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-white hover:bg-white/90 text-[#8C1515] rounded-lg text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-95"
             title="Télécharger l'image du menu"
           >
             <Download className="w-4 h-4" />
@@ -106,19 +106,11 @@ function MenuImageWithLightbox({
           {/* Hover Overlay Badge */}
           <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-95 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
             <div className="flex items-center gap-2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full border border-white/20 text-white text-xs sm:text-sm font-medium shadow-lg">
-              <ZoomIn className="w-4 h-4 text-amber-300 animate-pulse" />
+              <ZoomIn className="w-4 h-4 text-white animate-pulse" />
               <span>Cliquez ou touchez l&apos;image pour l&apos;agrandir en HD</span>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Admin Info Box */}
-      <div className="mt-3 flex items-start gap-2.5 text-xs text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-200">
-        <Info className="w-4 h-4 text-[#8C1515] shrink-0 mt-0.5" />
-        <span>
-          <strong>Mise à jour hebdomadaire :</strong> Pour mettre à jour ce menu la semaine prochaine, remplacez simplement le fichier <code className="bg-gray-200 px-1.5 py-0.5 rounded text-gray-800 font-mono font-semibold">{src}</code> dans le dossier <code className="bg-gray-200 px-1.5 py-0.5 rounded text-gray-800 font-mono font-semibold">/public/menus/</code>.
-        </span>
       </div>
 
       {/* Lightbox Modal */}
@@ -167,7 +159,7 @@ function MenuImageWithLightbox({
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="px-2 py-1 bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded-lg text-xs font-semibold hover:bg-amber-500/30 transition-colors"
+                  className="px-2 py-1 bg-white/20 text-white border border-white/40 rounded-lg text-xs font-semibold hover:bg-white/30 transition-colors"
                 >
                   Reset
                 </button>
@@ -176,7 +168,7 @@ function MenuImageWithLightbox({
               <a
                 href={src}
                 download={fileName}
-                className="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-amber-400 text-[#8C1515] rounded-lg text-xs font-bold hover:bg-amber-300 transition-colors"
+                className="hidden sm:flex items-center gap-1 px-3 py-1.5 bg-white text-[#8C1515] rounded-lg text-xs font-bold hover:bg-white/90 transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Télécharger</span>
